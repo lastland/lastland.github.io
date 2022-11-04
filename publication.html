@@ -1,0 +1,65 @@
+---
+title: Publication
+---
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">Publications</h2>
+        <ul>
+            $for(papers)$
+            $if(venue)$
+            <li><strong>$title$</strong><br>
+                by $authors$<br>
+                $venue$<br>
+                $if(talk)$
+                <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
+                $endif$
+                $if(link)$
+                <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
+                    $if(openaccess)$
+                    (Open Access)
+                    $endif$
+                </a>
+                $endif$
+                $if(preprint)$
+                <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
+                $endif$
+                <a href="$url$" class="btn btn-default btn-sm"><i class="fas fa-minus"></i>&nbsp;Abstract</a>
+                $if(artifact)$
+                <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
+                $endif$
+            </li><br>
+            $endif$
+            $endfor$
+        </ul>
+    </div>
+    <div class="row">
+        <h2 class="page-header">Drafts</h2>
+        <ul>
+            $for(papers)$
+            $if(draft)$
+            <li><strong>$title$</strong><br>
+                by $authors$<br>
+                $if(talk)$
+                <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
+                $endif$
+                $if(link)$
+                <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
+                    $if(openaccess)$
+                    (Open Access)
+                    $endif$
+                </a>
+                $endif$
+                $if(preprint)$
+                <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
+                $endif$
+                <a href="$url$" class="btn btn-default btn-sm"><i class="fas fa-minus"></i>&nbsp;Abstract</a>
+                $if(artifact)$
+                <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
+                $endif$
+            </li><br>
+            $endif$
+            $endfor$
+        </ul>
+    </div>
+</div>

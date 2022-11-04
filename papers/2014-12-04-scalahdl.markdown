@@ -1,0 +1,20 @@
+---
+title: "ScalaHDL: Express and Test Hardware Designs in a Scala DSL"
+authors: Yao Li, Antonio R. Lopes, Zhouyun Xu, Zhengwei Qi, Haibing Guan
+venue: "32nd IEEE International Conference on Computer Design, ICCD 2014"
+link: "https://doi.org/10.1109/ICCD.2014.6974732"
+---
+
+Field Programmable Gate Arrays, or FPGAs, allow designers to implement hardware
+designs using hardware description languages (HDLs). This type of designs have
+been gaining significant popularity since improvements in clock frequencies, of
+high-end CPUs, have started to level off and other alternatives have been
+explored to accelerate computations. However, traditional HDLs lack a number of
+modern facilities and a rich ecosystem to express and test designs, which
+severely restricts the productivity of designers. In this paper, we propose
+ScalaHDL, an open-source domain-specific language (DSL) built on top of Scala,
+that enables designers to describe algorithms using a multi-paradigm programming
+language, and generate the required Verilog code to implement such systems. In
+addition, these designs can be simulated so that values can be tested
+programmatically using unit-tests. With ScalaHDL, designers can also leverage
+the rich and mature ecosystems provided by Java and Scala.

@@ -1,0 +1,18 @@
+---
+title: Verifying an HTTP Key-Value Server with Interaction Trees and VST
+authors: Hengchu Zhang, Wolf Honoré, Nicolas Koh, Yao Li, Yishuai Li, Li-Yao Xia, Lennart Beringer, William Mansky, Benjamin Pierce, Steve Zdancewic
+venue: 12th International Conference on Interactive Theorem Proving, ITP 2021
+link: "https://doi.org/10.4230/LIPIcs.ITP.2021.32"
+openaccess: true
+artifact: "https://doi.org/10.5281/zenodo.4697379"
+featured: true
+---
+
+We present a networked key-value server, implemented in C and formally verified
+in Coq. The server interacts with clients using a subset of the HTTP/1.1
+protocol and is specified and verified using interaction trees and the Verified
+Software Toolchain. The codebase includes a reusable and fully verified C string
+library that provides 17 standard POSIX string functions and 17 general purpose
+non-POSIX string functions. For the KVServer socket system calls, we establish a
+refinement relation between specifications at user-space level and at CertiKOS
+kernel-space level.

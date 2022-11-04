@@ -1,0 +1,15 @@
+---
+title: "Verified Transformations and Hoare Logic: Beautiful Proofs for Ugly Assembly Language"
+authors: Jay Bosamiya, Sydney Gibson, Yao Li, Bryan Parno, Chris Hawblitzel
+venue: "Software Verification - 12th International Conference, VSTTE 2020"
+link: "https://doi.org/10.1007/978-3-030-63618-0_7"
+preprint: "https://www.jaybosamiya.com/publications/2020/vstte/transformers.pdf"
+artifact: "https://github.com/project-everest/hacl-star/tree/_vale_unstructured/vale"
+---
+
+Hand-optimized assembly language code is often difficult to formally
+verify. This paper combines Hoare logic with verified code transformations to
+make it easier to verify such code. This approach greatly simplifies existing
+proofs of highly optimized OpenSSL-based AES-GCM cryptographic
+code. Furthermore, applying various verified transformations to the AES-GCM code
+enables additional platform-specific performance improvements.
