@@ -1,0 +1,16 @@
+---
+title: "CS 510: Proof Assistants and Program Verification"
+term: "Spring, 2023"
+---
+
+### Basic Information
+
+**Instructor:** [Yao Li](../index.html)
+
+**Office Hours:** TBD
+
+**Textbook:** [Software Foundations](https://softwarefoundations.cis.upenn.edu/)
+
+### Course Description
+
+Under construction.

@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row col-sm-10">
+        <div class="page-header">
+            <h1>$title$ ($term$)</h1>
+        </div>
+    </div>
+    $if(image)$
+    <div class="row col-sm-9">
+        <img src=/images/$image$" class="img-responsive img-thumbnail">
+        <p>$caption$</p>
+        <p>(Image source: <a href="$source$">$source$</a>)</p>
+    </div>
+    $endif$
+    <div class="row col-sm-9">
+        <p>$body$</p>
+    </div>
+</div>

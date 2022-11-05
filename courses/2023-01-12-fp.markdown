@@ -1,0 +1,42 @@
+---
+title: "CS 457/557: Functional Programming"
+term: "Winter, 2023"
+image: "luna.jpeg"
+caption: "Are you ready to embark on a magical journey that will forever transform your view of programming?"
+source: "https://www.wizardingworld.com/features/why-luna-lovegood-was-a-true-ravenclaw"
+show: true
+---
+
+### Basic Information
+
+**Instructor:** [Yao Li](../index.html)
+
+**Office Hours:** TBD
+
+**Textbook:** No textbook required.
+
+### Course Description
+
+If you are paying attention to the recent evolution of today's mainstream
+programming languages, you will find the emergence of various features adapted
+from functional languages. Why is this happening? What is special about
+functional programming? Is there something that one can learn from functional
+programming paradigm that can make them a better programmer?
+
+In this course, you will learn the key ideas behind functional programming that
+make it powerful, via a programming language called
+[Haskell](https://www.haskell.org/). I will show you how functional languages
+can help you write readable, modular, and efficient code.
+
+### Major Topics
+
+- Abstraction, abstraction, and abstraction
+- Algebraic data types and recursion
+- Polymorphism
+- Higher-order functions
+- Universal principles
+- Equational reasoning
+- Monads and applicative functors
+- Lazy evaluation
+- Type checking
+- Property-based testing
