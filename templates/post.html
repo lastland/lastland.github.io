@@ -1,8 +1,27 @@
-<article>
-    <section class="header">
-        by $authors$
-    </section>
-    <section>
+<div class="container">
+    <div class="row col-sm-10 page-header">
+        <h1>$title$</h1>
+        <p class="lead">by $authors$</p>
+    </div>
+    <div class="row col-sm-10">
         $body$
-    </section>
-</article>
+    </div>
+    <div class="row col-sm-10">
+        $if(talk)$
+        <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
+        $endif$
+        $if(link)$
+        <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
+            $if(openaccess)$
+            (Open Access)
+            $endif$
+        </a>
+        $endif$
+        $if(preprint)$
+        <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
+        $endif$
+        $if(artifact)$
+        <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
+        $endif$
+    </div>
+</div>
