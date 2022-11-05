@@ -7,6 +7,7 @@ preprint: "https://arxiv.org/pdf/2207.05227.pdf"
 artifact: "https://doi.org/10.5281/zenodo.6604786"
 link: "https://doi.org/10.1145/3547632"
 openaccess: true
+award: "Distinguished Paper"
 ---
 
 Free monads (and their variants) have become a popular general-purpose tool for

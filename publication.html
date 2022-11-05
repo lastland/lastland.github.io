@@ -10,7 +10,8 @@ title: Publication
             $if(venue)$
             <li><strong>$title$</strong><br>
                 by $authors$<br>
-                $venue$<br>
+                $venue$
+                $if(award)$ <strong>($award$)</strong> $endif$<br>
                 $if(talk)$
                 <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
                 $endif$
