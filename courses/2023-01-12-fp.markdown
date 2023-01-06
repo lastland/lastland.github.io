@@ -11,11 +11,16 @@ show: true
 
 **Instructor:** [Yao Li](../index.html)
 
-**Office Hours:** TBD
+**Office:** FAB 115-07
 
-**Textbook:** No textbook required.
+**Office Hours:** Tuesday/Wednesday 13:30-14:30 and by appointment, in person or
+via Zoom
 
-### Course Description
+**Prerequisite:** CS 302: Programming Methodologies and Software Implementation
+
+**Syllabus:** [Here](../pdfs/Syllabus.pdf)
+
+## Course Description
 
 If you are paying attention to the recent evolution of today's mainstream
 programming languages, you will find an emergence of features adapted from
@@ -27,6 +32,10 @@ In this course, you will learn the key ideas behind functional programming that
 make it powerful, via a programming language called
 [Haskell](https://www.haskell.org/). I will show you how functional languages
 can help you write readable, modular, and efficient code.
+
+No prior knowledge of Haskell or functional programming is required to take this
+class.
+
 
 ### Major Topics
 
@@ -40,3 +49,11 @@ can help you write readable, modular, and efficient code.
 - Lazy evaluation
 - Type checking
 - Property-based testing
+
+### Textbook
+
+No textbook required. However, if you are interested in getting a textbook for
+reference, the course materials are mostly based on _Programming in Haskell_ by
+Graham Hutton and _Real-World Haskell_ by Bryan O'Sullivan, Don Stewart, and
+John Goerzen.
+
