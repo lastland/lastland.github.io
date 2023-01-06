@@ -1,0 +1,21 @@
+---
+title: Mechanized Reasoning about "how" Using Functional Programs and Embeddings
+authors: Yao Li
+venue: Ph.D. Dissertation, University of Pennsylvania
+link: "https://repository.upenn.edu/edissertations/5111"
+openaccess: true
+featured: true
+---
+Embedding describes the process of encoding a program's syntax and/or semantics
+in another language---typically a theorem prover in the context of mechanized
+reasoning. Among different embedding styles, deep embeddings are generally
+preferred as they enable the most faithful modeling of the original language.
+However, deep embeddings are also the most complex, and working with them
+requires additional effort. In light of that, this dissertation aims to draw
+more attention to alternative styles, namely shallow and mixed embeddings, by
+studying their use in mechanized reasoning about programs' properties that are
+related to "how". More specifically, I present a simple shallow embedding for
+reasoning about computation costs of lazy programs, and a class of mixed
+embeddings that are useful for reasoning about properties of general computation
+patterns in effectful programs. I show the usefulness of these embedding styles
+with examples based on real-world applications.
