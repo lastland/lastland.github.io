@@ -1,6 +1,7 @@
 ---
 title: "CS 510: Proof Assistants and Program Verification"
 term: "Spring, 2023"
+show: true
 ---
 
 ### Basic Information
@@ -13,4 +14,39 @@ term: "Spring, 2023"
 
 ### Course Description
 
-Under construction.
+> Program testing can be used to show the presence of bugs, but never to show
+> their absence! ---Edsger W. Dijkstra
+
+This course will be a hands-on introduction to an interactive theorem called
+_the Coq proof assistant_. A proof assistant doesn't prove things itself;
+rather, it helps a human construct a proof more easily and reliably in an
+_interactive_ manner. If you like solving puzzles, using a proof assistant is
+fun and can be addictive!
+
+We will begin by learning how to use the Coq proof assistant to mechanically
+reason about properties, and then progress to proofs about a program's
+correctness, i.e., the absence of bugs!
+
+The past decade has seen enormous advances in the verification of important
+software infrastructure, including realistic cryptographic libraries, data
+structure libraries, compilers, operating systems, and file systems. This is a
+good opportunity for you to learn more about these cutting-edge techniques.
+
+### Prerequisites:
+CS 250, Discrete Structures I, CS 251, Discrete Structures II or equivalent
+background in elementray discrete math and logic.
+
+### Goals:
+Upon the successful completion of this class, students will be able to:
+
+- Prove facts about elementary logic, arithmetic, and correctness of functional
+  programs using the Coq proof assistant.
+- Develop formal specifications for program behavior, including functional
+  specifications for imperative programs.
+- Make fluent use of a core set of Coq tactics.
+- Prove simple facts about imperative programs using a language-specific program
+  logic.
+
+### Textbooks:
+Benjamin Pierce et al., "Software Foundations" online text at
+https://softwarefoundations.cis.upenn.edu/
