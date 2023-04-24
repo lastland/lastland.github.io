@@ -11,7 +11,7 @@ show: true
 
 **Instructor:** [Yao Li](../index.html)
 
-**Office Hours:** TBD
+**Office Hours:** 1:30--2:30PM Tuesday/Thursday, in person or via Zoom (upon request)
 
 **Textbook:** [Software Foundations](https://softwarefoundations.cis.upenn.edu/)
 
