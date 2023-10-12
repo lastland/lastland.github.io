@@ -1,5 +1,5 @@
 ---
-title: "CS 410/510: Proof Assistants and Program Verification"
+title: "CS 410/510 TOP: Proof Assistants and Program Verification"
 term: "Spring, 2023"
 image: "puzzle.jpeg"
 caption: "A proof assistant turns a formal proof into an interactive puzzle."
