@@ -3,11 +3,6 @@
         <h1>$title$</h1>
         <p class="lead">by $authors$</p>
         $if(venue)$<p class="lead">$venue$</p>$endif$
-    </div>
-    <div class="row col-sm-10">
-        $body$
-    </div>
-    <div class="row col-sm-10">
         $if(talk)$
         <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
         $endif$
@@ -24,5 +19,8 @@
         $if(artifact)$
         <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
         $endif$
+    </div>
+    <div class="row col-sm-10">
+        $body$
     </div>
 </div>
