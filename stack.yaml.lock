@@ -3,17 +3,10 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: hakyll-4.15.1.1@sha256:8ec77fb64dce8e1db2a19cba74107fc3b0472ef5b24296b5c272ed2a7b882f57,9962
-    pantry-tree:
-      sha256: cab973f55b9ff34f234164a16a8f2fcd650b04fe55d1d51fb41d390d2929060e
-      size: 8861
-  original:
-    hackage: hakyll-4.15.1.1@rev:8
+packages: []
 snapshots:
 - completed:
-    sha256: a684cdbdf9304b325a503e0fe1d9648e9c18155ce4c7cfebbe8a7f93674e6295
-    size: 649106
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/5.yaml
-  original: lts-20.5
+    sha256: 8e7996960d864443a66eb4105338bbdd6830377b9f6f99cd5527ef73c10c01e7
+    size: 719128
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/26.yaml
+  original: lts-22.26
