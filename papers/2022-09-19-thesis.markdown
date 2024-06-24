@@ -4,7 +4,6 @@ authors: Yao Li
 venue: Ph.D. Dissertation, University of Pennsylvania
 link: "https://repository.upenn.edu/edissertations/5111"
 openaccess: true
-featured: true
 ---
 Embedding describes the process of encoding a program's syntax and/or semantics
 in another language---typically a theorem prover in the context of mechanized
