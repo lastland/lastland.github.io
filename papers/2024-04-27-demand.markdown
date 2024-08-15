@@ -4,6 +4,9 @@ authors: Li-yao Xia, Laura Israel, Maite Kramarz, Nicholas Coltharp, Koen Claess
 preprint: "https://arxiv.org/pdf/2406.14787"
 venue: Proceedings of the ACM on Programming Languages, 8(ICFP), 2024
 featured: true
+link: "https://doi.org/10.1145/3674626"
+openaccess: true
+artifact: "https://doi.org/10.5281/zenodo.11493754"
 ---
 
 Lazy evaluation is a powerful tool that enables better compositionality and
