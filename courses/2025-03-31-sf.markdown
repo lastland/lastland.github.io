@@ -1,6 +1,6 @@
 ---
 title: "CS 410/510 TOP: Proof Assistants and Program Verification"
-term: "Fall, 2024"
+term: "Spring, 2025"
 image: "puzzle.jpeg"
 caption: "A proof assistant turns a formal proof into an interactive puzzle."
 source: "https://unsplash.com/photos/B-x4VaIriRc"
@@ -37,7 +37,8 @@ software infrastructure, including realistic cryptographic libraries, data
 structure libraries, compilers, operating systems, and file systems. This is a
 good opportunity for you to learn more about these cutting-edge techniques.
 
-### Prerequisites:
+### Prerequisites
+
 CS 250, Discrete Structures I, CS 251, Discrete Structures II or equivalent
 background in elementray discrete math and logic.
 

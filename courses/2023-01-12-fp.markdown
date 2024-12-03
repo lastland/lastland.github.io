@@ -5,6 +5,7 @@ image: "magic.jpg"
 caption: "Are you ready to embark on a magical journey that will forever transform your view of programming?"
 source: "https://happygamer.com/tashas-cauldron-of-everything-dampds-newest-rules-expansion-adds-a-slew-of-magic-items-pt-16-98276/"
 show: true
+link: true
 ---
 
 ### Basic Information

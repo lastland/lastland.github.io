@@ -1,0 +1,33 @@
+---
+title: "CS 358: Principles of Programming Languages"
+term: "Spring, 2025"
+show: true
+---
+
+### Basic Information
+
+**Instructor:** [Yao Li](../index.html)
+
+**Office Hours:** TBA
+
+### Course Description
+
+Syntax and semantics. Compilers and interpreters. Programs as data. Regular
+expressions and context free grammars. Programming paradigms, including
+procedural, functional, and object-oriented programming. Type systems, including
+dynamic and static typing disciplines. Binding, scope, data abstraction, and
+modularity. Denotational, operational, and axiomatic semantics. Introduction to
+program correctness.
+
+### Prerequisites
+
+CS 302, CS 314, CS 350
+
+These courses provide you with the background that you will need to understand
+the course material and develop solutions to the assignments that you will be
+given. It is assumed that you have experience programming in a high-level,
+object-oriented language (specifically, C++ or Java, from CS 202 and earlier
+classes). If you have not completed the prerequisites, then you may not have the
+background that you need to pass this class. In this case, by default, you will
+not be able to continue in the class and you should contact the instructor at
+the earliest opportunity to avoid an administrative drop.
