@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+   <title>CS 358 Arithmetic Mystery Language</title>
+    <script src="./lexer.js"></script>
+    <script src="./main.js"></script>
+    <script src="./display.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <link id="darkmode" rel="stylesheet" href="./dark.css" disabled>
+  </head>
+  <body>
+
+    <p id="toggle-colorscheme-container" class="section">
+      <label for="toggle-colorscheme">Toggle dark mode:</label>
+      <input
+        id="toggle-colorscheme"
+        type="checkbox"
+        onchange="display.toggleColorScheme(this.checked)"
+        onload="display.toggleColorScheme(this.checked)"
+      ></input>
+    </p>
+
+
+    <h1>Arithmetic Mystery Language Expression Testing</h1>
+
+    <form
+      id="entry"
+      class="section"
+      onsubmit="
+        display.handleTestForm(
+          this);
+        return false;
+      "
+    >
+      <div>
+        <label for="input-expression">source:</label>
+        <input id="input-expression" type="text" size="80"></input>
+      </div>
+      <input type="submit" class="submit" value="Parse and Evaluate"></input>
+      <div>Parse: <span class="outputT"></span></div>
+      <p>
+      <div>Language A Output: <span class="outputA"></span></div>
+      <p>
+      <div>Language B Output: <span class="outputB"></span></div>
+      <p>
+      <div>Language C Output: <span class="outputC"></span></div>
+      <p>
+      <div>Language D Output: <span class="outputD"></span></div>
+    </form>
+
+  <h1>Log</h1>
+
+  <form id="log" class="section">
+    <textarea id="outputLog" rows="8" cols="96"></textarea>
+  </form>
+
+  </body>
+</html>
