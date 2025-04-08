@@ -1,0 +1,3 @@
+[submodule "mysteries"]
+	path = mysteries
+	url = git@github.com:lastland/mysteries.git
