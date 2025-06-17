@@ -1,7 +1,7 @@
 ---
 title: Freer Arrows and Why You Need Them in Haskell
 authors: Grant VanDomelen, Gan Shen, Lindsey Kuper, Yao Li
-preprint: ../pdfs/freer-arrow.pdf 
+preprint: "https://arxiv.org/pdf/2506.12212"
 draft: true
 ---
 
