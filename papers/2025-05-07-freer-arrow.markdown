@@ -2,7 +2,8 @@
 title: Freer Arrows and Why You Need Them in Haskell
 authors: Grant VanDomelen, Gan Shen, Lindsey Kuper, Yao Li
 preprint: "https://arxiv.org/pdf/2506.12212"
-draft: true
+venue: 18th ACM SIGPLAN International Symposium on Haskell, Haskell 2025
+featured: true
 ---
 
 Freer monads are a useful structure commonly used in various domains due to
