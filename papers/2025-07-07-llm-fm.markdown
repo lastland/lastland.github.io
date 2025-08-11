@@ -1,0 +1,18 @@
+---
+title: A Case Study on the Effectiveness of LLMs in Verification with Proof Assistants
+authors: Barış Bayazıt, Yao Li, Xujie Si
+preprint: "https://lastland.github.io/pdfs/LLMVerify.pdf"
+venue: 1st International Workshop on Language Models and Programming Languages, LMPL 2025
+featured: true
+---
+
+Large language models (LLMs) can potentially help with verification using proof
+assistants by automating proofs. However, it is unclear how effective LLMs are
+in this task. In this paper, we perform a case study based on two mature Rocq
+projects: the hs-to-coq tool and Verdi. We evaluate the effectiveness of LLMs in
+generating proofs by both quantitative and qualitative analysis. Our study finds
+that: (1) external dependencies and context in the same source file can
+significantly help proof generation; (2) LLMs perform great on small proofs but
+can also generate large proofs; (3) LLMs perform differently on different
+verification projects; and (4) LLMs can generate concise and smart proofs, apply
+classical techniques to new definitions, but can also make odd mistakes.
