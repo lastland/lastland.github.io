@@ -1,8 +1,11 @@
 ---
 title: A Case Study on the Effectiveness of LLMs in Verification with Proof Assistants
 authors: Barış Bayazıt, Yao Li, Xujie Si
-preprint: "https://arxiv.org/pdf/2508.18587"
 venue: 1st International Workshop on Language Models and Programming Languages, LMPL 2025
+preprint: "https://arxiv.org/pdf/2508.18587"
+link: "https://doi.org/10.1145/3759425.3763391"
+artifact: "https://doi.org/10.5281/zenodo.16939067"
+openaccess: true
 featured: true
 ---
 
