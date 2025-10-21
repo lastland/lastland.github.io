@@ -7,6 +7,7 @@ featured: true
 link: "https://doi.org/10.1145/3674626"
 openaccess: true
 artifact: "https://doi.org/10.5281/zenodo.11493754"
+talk: "https://youtu.be/yPTDCWbM6ZE?si=FBG8R8mKJHEgaX-P"
 ---
 
 Lazy evaluation is a powerful tool that enables better compositionality and

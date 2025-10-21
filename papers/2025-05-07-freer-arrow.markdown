@@ -7,6 +7,7 @@ link: "https://doi.org/10.1145/3759164.3759352"
 artifact: "https://doi.org/10.5281/zenodo.16784315"
 openaccess: true
 featured: true
+talk: "https://www.youtube.com/live/bzVXrVaQwM8?si=JvFXHy6ywm0DuPU6&t=5505"
 ---
 
 Freer monads are a useful structure commonly used in various domains due to
