@@ -1,0 +1,22 @@
+---
+title: "SymCode: A Neurosymbolic Approach to Mathematical Reasoning via Verifiable Code Generation"
+authors: Sina Bagheri Nezhad, Yao Li, Ameeta Agrawal
+preprint: "https://arxiv.org/pdf/2510.25975"
+featured: true
+draft: true
+---
+
+Large Language Models (LLMs) often struggle with complex mathematical reasoning,
+where prose-based generation leads to unverified and arithmetically unsound
+solutions. Current prompting strategies like Chain of Thought still operate
+within this unreliable medium, lacking a mechanism for deterministic
+verification. To address these limitations, we introduce SymCode, a
+neurosymbolic framework that reframes mathematical problem-solving as a task of
+verifiable code generation using the SymPy library. We evaluate SymCode on
+challenging benchmarks, including MATH-500 and OlympiadBench, demonstrating
+significant accuracy improvements of up to 13.6 percentage points over
+baselines. Our analysis shows that SymCode is not only more token-efficient but
+also fundamentally shifts model failures from opaque logical fallacies towards
+transparent, programmatic errors. By grounding LLM reasoning in a deterministic
+symbolic engine, SymCode represents a key step towards more accurate and
+trustworthy AI in formal domains.

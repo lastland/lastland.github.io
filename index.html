@@ -65,7 +65,7 @@ title: Yao Li (李垚), Ph.D.
             $if(featured)$
             <li><strong>$title$</strong><br>
                 by $authors$<br>
-                $venue$
+                $if(venue)$ $venue$ $else$ <emph>in submission</emph> $endif$
                 $if(award)$ <strong>($award$)</strong> $endif$<br>
                 $if(talk)$
                 <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
