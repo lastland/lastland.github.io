@@ -77,8 +77,11 @@ title: Yao Li (李垚), Ph.D.
                     $endif$
                 </a>
                 $endif$
+                $if(openaccess)$
+                $else$
                 $if(preprint)$
                 <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
+                $endif$
                 $endif$
                 $if(artifact)$
                 <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
