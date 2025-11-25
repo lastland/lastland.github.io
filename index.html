@@ -2,160 +2,234 @@
 title: Yao Li (李垚), Ph.D.
 ---
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 hidden-xs"><p class="portrait"><br><img src=/images/yao.jpg" class="img-responsive img-thumbnail"></p></div>
-        <div class="profile col-sm-9 col-xs-12">
-            <div class="page-header">
-                <h1>Yao Li (李垚), Ph.D.</h1>
+<section id="home" class="mb-5 pt-4">
+    <div class="hero">
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center mb-4 mb-md-0">
+                <img src="/images/yao.jpg" alt="Yao Li" class="img-fluid rounded-circle shadow-lg" style="max-width: 200px; height: 200px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
             </div>
-            <p class="bio lead">
-                I am a tenure-track assistant professor at <a href="https://www.pdx.edu/computer-science/" target="_blank">Portland State University</a>.<br>
-                I obtained my Ph.D. in computer and information science from the University of Pennsylvania in 2022, under the guidance of <a href="https://www.cis.upenn.edu/~sweirich/">Stephanie Weirich</a>.<br>
-                You can call me Yao. My preferred pronoun is <a href="https://pronoun.is/he">he/him</a> or <a href="https://pronoun.is/they/.../themselves">they/them</a>.<br>
-            </p>
-            <div class="links">
-                <a href="mailto:liyao@pdx.edu" target="_blank" class="btn btn-default">
-                    <i class="far fa-envelope fa-2x"></i>&nbsp; Email
-                </a>
-                <a href="http://dblp.uni-trier.de/pers/hd/l/Li_0004:Yao" target="_blank" class="btn btn-default">
-                    <i class="far fa-file-alt fa-2x"></i>&nbsp; DBLP
-                </a>
-                <a href="https://scholar.google.com/citations?user=SwV1nU0AAAAJ&hl=en" target="_blank" class="btn btn-default">
-                    <i class="far fa-file-alt fa-2x"></i>&nbsp; Google Scholar
-                </a>
-                <a href="https://orcid.org/0000-0001-8720-883X" target="_blank" class="btn btn-default">
-                    <i class="far fa-file-alt fa-2x"></i>&nbsp; ORCID
-                </a>
-                <a href="https://github.com/lastland" target="_blank" class="btn btn-default">
-                    <i class="fab fa-github fa-2x"></i>&nbsp; GitHub
-                </a>
-                <p style="display:none"><a rel="me" href="https://mastodon.acm.org/@liyao">Mastodon</a></p>
+            <div class="col-md-9">
+                <h1 class="display-4 fw-bold">Yao Li (李垚), Ph.D.</h1>
+                <p class="lead mb-4">Tenure-track Assistant Professor<br>Portland State University</p>
+                <div class="social-links d-flex flex-wrap gap-2">
+                    <a href="mailto:liyao@pdx.edu" class="btn-social">
+                        <i class="far fa-envelope"></i> Email
+                    </a>
+                    <a href="https://www.semanticscholar.org/author/Yao-Li/2377563754" target="_blank" class="btn-social">
+                        <i class="fas fa-book-reader"></i> Semantic Scholar
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=SwV1nU0AAAAJ&hl=en" target="_blank" class="btn-social">
+                        <i class="fas fa-graduation-cap"></i> Google Scholar
+                    </a>
+                    <a href="https://orcid.org/0000-0001-8720-883X" target="_blank" class="btn-social">
+                        <i class="fab fa-orcid"></i> ORCID
+                    </a>
+                    <a href="https://www.linkedin.com/in/yaoli0/" target="_blank" class="btn-social">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/lastland" target="_blank" class="btn-social">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <h2 class="page-header">Research Interests</h2>
-        <p class="lead">My research aims to (1) advance the state of the art of verification on real-world software and (2) make verification easier to use from a <em>programming languages</em> perspective.</p>
-        <h2 class="page-header">Current Ph.D. Students</h2>
-        <ul>
-            <li><a href="https://ian.kariniemi.dev/">Ian Kariniemi</a></li>
-            <li>Yiming Lin</>
-            <li>Grant VanDomelen</li>
-            <li>Nicholas Coltharp</li>
-        </ul>
-        <p>(I'm currently at capacity, so I do not take new Ph.D. students.)</p>
-        <h2 class="page-header">Past Student</h2>
-        <ul>
-            <li><a href="https://catscomputerscreativewriting.tumblr.com/" target="_blank">Laura Israel</a>, Ph.D. student at University of Konstanz</li>
-        </ul>
-        <h2 class="page-header">Teaching</h2>
-        <ul>
-            $for(courses)$
-            $if(show)$
-            <li><strong><a href="$url$">$title$</a></strong>, $term$</li>
-            $else$
-            <li><strong>$title$</strong>, $term$</li>
-            $endif$
-            $endfor$
-        </ul>
-        <h2 class="page-header">Featured Publications</h2>
-        <ul>
-            $for(papers)$
-            $if(featured)$
-            <li><strong>$title$</strong><br>
-                by $authors$<br>
-                $if(venue)$ $venue$ $else$ <emph>in submission</emph> $endif$
-                $if(award)$ <strong>($award$)</strong> $endif$<br>
-                $if(talk)$
-                <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
-                $endif$
-                $if(link)$
-                <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
-                    $if(openaccess)$
-                    (Open Access)
-                    $endif$
-                </a>
-                $endif$
-                $if(openaccess)$
-                $else$
-                $if(preprint)$
-                <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
-                $endif$
-                $endif$
-                $if(artifact)$
-                <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
-                $endif$
-
-            </li>
-            $endif$
-            $endfor$
-            <li> <a href="publication.html"><strong>More...</strong></a></li>
-        </ul>
-
-        <h2 class="page-header">Talks</h2>
-        <ul>
-            <li><strong>Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation</strong><br>
-                Harvard PL Seminar, virtual talk, 2024
-            </li>
-            <li><strong>"Shallower" Embeddings for Mechanized Reasoning</strong><br>
-                PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN, 2023
-            </li>
-            <li><strong>The Expression Problem and Theorem Proving</strong> (Discussion)<br>
-                Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA, 2022
-            </li>
-            <li><strong>Effect-Oblivious Equivalence</strong><br>
-                Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA, 2022
-            </li>
-            <li><strong>Reasoning about the Garden of Forking Paths</strong><br>
-                POPV seminar at Boston University (Longer Version, Invited Talk), 2021<br>
-                The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk, 2021<br>
-                The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL, 2021<br>
-            </li>
-            <li><strong>Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale</strong><br>
-                Haskell Implementors’ Workshop (HIW), co-located with ICFP, virtual talk, 2020
-            </li>
-            <li><strong>The Science of Deep Specification</strong><br>
-                NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC, 2018
-            </li>
-            <li><strong>Dependent Types in Scala</strong><br>
-                Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA, 2017
-            </li>
-            <li><strong>Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond</strong><br>
-                Comcast Scala By the Schuyllkill Conference, Philadelphia, PA, 2017
-            </li>
-        </ul>
-        <h2 class="page-header">Services</h2>
-        <ul>
-            <li><strong>Program Committee:</strong> TyDe'25, POPL'25, CoqPL'25,
-            PLDI'24, TFP'24, POPL'24 SRC, PLDI'23, PLDI'23 SRC</li>
-            <li><strong>External Reviewer:</strong> CPP'26, OOPSLA'25, JFP,
-            CONCUR'23, ESOP'23, ECOOP'23, WoLLIC'23</li>
-            <li><strong>Organizing Committee:</strong> PLDI'25 (Publicity
-            Co-Chair), PLDI'24 (Publicity Co-Chair), SPLASH'22 (Student
-            Volunteer Co-Chair)</li>
-            <li><strong>Artifact Evaluation Committee:</strong> ECOOP'23, POPL'22, ICFP'21, POPL'21</li>
-            <li><strong>Session Chair:</strong> PLDI'23, SPLASH'21</li>
-            <li><strong>Mentor:</strong> DeepSpec REU'21 (UPenn), Google Summer of Code (Scala) 2016</li>
-            <li><strong>Student Volunteer:</strong> CIS Doctoral Association at
-            Penn (Spring 2021), ICFP'21, ICFP'20, DeepSpec Summer School'17</li>
-        </ul>
-        <h2 class="page-header">Honors & Awards</h2>
-        <ul>
-            <li>Google Open Source Peer Bonus (for <a href="https://github.com/lastland/scala-forklift">Scala Forklift</a>), 2018</li>
-            <li>Outstanding Graduate of Shanghai Jiao Tong University, 2016</li>
-            <li>China National Scholarship, 2014</li>
-            <li>Outstanding Graduate of Shanghai Jiao Tong University, 2013</li>
-            <li>China National Scholarship, 2012</li>
-            <li>Most Popular Collegiate Innovation Projects of Shanghai Jiao Tong University, 2012</li>
-            <li>1st Prize in the 4th Intel Cup National Collegiate Software Innovation Contest in China, 2011</li>
-            <li>1st Prize in National Olympiad in Informatics in Provinces, 2008</li>
-            <li>1st Prize in National Olympiad in Informatics in Provinces, 2007</li>
-        </ul>
-        <h2 class="page-header">Hobbies</h2>
-        <ul>
-            <li>Puzzles, escape rooms, board games, tabletop RPGs (Pathfinder 2e, D&D 5e)</li>
-            <li>Still learning: Leung Sheung Wing Chun, archery</li>
-        </ul>
+    
+    <div class="card border-0 shadow-sm mt-4">
+        <div class="card-body">
+            <h2 class="card-title h4 border-bottom pb-2 mb-3">About Me</h2>
+            <p class="card-text">I am a tenure-track assistant professor at <a href="https://www.pdx.edu/computer-science/" target="_blank" class="text-decoration-none fw-bold text-primary">Portland State University</a>.</p>
+            <p class="card-text">I obtained my Ph.D. in computer and information science from the University of Pennsylvania in 2022, under the guidance of <a href="https://www.cis.upenn.edu/~sweirich/" class="text-decoration-none">Stephanie Weirich</a>.</p>
+            <p class="card-text">You can call me Yao. My preferred pronoun is <a href="https://pronoun.is/he" class="text-decoration-none">he/him</a> or <a href="https://pronoun.is/they/.../themselves" class="text-decoration-none">they/them</a>.</p>
+            <p style="display:none"><a rel="me" href="https://mastodon.acm.org/@liyao">Mastodon</a></p>
+        </div>
     </div>
-</div>
+</section>
+
+<section id="research" class="mb-5 pt-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Research Interests</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card h-100 border-start-4 border-primary shadow-sm">
+                <div class="card-body">
+                    <p class="lead">My research aims to (1) advance the state of the art of verification on real-world software and (2) make verification easier to use from a <em>programming languages</em> perspective.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mt-4 mt-lg-0">
+            <div class="card h-100 bg-light border-0">
+                <div class="card-body">
+                    <h3 class="h5 card-title"><i class="fas fa-users text-primary me-2"></i> Current Ph.D. Students</h3>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i><a href="https://ian.kariniemi.dev/" class="text-decoration-none">Ian Kariniemi</a></li>
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i>Yiming Lin</li>
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i>Grant VanDomelen</li>
+                        <li><i class="fas fa-user-graduate text-muted me-2"></i>Nicholas Coltharp</li>
+                    </ul>
+                    <hr>
+                    <small class="text-muted d-block mb-3">I'm currently at capacity, so I do not take new Ph.D. students.</small>
+                    
+                    <h3 class="h5 card-title mt-4"><i class="fas fa-user-clock text-primary me-2"></i> Past Students</h3>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-check text-success me-2"></i><a href="https://catscomputerscreativewriting.tumblr.com/" target="_blank" class="text-decoration-none">Laura Israel</a> (Ph.D. student at Univ. of Konstanz)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="teaching" class="mb-5 pt-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Teaching</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        $for(courses)$
+        <div class="col">
+            <div class="card h-100 shadow-sm transition-hover">
+                <div class="card-body">
+                    <h3 class="h5 card-title">
+                        $if(show)$
+                        <a href="$url$" class="text-decoration-none stretched-link">$title$</a>
+                        $else$
+                        $title$
+                        $endif$
+                    </h3>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>$term$</p>
+                </div>
+            </div>
+        </div>
+        $endfor$
+    </div>
+</section>
+
+<section id="publications" class="mb-5 pt-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Featured Publications</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+    
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                $for(papers)$
+                $if(featured)$
+                <li class="list-group-item p-4 publication-item hover-bg-light">
+                    <h3 class="h5 fw-bold mb-2">$title$</h3>
+                    <div class="mb-2 text-secondary">by $authors$</div>
+                    <div class="mb-2">
+                        $if(venue)$<span class="badge bg-light text-dark border me-2">$venue$</span>$else$<span class="badge bg-warning text-dark me-2">in submission</span>$endif$
+                        $if(award)$<span class="badge bg-accent text-dark"><i class="fas fa-trophy me-1"></i> $award$</span>$endif$
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        $if(talk)$
+                        <a href="$talk$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        $endif$
+                        $if(link)$
+                        <a href="$link$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
+                            $if(openaccess)$<span class="badge bg-success ms-1">OA</span>$endif$
+                        </a>
+                        $endif$
+                        $if(openaccess)$
+                        $else$
+                        $if(preprint)$
+                        <a href="$preprint$" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                        $endif$
+                        $endif$
+                        $if(artifact)$
+                        <a href="$artifact$" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        $endif$
+                    </div>
+                </li>
+                $endif$
+                $endfor$
+            </ul>
+            <div class="card-footer bg-white text-center p-3">
+                 <a href="publication.html" class="btn btn-primary">View All Publications <i class="fas fa-arrow-right ms-1"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="talks" class="mb-5 pt-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Talks</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+    <ul class="list-group list-group-flush shadow-sm rounded">
+        <li class="list-group-item p-3"><strong>Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation</strong><br><span class="text-muted">Harvard PL Seminar, virtual talk, 2024</span></li>
+        <li class="list-group-item p-3"><strong>"Shallower" Embeddings for Mechanized Reasoning</strong><br><span class="text-muted">PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN, 2023</span></li>
+        <li class="list-group-item p-3"><strong>The Expression Problem and Theorem Proving</strong> (Discussion)<br><span class="text-muted">Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA, 2022</span></li>
+        <li class="list-group-item p-3"><strong>Effect-Oblivious Equivalence</strong><br><span class="text-muted">Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA, 2022</span></li>
+        <li class="list-group-item p-3"><strong>Reasoning about the Garden of Forking Paths</strong><br><span class="text-muted">POPV seminar at Boston University (Longer Version, Invited Talk), 2021<br>The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk, 2021<br>The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL, 2021</span></li>
+        <li class="list-group-item p-3"><strong>Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale</strong><br><span class="text-muted">Haskell Implementors’ Workshop (HIW), co-located with ICFP, virtual talk, 2020</span></li>
+        <li class="list-group-item p-3"><strong>The Science of Deep Specification</strong><br><span class="text-muted">NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC, 2018</span></li>
+        <li class="list-group-item p-3"><strong>Dependent Types in Scala</strong><br><span class="text-muted">Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA, 2017</span></li>
+        <li class="list-group-item p-3"><strong>Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond</strong><br><span class="text-muted">Comcast Scala By the Schuyllkill Conference, Philadelphia, PA, 2017</span></li>
+    </ul>
+</section>
+
+<section id="service" class="mb-5 pt-5">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Service & Awards</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="h5 mb-0"><i class="fas fa-handshake me-2"></i> Academic Service</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><strong>Program Committee:</strong> TyDe'25, POPL'25, CoqPL'25, PLDI'24, TFP'24, POPL'24 SRC, PLDI'23, PLDI'23 SRC</li>
+                        <li class="mb-3"><strong>External Reviewer:</strong> OOPSLA'25, JFP, CONCUR'23, ESOP'23, ECOOP'23, WoLLIC'23</li>
+                        <li class="mb-3"><strong>Organizing Committee:</strong> PLDI'25 (Publicity Co-Chair), PLDI'24 (Publicity Co-Chair), SPLASH'22 (Student Volunteer Co-Chair)</li>
+                        <li class="mb-3"><strong>Artifact Evaluation Committee:</strong> ECOOP'23, POPL'22, ICFP'21, POPL'21</li>
+                        <li class="mb-3"><strong>Session Chair:</strong> PLDI'23, SPLASH'21</li>
+                        <li><strong>Mentor:</strong> DeepSpec REU'21 (UPenn), Google Summer of Code (Scala) 2016</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-accent text-dark">
+                    <h3 class="h5 mb-0"><i class="fas fa-medal me-2"></i> Honors & Awards</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Google Open Source Peer Bonus (for <a href="https://github.com/lastland/scala-forklift" class="text-decoration-none">Scala Forklift</a>), 2018</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2016</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>China National Scholarship, 2014</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2013</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>China National Scholarship, 2012</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Most Popular Collegiate Innovation Projects of SJTU, 2012</li>
+                        <li class="mb-2"><i class="fas fa-trophy text-warning me-2"></i>1st Prize in 4th Intel Cup National Collegiate Software Innovation Contest, 2011</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="hobbies" class="mb-5">
+    <div class="card bg-light border-0">
+        <div class="card-body text-center">
+            <h3 class="h5 card-title text-muted mb-3">Hobbies</h3>
+            <p class="mb-0">
+                <span class="mx-2"><i class="fas fa-puzzle-piece me-1"></i> Puzzles</span>
+                <span class="mx-2"><i class="fas fa-dungeon me-1"></i> Escape Rooms</span>
+                <span class="mx-2"><i class="fas fa-dice-d20 me-1"></i> Tabletop RPGs (Pathfinder 2e, D&D 5e)</span>
+                <span class="mx-2"><i class="fas fa-fist-raised me-1"></i> Leung Sheung Wing Chun</span>
+                <span class="mx-2"><i class="fas fa-bullseye me-1"></i> Archery</span>
+            </p>
+        </div>
+    </div>
+</section>

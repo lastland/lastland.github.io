@@ -1,66 +1,89 @@
 ---
-title: Publication
+title: Publications
 ---
 
-<div class="container">
-    <div class="row">
-        <h2 class="page-header">Publications</h2>
-        <ul>
-            $for(papers)$
-            $if(venue)$
-            <li><strong>$title$</strong><br>
-                by $authors$<br>
-                $venue$
-                $if(award)$ <strong>($award$)</strong> $endif$<br>
-                $if(talk)$
-                <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
-                $endif$
-                $if(link)$
-                <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
-                    $if(openaccess)$
-                    (Open Access)
-                    $endif$
-                </a>
-                $endif$
-                $if(preprint)$
-                <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
-                $endif$
-                <a href="$url$" class="btn btn-default btn-sm"><i class="fas fa-minus"></i>&nbsp;Abstract</a>
-                $if(artifact)$
-                <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
-                $endif$
-            </li><br>
-            $endif$
-            $endfor$
-        </ul>
+<section class="py-4">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">All Publications</h2>
+        <div class="flex-grow-1 border-bottom"></div>
     </div>
-    <div class="row">
-        <h2 class="page-header">Drafts</h2>
-        <ul>
-            $for(papers)$
-            $if(draft)$
-            <li><strong>$title$</strong><br>
-                by $authors$<br>
-                $if(talk)$
-                <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
+
+    <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                $for(papers)$
+                $if(venue)$
+                <li class="list-group-item p-4 publication-item hover-bg-light">
+                    <h3 class="h5 fw-bold mb-2">$title$</h3>
+                    <div class="mb-2 text-secondary">by $authors$</div>
+                    <div class="mb-2">
+                        <span class="badge bg-light text-dark border me-2">$venue$</span>
+                        $if(award)$<span class="badge bg-accent text-dark"><i class="fas fa-trophy me-1"></i> $award$</span>$endif$
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        $if(talk)$
+                        <a href="$talk$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        $endif$
+                        $if(link)$
+                        <a href="$link$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
+                            $if(openaccess)$<span class="badge bg-success ms-1">OA</span>$endif$
+                        </a>
+                        $endif$
+                        $if(openaccess)$
+                        $else$
+                        $if(preprint)$
+                        <a href="$preprint$" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                        $endif$
+                        $endif$
+                        <a href="$url$" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle me-1"></i> Abstract</a>
+                        $if(artifact)$
+                        <a href="$artifact$" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        $endif$
+                    </div>
+                </li>
                 $endif$
-                $if(link)$
-                <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
-                    $if(openaccess)$
-                    (Open Access)
-                    $endif$
-                </a>
-                $endif$
-                $if(preprint)$
-                <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
-                $endif$
-                <a href="$url$" class="btn btn-default btn-sm"><i class="fas fa-minus"></i>&nbsp;Abstract</a>
-                $if(artifact)$
-                <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
-                $endif$
-            </li><br>
-            $endif$
-            $endfor$
-        </ul>
+                $endfor$
+            </ul>
+        </div>
     </div>
-</div>
+
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Drafts</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                $for(papers)$
+                $if(draft)$
+                <li class="list-group-item p-4 publication-item hover-bg-light">
+                    <h3 class="h5 fw-bold mb-2">$title$</h3>
+                    <div class="mb-2 text-secondary">by $authors$</div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        $if(talk)$
+                        <a href="$talk$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        $endif$
+                        $if(link)$
+                        <a href="$link$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
+                            $if(openaccess)$<span class="badge bg-success ms-1">OA</span>$endif$
+                        </a>
+                        $endif$
+                        $if(openaccess)$
+                        $else$
+                        $if(preprint)$
+                        <a href="$preprint$" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                        $endif$
+                        $endif$
+                        <a href="$url$" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle me-1"></i> Abstract</a>
+                        $if(artifact)$
+                        <a href="$artifact$" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        $endif$
+                    </div>
+                </li>
+                $endif$
+                $endfor$
+            </ul>
+        </div>
+    </div>
+</section>

@@ -1,26 +1,38 @@
-<div class="container">
-    <div class="row col-sm-10 page-header">
-        <h1>$title$$if(draft)$&nbsp;(Draft)$endif$</h1>
-        <p class="lead">by $authors$</p>
-        $if(venue)$<p class="lead">$venue$</p>$endif$
-        $if(talk)$
-        <a href="$talk$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-video"></i>&nbsp;Talk</a>
-        $endif$
-        $if(link)$
-        <a href="$link$" target="_blank" class="btn btn-default btn-sm"><i class="fa fa-file-alt"></i>&nbsp;Paper
-            $if(openaccess)$
-            (Open Access)
-            $endif$
-        </a>
-        $endif$
-        $if(preprint)$
-        <a href="$preprint$" target="_blank" class="btn btn-default btn-sm"><i class="far fa-file-alt"></i>&nbsp;Pre-print</a>
-        $endif$
-        $if(artifact)$
-        <a href="$artifact$" target="_blank" class="btn btn-default btn-sm"><i class="fas fa-code"></i>&nbsp;Artifact</a>
-        $endif$
+<article class="py-4">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+            <header class="mb-4 pb-3 border-bottom">
+                <h1 class="display-5 fw-bold mb-3">$title$$if(draft)$ <span class="badge bg-warning text-dark align-middle fs-6">Draft</span>$endif$</h1>
+                <div class="text-secondary mb-3">
+                    <span class="fw-bold text-dark">Authors:</span> $authors$
+                </div>
+                $if(venue)$
+                <div class="mb-3">
+                    <span class="fw-bold text-dark">Venue:</span> <span class="badge bg-light text-dark border">$venue$</span>
+                </div>
+                $endif$
+                
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    $if(talk)$
+                    <a href="$talk$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                    $endif$
+                    $if(link)$
+                    <a href="$link$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
+                        $if(openaccess)$<span class="badge bg-success ms-1">OA</span>$endif$
+                    </a>
+                    $endif$
+                    $if(preprint)$
+                    <a href="$preprint$" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                    $endif$
+                    $if(artifact)$
+                    <a href="$artifact$" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                    $endif$
+                </div>
+            </header>
+            
+            <section class="card-text">
+                $body$
+            </section>
+        </div>
     </div>
-    <div class="row col-sm-10">
-        $body$
-    </div>
-</div>
+</article>
