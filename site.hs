@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
+import           Data.Maybe (fromMaybe)
 import           Hakyll
 
 
@@ -67,7 +68,6 @@ main = hakyllWith config $ do
 
     match "index.html" $ do
         route idRoute
-        compile pubCompiler
         compile courseCompiler
 
     match "publication.html" $ do

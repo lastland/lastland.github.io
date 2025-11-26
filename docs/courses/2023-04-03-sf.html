@@ -19,35 +19,47 @@
         <title>CS 410/510 TOP: Proof Assistants and Program Verification</title>
     </head>
     <body data-bs-spy="scroll" data-bs-target="#navbar-scroll" data-bs-offset="100">
-        <nav id="navbar-scroll" class="navbar navbar-expand-lg sticky-top">
+        <a href="#main-content" class="visually-hidden-focusable btn btn-primary position-absolute top-0 start-0 m-2" style="z-index: 9999;">Skip to main content</a>
+        
+        <nav id="navbar-scroll" class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand" href="#home">Yao Li</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                </button>
+                <a class="navbar-brand" href="#home" aria-label="Yao Li - Home">Yao Li</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="theme-toggle d-lg-none" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode">
+                        <i class="fas fa-moon" id="theme-icon-mobile" aria-hidden="true"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <span class="navbar-toggler-icon" aria-hidden="true"><i class="fas fa-bars" aria-hidden="true"></i></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
+                    <ul class="navbar-nav ms-auto align-items-center" role="menubar">
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#home" role="menuitem">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#research">Research</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#research" role="menuitem">Research</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#teaching">Teaching</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#teaching" role="menuitem">Teaching</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#publications">Publications</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#publications" role="menuitem">Publications</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#service">Service</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#service" role="menuitem">Service</a>
+                        </li>
+                        <li class="nav-item ms-2" role="none">
+                            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                                <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
+                            </button>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main role="main">
+        <main id="main-content" role="main">
             <div class="container">
                 <article class="py-4">
     <div class="card shadow-sm border-0 mb-4">
@@ -55,7 +67,7 @@
             <header class="mb-4 pb-3 border-bottom">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <h1 class="display-5 fw-bold mb-2">CS 410/510 TOP: Proof Assistants and Program Verification</h1>
-                    <span class="badge bg-primary fs-6 mb-2"><i class="far fa-calendar-alt me-1"></i> Spring, 2023</span>
+                    <span class="badge bg-primary fs-6 mb-2"><i class="far fa-calendar-alt me-1" aria-hidden="true"></i> Spring, 2023</span>
                 </div>
             </header>
             
@@ -64,7 +76,7 @@
                 <img src="../images/puzzle.jpeg" class="figure-img img-fluid rounded shadow-sm" alt="A proof assistant turns a formal proof into an interactive puzzle.">
                 <figcaption class="figure-caption text-center mt-2">
                     A proof assistant turns a formal proof into an interactive puzzle. <br>
-                    <small>(Image source: <a href="https://unsplash.com/photos/B-x4VaIriRc" target="_blank" class="text-decoration-none">https://unsplash.com/photos/B-x4VaIriRc</a>)</small>
+                    <small>(Image source: <a href="https://unsplash.com/photos/B-x4VaIriRc" target="_blank" rel="noopener noreferrer" class="text-decoration-none">https://unsplash.com/photos/B-x4VaIriRc</a>)</small>
                 </figcaption>
             </figure>
             
@@ -116,11 +128,84 @@ logic.</li>
             </div>
         </main>
 
-        <footer class="text-center">
+        <footer role="contentinfo" class="text-center">
             <div class="container">
-                <p class="mb-0">Site proudly generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+                <p class="mb-0">Site proudly generated by <a href="http://jaspervdj.be/hakyll" rel="external">Hakyll</a></p>
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            // Dark mode toggle functionality
+            (function() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+                const themeIcon = document.getElementById('theme-icon');
+                const themeIconMobile = document.getElementById('theme-icon-mobile');
+                const html = document.documentElement;
+                
+                // Get saved theme or default to system preference
+                function getTheme() {
+                    const saved = localStorage.getItem('theme');
+                    if (saved) {
+                        return saved;
+                    }
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                // Update icon helper
+                function updateIcons(theme) {
+                    const icons = [themeIcon, themeIconMobile].filter(Boolean);
+                    const toggles = [themeToggle, themeToggleMobile].filter(Boolean);
+                    
+                    icons.forEach(icon => {
+                        if (theme === 'dark') {
+                            icon.classList.remove('fa-moon');
+                            icon.classList.add('fa-sun');
+                        } else {
+                            icon.classList.remove('fa-sun');
+                            icon.classList.add('fa-moon');
+                        }
+                    });
+                    
+                    toggles.forEach(toggle => {
+                        toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+                    });
+                }
+                
+                // Apply theme
+                function setTheme(theme) {
+                    html.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    updateIcons(theme);
+                }
+                
+                // Toggle theme
+                function toggleTheme() {
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    setTheme(newTheme);
+                }
+                
+                // Initialize theme
+                const currentTheme = getTheme();
+                setTheme(currentTheme);
+                
+                // Add event listeners
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', toggleTheme);
+                }
+                if (themeToggleMobile) {
+                    themeToggleMobile.addEventListener('click', toggleTheme);
+                }
+                
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    // Only auto-switch if user hasn't manually set a preference
+                    if (!localStorage.getItem('theme')) {
+                        setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            })();
+        </script>
     </body>
 </html>

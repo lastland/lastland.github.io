@@ -4,7 +4,7 @@
             <header class="mb-4 pb-3 border-bottom">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <h1 class="display-5 fw-bold mb-2">$title$</h1>
-                    <span class="badge bg-primary fs-6 mb-2"><i class="far fa-calendar-alt me-1"></i> $term$</span>
+                    <span class="badge bg-primary fs-6 mb-2"><i class="far fa-calendar-alt me-1" aria-hidden="true"></i> $term$</span>
                 </div>
             </header>
             
@@ -13,7 +13,7 @@
                 <img src="/images/$image$" class="figure-img img-fluid rounded shadow-sm" alt="$caption$">
                 <figcaption class="figure-caption text-center mt-2">
                     $caption$ <br>
-                    <small>(Image source: <a href="$source$" target="_blank" class="text-decoration-none">$source$</a>)</small>
+                    <small>(Image source: <a href="$source$" target="_blank" rel="noopener noreferrer" class="text-decoration-none">$source$</a>)</small>
                 </figcaption>
             </figure>
             $endif$

@@ -14,18 +14,19 @@
                 
                 <div class="d-flex flex-wrap gap-2 mt-3">
                     $if(talk)$
-                    <a href="$talk$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                    <a href="$talk$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                     $endif$
                     $if(link)$
-                    <a href="$link$" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                        $if(openaccess)$<span class="badge bg-success ms-1">OA</span>$endif$
+                    <a href="$link$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                        <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                        $if(openaccess)$<span class="badge bg-success ms-1" aria-label="Open Access">OA</span>$endif$
                     </a>
                     $endif$
                     $if(preprint)$
-                    <a href="$preprint$" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                    <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="far fa-file-alt me-1" aria-hidden="true"></i> Pre-print</a>
                     $endif$
                     $if(artifact)$
-                    <a href="$artifact$" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                    <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                     $endif$
                 </div>
             </header>

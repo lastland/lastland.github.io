@@ -19,65 +19,77 @@
         <title>Yao Li (李垚), Ph.D.</title>
     </head>
     <body data-bs-spy="scroll" data-bs-target="#navbar-scroll" data-bs-offset="100">
-        <nav id="navbar-scroll" class="navbar navbar-expand-lg sticky-top">
+        <a href="#main-content" class="visually-hidden-focusable btn btn-primary position-absolute top-0 start-0 m-2" style="z-index: 9999;">Skip to main content</a>
+        
+        <nav id="navbar-scroll" class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand" href="#home">Yao Li</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                </button>
+                <a class="navbar-brand" href="#home" aria-label="Yao Li - Home">Yao Li</a>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="theme-toggle d-lg-none" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode">
+                        <i class="fas fa-moon" id="theme-icon-mobile" aria-hidden="true"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <span class="navbar-toggler-icon" aria-hidden="true"><i class="fas fa-bars" aria-hidden="true"></i></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
+                    <ul class="navbar-nav ms-auto align-items-center" role="menubar">
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#home" role="menuitem">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#research">Research</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#research" role="menuitem">Research</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#teaching">Teaching</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#teaching" role="menuitem">Teaching</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#publications">Publications</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#publications" role="menuitem">Publications</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#service">Service</a>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#service" role="menuitem">Service</a>
+                        </li>
+                        <li class="nav-item ms-2" role="none">
+                            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                                <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
+                            </button>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main role="main">
+        <main id="main-content" role="main">
             <div class="container">
                 <section id="home" class="mb-5 pt-4">
     <div class="hero">
         <div class="row align-items-center">
             <div class="col-md-3 text-center mb-4 mb-md-0">
-                <img src="./images/yao.jpg" alt="Yao Li" class="img-fluid rounded-circle shadow-lg" style="max-width: 200px; height: 200px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
+                <img src="./images/yao.jpg" alt="Yao Li, Assistant Professor at Portland State University" class="img-fluid rounded-circle shadow-lg hero-image" style="max-width: 200px; height: 200px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 hero-content">
                 <h1 class="display-4 fw-bold">Yao Li (李垚), Ph.D.</h1>
                 <p class="lead mb-4">Tenure-track Assistant Professor<br>Portland State University</p>
-                <div class="social-links d-flex flex-wrap gap-2">
-                    <a href="mailto:liyao@pdx.edu" class="btn-social">
-                        <i class="far fa-envelope"></i> Email
+                <nav class="social-links d-flex flex-wrap gap-2" aria-label="Social media and contact links">
+                    <a href="mailto:liyao@pdx.edu" class="btn-social" aria-label="Send email to liyao@pdx.edu">
+                        <i class="far fa-envelope" aria-hidden="true"></i> Email
                     </a>
-                    <a href="https://www.semanticscholar.org/author/Yao-Li/2377563754" target="_blank" class="btn-social">
-                        <i class="fas fa-book-reader"></i> Semantic Scholar
+                    <a href="https://www.semanticscholar.org/author/Yao-Li/2377563754" target="_blank" rel="noopener noreferrer" class="btn-social" aria-label="View profile on Semantic Scholar (opens in new tab)">
+                        <i class="fas fa-book-reader" aria-hidden="true"></i> Semantic Scholar
                     </a>
-                    <a href="https://scholar.google.com/citations?user=SwV1nU0AAAAJ&hl=en" target="_blank" class="btn-social">
-                        <i class="fas fa-graduation-cap"></i> Google Scholar
+                    <a href="https://scholar.google.com/citations?user=SwV1nU0AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="btn-social" aria-label="View profile on Google Scholar (opens in new tab)">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i> Google Scholar
                     </a>
-                    <a href="https://orcid.org/0000-0001-8720-883X" target="_blank" class="btn-social">
-                        <i class="fab fa-orcid"></i> ORCID
+                    <a href="https://orcid.org/0000-0001-8720-883X" target="_blank" rel="noopener noreferrer" class="btn-social" aria-label="View ORCID profile (opens in new tab)">
+                        <i class="fab fa-orcid" aria-hidden="true"></i> ORCID
                     </a>
-                    <a href="https://www.linkedin.com/in/yaoli0/" target="_blank" class="btn-social">
-                        <i class="fab fa-linkedin"></i> LinkedIn
+                    <a href="https://www.linkedin.com/in/yaoli0/" target="_blank" rel="noopener noreferrer" class="btn-social" aria-label="View LinkedIn profile (opens in new tab)">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
                     </a>
-                    <a href="https://github.com/lastland" target="_blank" class="btn-social">
-                        <i class="fab fa-github"></i> GitHub
+                    <a href="https://github.com/lastland" target="_blank" rel="noopener noreferrer" class="btn-social" aria-label="View GitHub profile (opens in new tab)">
+                        <i class="fab fa-github" aria-hidden="true"></i> GitHub
                     </a>
-                </div>
+                </nav>
             </div>
         </div>
     </div>
@@ -85,9 +97,9 @@
     <div class="card border-0 shadow-sm mt-4">
         <div class="card-body">
             <h2 class="card-title h4 border-bottom pb-2 mb-3">About Me</h2>
-            <p class="card-text">I am a tenure-track assistant professor at <a href="https://www.pdx.edu/computer-science/" target="_blank" class="text-decoration-none fw-bold text-primary">Portland State University</a>.</p>
-            <p class="card-text">I obtained my Ph.D. in computer and information science from the University of Pennsylvania in 2022, under the guidance of <a href="https://www.cis.upenn.edu/~sweirich/" class="text-decoration-none">Stephanie Weirich</a>.</p>
-            <p class="card-text">You can call me Yao. My preferred pronoun is <a href="https://pronoun.is/he" class="text-decoration-none">he/him</a> or <a href="https://pronoun.is/they/.../themselves" class="text-decoration-none">they/them</a>.</p>
+            <p class="card-text">I am a tenure-track assistant professor at <a href="https://www.pdx.edu/computer-science/" target="_blank" rel="noopener noreferrer" class="text-decoration-none fw-bold text-primary">Portland State University</a>.</p>
+            <p class="card-text">I obtained my Ph.D. in computer and information science from the University of Pennsylvania in 2022, under the guidance of <a href="https://www.cis.upenn.edu/~sweirich/" rel="noopener noreferrer" class="text-decoration-none">Stephanie Weirich</a>.</p>
+            <p class="card-text">You can call me Yao. My preferred pronoun is <a href="https://pronoun.is/he" rel="noopener noreferrer" class="text-decoration-none">he/him</a> or <a href="https://pronoun.is/they/.../themselves" rel="noopener noreferrer" class="text-decoration-none">they/them</a>.</p>
             <p style="display:none"><a rel="me" href="https://mastodon.acm.org/@liyao">Mastodon</a></p>
         </div>
     </div>
@@ -109,19 +121,19 @@
         <div class="col-lg-6 mt-4 mt-lg-0">
             <div class="card h-100 bg-light border-0">
                 <div class="card-body">
-                    <h3 class="h5 card-title"><i class="fas fa-users text-primary me-2"></i> Current Ph.D. Students</h3>
+                    <h3 class="h5 card-title"><i class="fas fa-users text-primary me-2" aria-hidden="true"></i> Current Ph.D. Students</h3>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i><a href="https://ian.kariniemi.dev/" class="text-decoration-none">Ian Kariniemi</a></li>
-                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i>Yiming Lin</li>
-                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2"></i>Grant VanDomelen</li>
-                        <li><i class="fas fa-user-graduate text-muted me-2"></i>Nicholas Coltharp</li>
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2" aria-hidden="true"></i><a href="https://ian.kariniemi.dev/" rel="noopener noreferrer" class="text-decoration-none">Ian Kariniemi</a></li>
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2" aria-hidden="true"></i>Yiming Lin</li>
+                        <li class="mb-2"><i class="fas fa-user-graduate text-muted me-2" aria-hidden="true"></i>Grant VanDomelen</li>
+                        <li><i class="fas fa-user-graduate text-muted me-2" aria-hidden="true"></i>Nicholas Coltharp</li>
                     </ul>
                     <hr>
-                    <small class="text-muted d-block mb-3">I'm currently at capacity, so I do not take new Ph.D. students.</small>
+                    <p class="small text-muted mb-3">I'm currently at capacity, so I do not take new Ph.D. students.</p>
                     
-                    <h3 class="h5 card-title mt-4"><i class="fas fa-user-clock text-primary me-2"></i> Past Students</h3>
+                    <h3 class="h5 card-title mt-4"><i class="fas fa-user-clock text-primary me-2" aria-hidden="true"></i> Past Students</h3>
                     <ul class="list-unstyled mb-0">
-                        <li><i class="fas fa-check text-success me-2"></i><a href="https://catscomputerscreativewriting.tumblr.com/" target="_blank" class="text-decoration-none">Laura Israel</a> (Ph.D. student at Univ. of Konstanz)</li>
+                        <li><i class="fas fa-check text-success me-2" aria-hidden="true"></i><a href="https://catscomputerscreativewriting.tumblr.com/" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Laura Israel</a> (Ph.D. student at Univ. of Konstanz)</li>
                     </ul>
                 </div>
             </div>
@@ -144,7 +156,7 @@
                         <a href="./courses/2026-01-03-sk.html" class="text-decoration-none stretched-link">CS 669: Scholarship Skills</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Winter, 2026</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Winter, 2026</p>
                 </div>
             </div>
         </div>
@@ -157,7 +169,7 @@
                         <a href="./courses/2025-09-29-fp.html" class="text-decoration-none stretched-link">CS 457/557: Functional Programming</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Fall, 2025</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Fall, 2025</p>
                 </div>
             </div>
         </div>
@@ -170,7 +182,7 @@
                         <a href="./courses/2025-03-31-sf.html" class="text-decoration-none stretched-link">CS 410/510 TOP: Proof Assistants and Program Verification</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Spring, 2025</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Spring, 2025</p>
                 </div>
             </div>
         </div>
@@ -183,7 +195,7 @@
                         <a href="./courses/2025-03-31-popl.html" class="text-decoration-none stretched-link">CS 358: Principles of Programming Languages</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Spring, 2025</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Spring, 2025</p>
                 </div>
             </div>
         </div>
@@ -196,7 +208,7 @@
                         <a href="./courses/2024-09-30-fp.html" class="text-decoration-none stretched-link">CS 457/557: Functional Programming</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Fall, 2024</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Fall, 2024</p>
                 </div>
             </div>
         </div>
@@ -209,7 +221,7 @@
                         <a href="./courses/2024-04-02-verification.html" class="text-decoration-none stretched-link">CS 410/510 TOP: Advanced Topics in Program Verification</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Spring, 2024</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Spring, 2024</p>
                 </div>
             </div>
         </div>
@@ -222,7 +234,7 @@
                         <a href="./courses/2024-01-08-fp.html" class="text-decoration-none stretched-link">CS 457/557: Functional Programming</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Winter, 2024</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Winter, 2024</p>
                 </div>
             </div>
         </div>
@@ -235,7 +247,7 @@
                         <a href="./courses/2023-04-03-sf.html" class="text-decoration-none stretched-link">CS 410/510 TOP: Proof Assistants and Program Verification</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Spring, 2023</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Spring, 2023</p>
                 </div>
             </div>
         </div>
@@ -248,7 +260,7 @@
                         <a href="./courses/2023-01-12-fp.html" class="text-decoration-none stretched-link">CS 457/557: Functional Programming</a>
                         
                     </h3>
-                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2"></i>Winter, 2023</p>
+                    <p class="card-text text-muted"><i class="far fa-calendar-alt me-2" aria-hidden="true"></i>Winter, 2023</p>
                 </div>
             </div>
         </div>
@@ -279,7 +291,7 @@
                         
                         
                         
-                        <a href="https://arxiv.org/pdf/2510.25975" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="far fa-file-alt me-1"></i> Pre-print</a>
+                        <a href="https://arxiv.org/pdf/2510.25975" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="far fa-file-alt me-1" aria-hidden="true"></i> Pre-print</a>
                         
                         
                         
@@ -297,17 +309,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://www.youtube.com/live/Aa-gILVLWjg?si=Y2LufyzVkE-0NNMZ&t=24730" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://www.youtube.com/live/Aa-gILVLWjg?si=Y2LufyzVkE-0NNMZ&t=24730" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1145/3759425.3763391" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3759425.3763391" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.16939067" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.16939067" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -323,17 +336,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://www.youtube.com/live/bzVXrVaQwM8?si=JvFXHy6ywm0DuPU6&t=5505" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://www.youtube.com/live/bzVXrVaQwM8?si=JvFXHy6ywm0DuPU6&t=5505" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1145/3759164.3759352" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3759164.3759352" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.16784315" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.16784315" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -349,17 +363,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://youtu.be/yPTDCWbM6ZE?si=FBG8R8mKJHEgaX-P" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://youtu.be/yPTDCWbM6ZE?si=FBG8R8mKJHEgaX-P" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1145/3674626" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3674626" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.11493754" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.11493754" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -377,17 +392,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://youtu.be/iLM97ov0ZV0?si=lY63JARHOy7DwbM-" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://youtu.be/iLM97ov0ZV0?si=lY63JARHOy7DwbM-" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1145/3547632" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3547632" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.6604786" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.6604786" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -403,17 +419,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://www.youtube.com/watch?v=YSVFUjUcWzo" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://www.youtube.com/watch?v=YSVFUjUcWzo" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1145/3473585" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3473585" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.4771438" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.4771438" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -430,14 +447,15 @@
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
                         
-                        <a href="https://doi.org/10.4230/LIPIcs.ITP.2021.32" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.4230/LIPIcs.ITP.2021.32" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.5281/zenodo.4697379" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.5281/zenodo.4697379" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -453,17 +471,18 @@
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
-                        <a href="https://www.youtube.com/watch?v=9QL97E0cNk0" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-video me-1"></i> Talk</a>
+                        <a href="https://www.youtube.com/watch?v=9QL97E0cNk0" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="fas fa-video me-1" aria-hidden="true"></i> Talk</a>
                         
                         
-                        <a href="https://doi.org/10.1017/S0956796820000283" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1017/S0956796820000283" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
                         
                         
-                        <a href="https://doi.org/10.1145/3235036" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fas fa-code me-1"></i> Artifact</a>
+                        <a href="https://doi.org/10.1145/3235036" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="fas fa-code me-1" aria-hidden="true"></i> Artifact</a>
                         
                     </div>
                 </li>
@@ -486,8 +505,9 @@
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
                         
-                        <a href="https://doi.org/10.1145/3293880.3294106" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-alt me-1"></i> Paper
-                            <span class="badge bg-success ms-1">OA</span>
+                        <a href="https://doi.org/10.1145/3293880.3294106" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
+                            <i class="fas fa-file-alt me-1" aria-hidden="true"></i> Paper
+                            <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
                         </a>
                         
                         
@@ -507,7 +527,7 @@
                 
             </ul>
             <div class="card-footer bg-white text-center p-3">
-                 <a href="publication.html" class="btn btn-primary">View All Publications <i class="fas fa-arrow-right ms-1"></i></a>
+                 <a href="publication.html" class="btn btn-primary">View All Publications <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -540,9 +560,9 @@
     <div class="row g-4">
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="h5 mb-0"><i class="fas fa-handshake me-2"></i> Academic Service</h3>
-                </div>
+                <header class="card-header bg-primary text-white">
+                    <h3 class="h5 mb-0"><i class="fas fa-handshake me-2" aria-hidden="true"></i> Academic Service</h3>
+                </header>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         <li class="mb-3"><strong>Program Committee:</strong> TyDe'25, POPL'25, CoqPL'25, PLDI'24, TFP'24, POPL'24 SRC, PLDI'23, PLDI'23 SRC</li>
@@ -558,18 +578,18 @@
         
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
-                <div class="card-header bg-accent text-dark">
-                    <h3 class="h5 mb-0"><i class="fas fa-medal me-2"></i> Honors & Awards</h3>
-                </div>
+                <header class="card-header bg-accent text-dark">
+                    <h3 class="h5 mb-0"><i class="fas fa-medal me-2" aria-hidden="true"></i> Honors & Awards</h3>
+                </header>
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Google Open Source Peer Bonus (for <a href="https://github.com/lastland/scala-forklift" class="text-decoration-none">Scala Forklift</a>), 2018</li>
-                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2016</li>
-                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>China National Scholarship, 2014</li>
-                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2013</li>
-                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>China National Scholarship, 2012</li>
-                        <li class="mb-2"><i class="fas fa-award text-muted me-2"></i>Most Popular Collegiate Innovation Projects of SJTU, 2012</li>
-                        <li class="mb-2"><i class="fas fa-trophy text-warning me-2"></i>1st Prize in 4th Intel Cup National Collegiate Software Innovation Contest, 2011</li>
+                        <li class="mb-2"><i class="fas fa-star text-warning me-2" aria-hidden="true"></i>Google Open Source Peer Bonus (for <a href="https://github.com/lastland/scala-forklift" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Scala Forklift</a>), 2018</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2" aria-hidden="true"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2016</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2" aria-hidden="true"></i>China National Scholarship, 2014</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2" aria-hidden="true"></i>Outstanding Graduate of Shanghai Jiao Tong University, 2013</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2" aria-hidden="true"></i>China National Scholarship, 2012</li>
+                        <li class="mb-2"><i class="fas fa-award text-muted me-2" aria-hidden="true"></i>Most Popular Collegiate Innovation Projects of SJTU, 2012</li>
+                        <li class="mb-2"><i class="fas fa-trophy text-warning me-2" aria-hidden="true"></i>1st Prize in 4th Intel Cup National Collegiate Software Innovation Contest, 2011</li>
                     </ul>
                 </div>
             </div>
@@ -582,11 +602,11 @@
         <div class="card-body text-center">
             <h3 class="h5 card-title text-muted mb-3">Hobbies</h3>
             <p class="mb-0">
-                <span class="mx-2"><i class="fas fa-puzzle-piece me-1"></i> Puzzles</span>
-                <span class="mx-2"><i class="fas fa-dungeon me-1"></i> Escape Rooms</span>
-                <span class="mx-2"><i class="fas fa-dice-d20 me-1"></i> Tabletop RPGs (Pathfinder 2e, D&D 5e)</span>
-                <span class="mx-2"><i class="fas fa-fist-raised me-1"></i> Leung Sheung Wing Chun</span>
-                <span class="mx-2"><i class="fas fa-bullseye me-1"></i> Archery</span>
+                <span class="mx-2"><i class="fas fa-puzzle-piece me-1" aria-hidden="true"></i> Puzzles</span>
+                <span class="mx-2"><i class="fas fa-dungeon me-1" aria-hidden="true"></i> Escape Rooms</span>
+                <span class="mx-2"><i class="fas fa-dice-d20 me-1" aria-hidden="true"></i> Tabletop RPGs (Pathfinder 2e, D&D 5e)</span>
+                <span class="mx-2"><i class="fas fa-fist-raised me-1" aria-hidden="true"></i> Leung Sheung Wing Chun</span>
+                <span class="mx-2"><i class="fas fa-bullseye me-1" aria-hidden="true"></i> Archery</span>
             </p>
         </div>
     </div>
@@ -595,11 +615,84 @@
             </div>
         </main>
 
-        <footer class="text-center">
+        <footer role="contentinfo" class="text-center">
             <div class="container">
-                <p class="mb-0">Site proudly generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+                <p class="mb-0">Site proudly generated by <a href="http://jaspervdj.be/hakyll" rel="external">Hakyll</a></p>
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            // Dark mode toggle functionality
+            (function() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+                const themeIcon = document.getElementById('theme-icon');
+                const themeIconMobile = document.getElementById('theme-icon-mobile');
+                const html = document.documentElement;
+                
+                // Get saved theme or default to system preference
+                function getTheme() {
+                    const saved = localStorage.getItem('theme');
+                    if (saved) {
+                        return saved;
+                    }
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                // Update icon helper
+                function updateIcons(theme) {
+                    const icons = [themeIcon, themeIconMobile].filter(Boolean);
+                    const toggles = [themeToggle, themeToggleMobile].filter(Boolean);
+                    
+                    icons.forEach(icon => {
+                        if (theme === 'dark') {
+                            icon.classList.remove('fa-moon');
+                            icon.classList.add('fa-sun');
+                        } else {
+                            icon.classList.remove('fa-sun');
+                            icon.classList.add('fa-moon');
+                        }
+                    });
+                    
+                    toggles.forEach(toggle => {
+                        toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+                    });
+                }
+                
+                // Apply theme
+                function setTheme(theme) {
+                    html.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    updateIcons(theme);
+                }
+                
+                // Toggle theme
+                function toggleTheme() {
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    setTheme(newTheme);
+                }
+                
+                // Initialize theme
+                const currentTheme = getTheme();
+                setTheme(currentTheme);
+                
+                // Add event listeners
+                if (themeToggle) {
+                    themeToggle.addEventListener('click', toggleTheme);
+                }
+                if (themeToggleMobile) {
+                    themeToggleMobile.addEventListener('click', toggleTheme);
+                }
+                
+                // Listen for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    // Only auto-switch if user hasn't manually set a preference
+                    if (!localStorage.getItem('theme')) {
+                        setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            })();
+        </script>
     </body>
 </html>
