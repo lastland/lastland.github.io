@@ -124,9 +124,14 @@ body {
         radial-gradient(800px 360px at -10% 10%, rgba(30, 41, 59, 0.6), rgba(30, 41, 59, 0));
 }
 
-h1, h2, h3, h4, h5, .section-header, .navbar-brand {
+.section-header,
+.hero h1 {
     font-family: 'Fraunces', 'Times New Roman', serif;
     letter-spacing: 0.2px;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand {
+    font-family: 'Source Sans 3', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* High contrast links */
@@ -252,13 +257,12 @@ button:focus-visible,
 
 /* Hero Section */
 .hero {
-    background: radial-gradient(1200px 500px at 10% 10%, rgba(255,255,255,0.18), rgba(255,255,255,0) 60%),
-                linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, rgba(21, 71, 52, 0.9) 0%, rgba(15, 51, 38, 0.95) 100%);
     color: white;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: var(--shadow-lg);
-    border-top: 5px solid var(--accent);
+    box-shadow: var(--shadow-md);
+    border-top: 3px solid var(--accent);
     position: relative;
     overflow: hidden;
     transition: background 0.3s ease;
@@ -281,7 +285,7 @@ button:focus-visible,
     bottom: 0;
     left: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.3;
+    opacity: 0.18;
     pointer-events: none;
 }
 
@@ -310,7 +314,6 @@ button:focus-visible,
 .btn-social:hover {
     background: white;
     color: var(--primary);
-    transform: translateY(-2px);
 }
 
 .btn-social {
@@ -332,8 +335,7 @@ button:focus-visible,
 }
 
 .transition-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md) !important;
+    box-shadow: var(--shadow) !important;
 }
 
 .hover-bg-light:hover {
@@ -375,7 +377,7 @@ button:focus-visible,
 }
 
 .section-header + .border-bottom {
-    opacity: 0.4;
+    opacity: 0.25;
 }
 
 section {
@@ -417,7 +419,8 @@ section {
 }
 
 .publication-item {
-    border-left: 4px solid var(--accent);
+    border-left: 3px solid var(--accent);
+    background: transparent;
 }
 
 .publication-item h3 {
@@ -803,15 +806,58 @@ img {
 
 /* Card and component dark mode support */
 .card {
-    transition: var(--transition);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     background: var(--bg);
     border-color: var(--border);
     color: var(--text);
     border-width: 1px;
+    box-shadow: none;
 }
 
 .card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
+    border-color: var(--primary-light);
+}
+
+.module-card {
+    background: var(--bg);
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
+    border-radius: 10px;
+}
+
+.module-card.bg-light {
+    background: var(--bg-alt) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.module-card.transition-hover:hover {
+    transform: none;
+    box-shadow: none !important;
+    border-color: var(--primary-light) !important;
+}
+
+.module-card .card-body {
+    padding: 0.9rem;
+}
+
+#teaching .row {
+    --bs-gutter-x: 0.75rem;
+    --bs-gutter-y: 0.75rem;
+}
+
+#teaching .card-body {
+    padding: 0.75rem;
+}
+
+#teaching .card-title {
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+}
+
+#teaching .card-text {
+    margin-bottom: 0;
+    font-size: 0.92rem;
 }
 
 [data-theme="dark"] .card {
@@ -823,6 +869,7 @@ img {
     background: var(--bg) !important;
     border-color: var(--border) !important;
     color: var(--text) !important;
+    padding: 0.65rem 1rem;
 }
 
 [data-theme="dark"] .card-header {
@@ -835,12 +882,19 @@ img {
     padding: 1rem;
 }
 
+.card-footer {
+    background: var(--bg) !important;
+    border-top: 1px solid var(--border);
+}
+
 .list-group-item {
     background: var(--bg);
     border-color: var(--border);
     color: var(--text);
     border-width: 1px;
     padding: 0.65rem 0.9rem;
+    border-left: none;
+    border-right: none;
 }
 
 .list-group-item .text-muted {
