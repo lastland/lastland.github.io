@@ -4,6 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Yao Li (李垚), Ph.D. - Assistant Professor at Portland State University">
+        <link rel="preconnect" href="https://cdn.jsdelivr.net">
+        <link rel="preconnect" href="https://www.google-analytics.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="me" href="https://mastodon.acm.org/@liyao">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="../css/custom.css">
@@ -25,7 +31,7 @@
             <div class="container">
                 <a class="navbar-brand" href="../index.html#home" aria-label="Yao Li - Home">Yao Li</a>
                 <div class="d-flex align-items-center gap-2">
-                    <button class="theme-toggle d-lg-none" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <button class="theme-toggle d-lg-none" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
                         <i class="bi bi-moon-stars-fill" id="theme-icon-mobile" aria-hidden="true"></i>
                     </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
@@ -33,24 +39,24 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center" role="menubar">
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="../index.html#home" role="menuitem">Home</a>
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#home">Home</a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="../index.html#research" role="menuitem">Research</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#research">Research</a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="../index.html#teaching" role="menuitem">Teaching</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#teaching">Teaching</a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="../index.html#publications" role="menuitem">Publications</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#publications">Publications</a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="../index.html#service" role="menuitem">Service</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#service">Service</a>
                         </li>
-                        <li class="nav-item ms-2" role="none">
-                            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                        <li class="nav-item ms-2">
+                            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
                                 <i class="bi bi-moon-stars-fill" id="theme-icon" aria-hidden="true"></i>
                             </button>
                         </li>
@@ -150,6 +156,7 @@ the rich and mature ecosystems provided by Java and Scala.</p>
                     
                     toggles.forEach(toggle => {
                         toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+                        toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
                     });
                 }
                 
