@@ -65,13 +65,13 @@
             </div>
         </nav>
 
-        <main id="main-content" role="main">
+        <main id="main-content" role="main" tabindex="-1">
             <div class="container">
                 <section id="home" class="mb-5 pt-4">
     <div class="hero">
         <div class="row align-items-center">
             <div class="col-md-3 text-center mb-4 mb-md-0">
-                <img src="./images/yao.jpg" alt="Yao Li, Assistant Professor at Portland State University" width="200" height="200" class="img-fluid rounded-circle shadow-lg hero-image" style="max-width: 200px; height: 200px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
+                <img src="./images/yao.jpg" alt="Yao Li, Assistant Professor at Portland State University" width="200" height="200" loading="eager" decoding="async" fetchpriority="high" class="img-fluid rounded-circle shadow-lg hero-image" style="max-width: 200px; height: 200px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
             </div>
             <div class="col-md-9 hero-content">
                 <h1 class="display-4 fw-bold">Yao Li (李垚), Ph.D.</h1>
@@ -113,32 +113,30 @@
 
 <section id="research" class="mb-5 pt-5">
     <div class="d-flex align-items-center mb-4">
-        <h2 class="section-header mb-0 me-3">Research Interests</h2>
+        <h2 class="section-header mb-0 me-3">Research Group</h2>
         <div class="flex-grow-1 border-bottom"></div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card module-card h-100 border-start-4 border-primary shadow-sm">
-                <div class="card-body">
-                    <p class="lead">My research aims to (1) advance the state of the art of verification on real-world software and (2) make verification easier to use from a <em>programming languages</em> perspective.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 mt-4 mt-lg-0">
+    <p class="research-intro text-muted mb-3">Student researchers and alumni in my group.</p>
+    <div class="row g-3">
+        <div class="col-lg-7">
             <div class="card module-card h-100 bg-light border-0">
                 <div class="card-body">
                     <h3 class="h5 card-title"><i class="bi bi-people-fill text-primary me-2" aria-hidden="true"></i> Current Ph.D. Students</h3>
-                    <ul class="list-unstyled mb-0">
+                    <ul class="list-unstyled mb-0 people-list">
                         <li class="mb-2"><i class="bi bi-mortarboard text-muted me-2" aria-hidden="true"></i><a href="https://ian.kariniemi.dev/" rel="noopener noreferrer" class="text-decoration-none">Ian Kariniemi</a></li>
                         <li class="mb-2"><i class="bi bi-mortarboard text-muted me-2" aria-hidden="true"></i>Yiming Lin</li>
                         <li class="mb-2"><i class="bi bi-mortarboard text-muted me-2" aria-hidden="true"></i>Grant VanDomelen</li>
                         <li><i class="bi bi-mortarboard text-muted me-2" aria-hidden="true"></i>Nicholas Coltharp</li>
                     </ul>
-                    <hr>
-                    <p class="small text-muted mb-3">I'm currently at capacity, so I do not take new Ph.D. students.</p>
-                    
-                    <h3 class="h5 card-title mt-4"><i class="bi bi-person-history text-primary me-2" aria-hidden="true"></i> Past Students</h3>
-                    <ul class="list-unstyled mb-0">
+                    <p class="small text-muted mb-0 mt-3">I am currently at capacity and not taking new Ph.D. students.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card module-card h-100 border-0">
+                <div class="card-body">
+                    <h3 class="h5 card-title"><i class="bi bi-person-history text-primary me-2" aria-hidden="true"></i> Past Students</h3>
+                    <ul class="list-unstyled mb-0 people-list">
                         <li><i class="bi bi-check-lg text-success me-2" aria-hidden="true"></i><a href="https://catscomputerscreativewriting.tumblr.com/" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Laura Israel</a> (Ph.D. student at Univ. of Konstanz)</li>
                     </ul>
                 </div>
@@ -287,9 +285,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">SymCode: A Neurosymbolic Approach to Mathematical Reasoning via Verifiable Code Generation</h3>
-                    <div class="mb-2 text-secondary">by Sina Bagheri Nezhad, Yao Li, Ameeta Agrawal</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Findings of the Association for Computational Linguistics: EACL 2026</span>
+                    <div class="publication-authors">by Sina Bagheri Nezhad, Yao Li, Ameeta Agrawal</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">Findings of the Association for Computational Linguistics: EACL 2026</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -308,9 +306,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">The Memorist Tale: Every Thunk Every Cost All At Once</h3>
-                    <div class="mb-2 text-secondary">by Xing Li, Yao Li, Peter Schachte, Christine Rizkallah</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">35th European Symposium on Programming, ESOP 2026</span>
+                    <div class="publication-authors">by Xing Li, Yao Li, Peter Schachte, Christine Rizkallah</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">35th European Symposium on Programming, ESOP 2026</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -331,9 +329,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">A Case Study on the Effectiveness of LLMs in Verification with Proof Assistants</h3>
-                    <div class="mb-2 text-secondary">by Barış Bayazıt, Yao Li, Xujie Si</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">1st International Workshop on Language Models and Programming Languages, LMPL 2025</span>
+                    <div class="publication-authors">by Barış Bayazıt, Yao Li, Xujie Si</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">1st International Workshop on Language Models and Programming Languages, LMPL 2025</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -358,9 +356,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Freer Arrows and Why You Need Them in Haskell</h3>
-                    <div class="mb-2 text-secondary">by Grant VanDomelen, Gan Shen, Lindsey Kuper, Yao Li</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">18th ACM SIGPLAN International Symposium on Haskell, Haskell 2025</span>
+                    <div class="publication-authors">by Grant VanDomelen, Gan Shen, Lindsey Kuper, Yao Li</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">18th ACM SIGPLAN International Symposium on Haskell, Haskell 2025</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -385,9 +383,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Story of Your Lazy Function’s Life: A Bidirectional Demand Semantics for Mechanized Cost Analysis of Lazy Programs</h3>
-                    <div class="mb-2 text-secondary">by Li-yao Xia, Laura Israel, Maite Kramarz, Nicholas Coltharp, Koen Claessen, Stephanie Weirich, Yao Li</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Proceedings of the ACM on Programming Languages, 8(ICFP), 2024</span>
+                    <div class="publication-authors">by Li-yao Xia, Laura Israel, Maite Kramarz, Nicholas Coltharp, Koen Claessen, Stephanie Weirich, Yao Li</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">Proceedings of the ACM on Programming Languages, 8(ICFP), 2024</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -414,10 +412,10 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Program Adverbs and Tlön Embeddings</h3>
-                    <div class="mb-2 text-secondary">by Yao Li, Stephanie Weirich</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Proceedings of the ACM on Programming Languages, 6(ICFP), 2022</span>
-                        <span class="badge bg-accent text-dark"><i class="bi bi-trophy-fill me-1"></i> Distinguished Paper</span>
+                    <div class="publication-authors">by Yao Li, Stephanie Weirich</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">Proceedings of the ACM on Programming Languages, 6(ICFP), 2022</span>
+                        <span class="publication-award"><i class="bi bi-trophy-fill me-1" aria-hidden="true"></i>Distinguished Paper</span>
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
                         
@@ -441,9 +439,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Reasoning about the Garden of Forking Paths</h3>
-                    <div class="mb-2 text-secondary">by Yao Li, Li-yao Xia, Stephanie Weirich</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Proceedings of the ACM on Programming Languages, 5(ICFP), 2021</span>
+                    <div class="publication-authors">by Yao Li, Li-yao Xia, Stephanie Weirich</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">Proceedings of the ACM on Programming Languages, 5(ICFP), 2021</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -468,9 +466,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Verifying an HTTP Key-Value Server with Interaction Trees and VST</h3>
-                    <div class="mb-2 text-secondary">by Hengchu Zhang, Wolf Honoré, Nicolas Koh, Yao Li, Yishuai Li, Li-yao Xia, Lennart Beringer, William Mansky, Benjamin Pierce, Steve Zdancewic</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">12th International Conference on Interactive Theorem Proving, ITP 2021</span>
+                    <div class="publication-authors">by Hengchu Zhang, Wolf Honoré, Nicolas Koh, Yao Li, Yishuai Li, Li-yao Xia, Lennart Beringer, William Mansky, Benjamin Pierce, Steve Zdancewic</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">12th International Conference on Interactive Theorem Proving, ITP 2021</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -493,9 +491,9 @@
                 
                 <li class="list-group-item p-4 publication-item hover-bg-light">
                     <h3 class="h5 fw-bold mb-2">Ready, Set, Verify! Applying hs-to-coq to real-world Haskell code</h3>
-                    <div class="mb-2 text-secondary">by Joachim Breitner, Antal Spector-Zabusky, Yao Li, Christine Rizkallah, John Wiegley, Joshua Cohen, Stephanie Weirich</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">Journal of Functional Programming, 31(e5), 2021</span>
+                    <div class="publication-authors">by Joachim Breitner, Antal Spector-Zabusky, Yao Li, Christine Rizkallah, John Wiegley, Joshua Cohen, Stephanie Weirich</div>
+                    <div class="publication-meta-row">
+                        <span class="publication-venue">Journal of Functional Programming, 31(e5), 2021</span>
                         
                     </div>
                     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -546,16 +544,35 @@
         <h2 class="section-header mb-0 me-3">Talks</h2>
         <div class="flex-grow-1 border-bottom"></div>
     </div>
-    <ul class="list-group list-group-flush shadow-sm rounded">
-        <li class="list-group-item p-3"><span class="fw-bold">Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation</span><br><span class="text-muted">Harvard PL Seminar, virtual talk, 2024</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">"Shallower" Embeddings for Mechanized Reasoning</span><br><span class="text-muted">PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN, 2023</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">The Expression Problem and Theorem Proving</span> (Discussion)<br><span class="text-muted">Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA, 2022</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">Effect-Oblivious Equivalence</span><br><span class="text-muted">Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA, 2022</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">Reasoning about the Garden of Forking Paths</span><br><span class="text-muted">POPV seminar at Boston University (Longer Version, Invited Talk), 2021<br>The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk, 2021<br>The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL, 2021</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale</span><br><span class="text-muted">Haskell Implementors' Workshop (HIW), co-located with ICFP, virtual talk, 2020</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">The Science of Deep Specification</span><br><span class="text-muted">NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC, 2018</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">Dependent Types in Scala</span><br><span class="text-muted">Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA, 2017</span></li>
-        <li class="list-group-item p-3"><span class="fw-bold">Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond</span><br><span class="text-muted">Comcast Scala By the Schuyllkill Conference, Philadelphia, PA, 2017</span></li>
+    <div class="talk-year">2024</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation</span><br><span class="text-muted">Harvard PL Seminar, virtual talk</span></li>
+    </ul>
+    <div class="talk-year">2023</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">"Shallower" Embeddings for Mechanized Reasoning</span><br><span class="text-muted">PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN</span></li>
+    </ul>
+    <div class="talk-year">2022</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">The Expression Problem and Theorem Proving</span> (Discussion)<br><span class="text-muted">Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA</span></li>
+        <li class="list-group-item p-3"><span class="fw-bold">Effect-Oblivious Equivalence</span><br><span class="text-muted">Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA</span></li>
+    </ul>
+    <div class="talk-year">2021</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">Reasoning about the Garden of Forking Paths</span><br><span class="text-muted">POPV seminar at Boston University (Longer Version, Invited Talk)<br>The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk<br>The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL</span></li>
+    </ul>
+    <div class="talk-year">2020</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale</span><br><span class="text-muted">Haskell Implementors' Workshop (HIW), co-located with ICFP, virtual talk</span></li>
+    </ul>
+    <div class="talk-year">2018</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">The Science of Deep Specification</span><br><span class="text-muted">NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC</span></li>
+    </ul>
+    <div class="talk-year">2017</div>
+    <ul class="list-group list-group-flush shadow-sm rounded talk-list">
+        <li class="list-group-item p-3"><span class="fw-bold">Dependent Types in Scala</span><br><span class="text-muted">Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA</span></li>
+        <li class="list-group-item p-3"><span class="fw-bold">Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond</span><br><span class="text-muted">Comcast Scala By the Schuyllkill Conference, Philadelphia, PA</span></li>
     </ul>
 </section>
 
@@ -632,7 +649,7 @@
 
         <footer role="contentinfo" class="text-center">
             <div class="container">
-                <p class="mb-0">Site proudly generated by <a href="http://jaspervdj.be/hakyll" rel="external">Hakyll</a></p>
+                <p class="mb-0">Site proudly generated by <a href="https://jaspervdj.be/hakyll" rel="external">Hakyll</a></p>
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -700,6 +717,22 @@
                 if (themeToggleMobile) {
                     themeToggleMobile.addEventListener('click', toggleTheme);
                 }
+
+                // Keep aria-current in sync with Scrollspy/URL hash for screen reader context
+                function syncNavCurrent() {
+                    const navLinks = document.querySelectorAll('#navbarNav .nav-link');
+                    navLinks.forEach(link => {
+                        const isActive = link.classList.contains('active');
+                        if (isActive) {
+                            link.setAttribute('aria-current', 'page');
+                        } else {
+                            link.removeAttribute('aria-current');
+                        }
+                    });
+                }
+                document.body.addEventListener('activate.bs.scrollspy', syncNavCurrent);
+                window.addEventListener('hashchange', syncNavCurrent);
+                syncNavCurrent();
                 
                 // Listen for system theme changes
                 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
