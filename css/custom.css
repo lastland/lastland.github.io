@@ -1713,8 +1713,7 @@ a.text-link {
     background: #ecfdf5;
     color: #047857;
     border-color: #a7f3d0;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 [data-theme="dark"] .pub-chip--oa {

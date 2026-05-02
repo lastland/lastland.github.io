@@ -115,24 +115,24 @@ title: Yao Li (李垚), Ph.D.
             <div class="pub-meta">
                 $if(venue)$<span class="pub-chip pub-chip--venue">$venue$</span>$else$<span class="pub-chip pub-chip--draft">In Submission</span>$endif$
                 $if(year)$<span class="pub-chip pub-chip--year">$year$</span>$endif$
-                $if(openaccess)$<span class="pub-chip pub-chip--oa" title="Open Access">OA</span>$endif$
+                $if(openaccess)$<span class="pub-chip pub-chip--oa">Open Access</span>$endif$
                 $if(award)$<span class="pub-chip pub-chip--award"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#trophy-fill"/></svg> $award$</span>$endif$
             </div>
             <div class="pub-actions">
                 $if(link)$
-                <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Paper" aria-label="View paper (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text-fill"/></svg></a>
+                <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text-fill"/></svg> <span>Paper</span></a>
                 $endif$
                 $if(openaccess)$
                 $else$
                 $if(preprint)$
-                <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Pre-print" aria-label="View preprint (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text"/></svg></a>
+                <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View preprint (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text"/></svg> <span>Pre-print</span></a>
                 $endif$
                 $endif$
                 $if(talk)$
-                <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Talk video" aria-label="View talk video (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#camera-video-fill"/></svg></a>
+                <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#camera-video-fill"/></svg> <span>Talk</span></a>
                 $endif$
                 $if(artifact)$
-                <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Artifact" aria-label="View artifact (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#code-square"/></svg></a>
+                <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#code-square"/></svg> <span>Artifact</span></a>
                 $endif$
             </div>
         </article>
