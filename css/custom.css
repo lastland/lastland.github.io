@@ -234,6 +234,7 @@ main { display: block; }
 
 /* Card shim */
 .card {
+    position: relative;          /* contains .stretched-link::after */
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
