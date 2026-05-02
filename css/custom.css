@@ -1509,22 +1509,128 @@ a.text-link {
     margin: 0 0 var(--space-4);
 }
 
-.talk-year {
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+/* ============================================================
+   Talks: vertical timeline with year-rail
+   ============================================================ */
+
+.talks-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: relative;
+}
+
+.talks-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-5);
+    align-items: start;
+    position: relative;
+}
+
+.talks-year {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.85rem;
+    line-height: 1;
+    color: var(--accent-dark);
+    text-align: right;
+    padding-top: 0.25rem;
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+    position: sticky;
+    top: 90px;
+}
+
+[data-theme="dark"] .talks-year {
+    color: var(--accent);
+}
+
+.talks-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    border-left: 1px solid var(--border);
+    padding-left: var(--space-5);
+    margin-left: -1px;
+}
+
+.talk-item {
+    padding: 0;
+}
+
+.talk-title {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--fs-base);
+    line-height: 1.4;
+    color: var(--text);
+    margin: 0 0 var(--space-2);
+    letter-spacing: -0.005em;
+}
+
+.talk-note {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.talk-venue {
+    font-size: var(--fs-sm);
     color: var(--text-light);
-    font-size: 0.78rem;
-    font-weight: 700;
-    margin: var(--space-4) 0 var(--space-2);
+    line-height: 1.5;
+    margin: 0;
 }
 
-.talk-list .list-group-item {
-    padding: 0.65rem 0.85rem !important;
+.talk-venues {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
 }
 
-#talks .fw-bold {
-    font-size: 0.98rem;
-    line-height: 1.35;
+.talk-venues li {
+    font-size: var(--fs-sm);
+    color: var(--text-light);
+    line-height: 1.5;
+    padding-left: var(--space-3);
+    position: relative;
+}
+
+.talk-venues li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+@media (max-width: 720px) {
+    .talks-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
+
+    .talks-year {
+        text-align: left;
+        font-size: 1.4rem;
+        padding-top: 0;
+        position: static;
+    }
+
+    .talks-items {
+        border-left: 2px solid var(--border);
+        padding-left: var(--space-4);
+        margin-left: 0;
+    }
 }
 
 .research-intro {
