@@ -606,19 +606,177 @@ section {
     --bs-gutter-y: 1rem;
 }
 
-.service-list dt {
-    font-weight: 700;
-    color: var(--text);
-    margin-top: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    font-size: 0.8rem;
+/* ============================================================
+   Service & Awards: two-column grid, role-grouped chips, year-rail awards
+   ============================================================ */
+
+.sa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-items: start;
 }
 
-.service-list dd {
-    margin-left: 0;
+@media (max-width: 860px) {
+    .sa-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+    }
+}
+
+.sa-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-5);
+}
+
+.sa-block-header {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--fs-lg);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border);
+}
+
+.service-roles {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.service-role {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.service-role-label {
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0;
+}
+
+[data-theme="dark"] .service-role-label {
+    color: var(--accent);
+}
+
+.service-role-chips {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* Generic chip — used for service venues (and reusable elsewhere) */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    line-height: 1.4;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
     color: var(--text-light);
-    font-size: 0.98rem;
+    font-feature-settings: 'tnum';
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.chip:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--bg);
+}
+
+[data-theme="dark"] .chip:hover {
+    background: var(--surface);
+    color: var(--text);
+}
+
+/* ---------- Awards: year column + name ---------- */
+
+.awards-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.award-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px dashed var(--border);
+}
+
+.award-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.award-year {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--accent-dark);
+    text-align: right;
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+[data-theme="dark"] .award-year {
+    color: var(--accent);
+}
+
+.award-name {
+    font-size: var(--fs-sm);
+    color: var(--text);
+    line-height: 1.45;
+}
+
+.award-icon {
+    margin-right: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.award-name a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.award-name a:hover {
+    color: var(--accent-dark);
+}
+
+[data-theme="dark"] .award-name a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 480px) {
+    .award-row {
+        grid-template-columns: 44px 1fr;
+        gap: var(--space-2);
+    }
 }
 
 .hobby-chip {
@@ -698,54 +856,6 @@ section {
 [data-theme="dark"] .hero {
     background: var(--surface);
     border-color: var(--border);
-}
-
-.card-header.bg-primary {
-    background-color: var(--primary) !important;
-    color: #ffffff !important;
-}
-
-.card-header.bg-primary h3,
-.card-header.bg-primary h4,
-.card-header.bg-primary h5 {
-    color: #ffffff !important;
-    font-weight: 700;
-}
-
-[data-theme="dark"] .card-header.bg-primary {
-    background-color: #334155 !important;
-    color: var(--text) !important;
-    border-bottom: 2px solid var(--primary);
-}
-
-[data-theme="dark"] .card-header.bg-primary h3,
-[data-theme="dark"] .card-header.bg-primary h4,
-[data-theme="dark"] .card-header.bg-primary h5 {
-    color: var(--text) !important;
-}
-
-.card-header.bg-accent {
-    background-color: var(--accent) !important;
-    color: #000000 !important;
-}
-
-.card-header.bg-accent h3,
-.card-header.bg-accent h4,
-.card-header.bg-accent h5 {
-    color: #000000 !important;
-    font-weight: 700;
-}
-
-[data-theme="dark"] .card-header.bg-accent {
-    background-color: #475569 !important;
-    color: var(--text) !important;
-    border-bottom: 2px solid var(--accent);
-}
-
-[data-theme="dark"] .card-header.bg-accent h3,
-[data-theme="dark"] .card-header.bg-accent h4,
-[data-theme="dark"] .card-header.bg-accent h5 {
-    color: var(--text) !important;
 }
 
 /* Footer */
