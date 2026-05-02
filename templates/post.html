@@ -7,24 +7,24 @@
             <span class="pub-detail-label">Venue:</span>
             <span class="pub-chip pub-chip--venue">$venue$</span>
             $if(openaccess)$<span class="pub-chip pub-chip--oa" title="Open Access">OA</span>$endif$
-            $if(award)$<span class="pub-chip pub-chip--award"><i class="bi bi-trophy-fill" aria-hidden="true"></i> $award$</span>$endif$
+            $if(award)$<span class="pub-chip pub-chip--award"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#trophy-fill"/></svg> $award$</span>$endif$
         </div>
         $endif$
         <div class="pub-actions pub-actions--detail">
             $if(talk)$
-            <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i> <span>Talk</span></a>
+            <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#camera-video-fill"/></svg> <span>Talk</span></a>
             $endif$
             $if(link)$
-            <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> <span>Paper</span></a>
+            <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text-fill"/></svg> <span>Paper</span></a>
             $endif$
             $if(openaccess)$
             $else$
             $if(preprint)$
-            <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> <span>Pre-print</span></a>
+            <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View preprint (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#file-earmark-text"/></svg> <span>Pre-print</span></a>
             $endif$
             $endif$
             $if(artifact)$
-            <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square" aria-hidden="true"></i> <span>Artifact</span></a>
+            <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#code-square"/></svg> <span>Artifact</span></a>
             $endif$
         </div>
     </header>

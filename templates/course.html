@@ -1,26 +1,22 @@
-<article class="py-4">
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body p-4">
-            <header class="mb-4 pb-3 border-bottom">
-                <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <h1 class="display-5 fw-bold mb-2">$title$</h1>
-                    <span class="badge bg-primary fs-6 mb-2"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i> $term$</span>
-                </div>
-            </header>
-            
-            $if(image)$
-            <figure class="figure mb-4 text-center w-100">
-                <img src="/images/$image$" class="figure-img img-fluid rounded shadow-sm" alt="$caption$">
-                <figcaption class="figure-caption text-center mt-2">
-                    $caption$ <br>
-                    <small>(Image source: <a href="$source$" target="_blank" rel="noopener noreferrer" class="text-decoration-none">$source$</a>)</small>
-                </figcaption>
-            </figure>
-            $endif$
-            
-            <section class="card-text">
-                $body$
-            </section>
+<article class="course-detail">
+    <header class="course-detail-header">
+        <div class="course-detail-head-row">
+            <h1 class="course-detail-title">$title$</h1>
+            <span class="chip"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#calendar3"/></svg> $term$</span>
         </div>
-    </div>
+    </header>
+
+    $if(image)$
+    <figure class="course-detail-figure">
+        <img src="/images/$image$" alt="$caption$">
+        <figcaption>
+            $caption$ <br>
+            <small>(Image source: <a href="$source$" target="_blank" rel="noopener noreferrer">$source$</a>)</small>
+        </figcaption>
+    </figure>
+    $endif$
+
+    <section class="course-detail-body">
+        $body$
+    </section>
 </article>

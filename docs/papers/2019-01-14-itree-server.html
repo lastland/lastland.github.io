@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Yao Li (李垚), Ph.D. - Assistant Professor at Portland State University">
-        <link rel="preconnect" href="https://cdn.jsdelivr.net">
         <link rel="preconnect" href="https://www.google-analytics.com">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +12,6 @@
         <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23154734'/%3E%3Ctext x='50%25' y='50%25' dy='.34em' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-style='italic' font-weight='400' fill='%23E97A3A'%3EY%3C/text%3E%3C/svg%3E">
         <meta name="theme-color" content="#154734" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="#1c1f26" media="(prefers-color-scheme: dark)">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="../css/custom.css">
         <script>
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -27,40 +24,30 @@
         </script>
         <title>From C to Interaction Trees: Specifying, Verifying, and Testing a Networked Server</title>
     </head>
-    <body data-bs-spy="scroll" data-bs-target="#navbar-scroll" data-bs-offset="100">
-        <a href="#main-content" class="visually-hidden-focusable btn btn-primary position-absolute top-0 start-0 m-2" style="z-index: 9999;">Skip to main content</a>
-        
-        <nav id="navbar-scroll" class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Main navigation">
-            <div class="container">
-                <a class="navbar-brand" href="../index.html#home" aria-label="Yao Li - Home">Yao Li</a>
-                <div class="d-flex align-items-center gap-2">
-                    <button class="theme-toggle d-lg-none" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
-                        <i class="bi bi-moon-stars-fill" id="theme-icon-mobile" aria-hidden="true"></i>
+    <body>
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <nav id="site-nav" class="site-nav" role="navigation" aria-label="Main navigation">
+            <div class="container site-nav-inner">
+                <a class="site-nav-brand" href="../index.html#home" aria-label="Yao Li - Home">Yao Li</a>
+                <div class="site-nav-controls">
+                    <button class="theme-toggle theme-toggle-mobile" id="theme-toggle-mobile" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
+                        <svg class="icon" aria-hidden="true"><use href="../images/icons.svg#moon-stars-fill"></use></svg>
                     </button>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation menu">
-                        <span class="navbar-toggler-icon" aria-hidden="true"><i class="bi bi-list" aria-hidden="true"></i></span>
+                    <button class="site-nav-toggler" type="button" id="site-nav-toggler" aria-controls="site-nav-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <svg class="icon" aria-hidden="true"><use href="../images/icons.svg#list"></use></svg>
                     </button>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#research">Research</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#teaching">Teaching</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#publications">Publications</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#service">Service</a>
-                        </li>
-                        <li class="nav-item ms-2">
+                <div class="site-nav-menu" id="site-nav-menu">
+                    <ul class="site-nav-list">
+                        <li><a class="site-nav-link" href="../index.html#home" data-target="home">Home</a></li>
+                        <li><a class="site-nav-link" href="../index.html#research" data-target="research">Research</a></li>
+                        <li><a class="site-nav-link" href="../index.html#teaching" data-target="teaching">Teaching</a></li>
+                        <li><a class="site-nav-link" href="../index.html#publications" data-target="publications">Publications</a></li>
+                        <li><a class="site-nav-link" href="../index.html#service" data-target="service">Service</a></li>
+                        <li class="site-nav-toggle-item">
                             <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
-                                <i class="bi bi-moon-stars-fill" id="theme-icon" aria-hidden="true"></i>
+                                <svg class="icon" aria-hidden="true"><use href="../images/icons.svg#moon-stars-fill"></use></svg>
                             </button>
                         </li>
                     </ul>
@@ -85,7 +72,7 @@
         <div class="pub-actions pub-actions--detail">
             
             
-            <a href="https://doi.org/10.1145/3293880.3294106" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> <span>Paper</span></a>
+            <a href="https://doi.org/10.1145/3293880.3294106" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="../images/icons.svg#file-earmark-text-fill"></use></svg> <span>Paper</span></a>
             
             
             
@@ -116,95 +103,90 @@ observational refinement.</p>
                 <p class="site-footer-line site-footer-meta">Set in <a href="https://fonts.google.com/specimen/Instrument+Serif" rel="external">Instrument Serif</a> &amp; <a href="https://fonts.google.com/specimen/Inter+Tight" rel="external">Inter Tight</a> &middot; <a href="https://github.com/lastland/lastland.github.io" rel="external">Source</a></p>
             </div>
         </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
         <script>
-            // Dark mode toggle functionality
             (function() {
-                const themeToggle = document.getElementById('theme-toggle');
-                const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-                const themeIcon = document.getElementById('theme-icon');
-                const themeIconMobile = document.getElementById('theme-icon-mobile');
-                const html = document.documentElement;
-                
-                // Get saved theme or default to system preference
-                function getTheme() {
-                    const saved = localStorage.getItem('theme');
-                    if (saved) {
-                        return saved;
-                    }
+                var html = document.documentElement;
+                var moonId = 'moon-stars-fill';
+                var sunId  = 'sun-fill';
+                var toggles = [
+                    { btn: document.getElementById('theme-toggle'), use: null },
+                    { btn: document.getElementById('theme-toggle-mobile'), use: null }
+                ].filter(function(t) { return t.btn; });
+                toggles.forEach(function(t) { t.use = t.btn.querySelector('use'); });
+
+                function preferred() {
+                    var saved = localStorage.getItem('theme');
+                    if (saved) return saved;
                     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                 }
-                
-                // Update icon helper
-                function updateIcons(theme) {
-                    const icons = [themeIcon, themeIconMobile].filter(Boolean);
-                    const toggles = [themeToggle, themeToggleMobile].filter(Boolean);
-                    
-                    icons.forEach(icon => {
-                        if (theme === 'dark') {
-                            icon.classList.remove('bi-moon-stars-fill');
-                            icon.classList.add('bi-sun-fill');
-                        } else {
-                            icon.classList.remove('bi-sun-fill');
-                            icon.classList.add('bi-moon-stars-fill');
-                        }
-                    });
-                    
-                    toggles.forEach(toggle => {
-                        toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-                        toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-                    });
-                }
-                
-                // Apply theme
+
                 function setTheme(theme) {
                     html.setAttribute('data-theme', theme);
                     localStorage.setItem('theme', theme);
-                    updateIcons(theme);
-                }
-                
-                // Toggle theme
-                function toggleTheme() {
-                    const currentTheme = html.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    setTheme(newTheme);
-                }
-                
-                // Initialize theme
-                const currentTheme = getTheme();
-                setTheme(currentTheme);
-                
-                // Add event listeners
-                if (themeToggle) {
-                    themeToggle.addEventListener('click', toggleTheme);
-                }
-                if (themeToggleMobile) {
-                    themeToggleMobile.addEventListener('click', toggleTheme);
+                    var icon = theme === 'dark' ? sunId : moonId;
+                    toggles.forEach(function(t) {
+                        if (t.use) t.use.setAttribute('href', '/images/icons.svg#' + icon);
+                        t.btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+                        t.btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+                    });
                 }
 
-                // Keep aria-current in sync with Scrollspy/URL hash for screen reader context
-                function syncNavCurrent() {
-                    const navLinks = document.querySelectorAll('#navbarNav .nav-link');
-                    navLinks.forEach(link => {
-                        const isActive = link.classList.contains('active');
-                        if (isActive) {
-                            link.setAttribute('aria-current', 'page');
-                        } else {
-                            link.removeAttribute('aria-current');
+                setTheme(preferred());
+                toggles.forEach(function(t) {
+                    t.btn.addEventListener('click', function() {
+                        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+                    });
+                });
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
+                });
+
+                // Mobile nav toggle (replaces Bootstrap collapse)
+                var navToggler = document.getElementById('site-nav-toggler');
+                var navMenu    = document.getElementById('site-nav-menu');
+                if (navToggler && navMenu) {
+                    navToggler.addEventListener('click', function() {
+                        var open = navMenu.classList.toggle('is-open');
+                        navToggler.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    });
+                    // Close on link click (mobile)
+                    navMenu.addEventListener('click', function(e) {
+                        if (e.target.closest('a')) {
+                            navMenu.classList.remove('is-open');
+                            navToggler.setAttribute('aria-expanded', 'false');
                         }
                     });
                 }
-                document.body.addEventListener('activate.bs.scrollspy', syncNavCurrent);
-                window.addEventListener('hashchange', syncNavCurrent);
-                syncNavCurrent();
-                
-                // Listen for system theme changes
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-                    // Only auto-switch if user hasn't manually set a preference
-                    if (!localStorage.getItem('theme')) {
-                        setTheme(e.matches ? 'dark' : 'light');
+
+                // Scrollspy via IntersectionObserver (replaces Bootstrap scrollspy)
+                var navLinks = document.querySelectorAll('.site-nav-link[data-target]');
+                var sectionIds = Array.prototype.map.call(navLinks, function(a) { return a.getAttribute('data-target'); });
+                var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+                if (sections.length && 'IntersectionObserver' in window) {
+                    var visible = new Set();
+                    function update() {
+                        // Pick the topmost visible section
+                        var first = null;
+                        for (var i = 0; i < sectionIds.length; i++) {
+                            if (visible.has(sectionIds[i])) { first = sectionIds[i]; break; }
+                        }
+                        navLinks.forEach(function(link) {
+                            var match = link.getAttribute('data-target') === first;
+                            link.classList.toggle('is-active', match);
+                            if (match) link.setAttribute('aria-current', 'page');
+                            else link.removeAttribute('aria-current');
+                        });
                     }
-                });
+                    var io = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) visible.add(entry.target.id);
+                            else visible.delete(entry.target.id);
+                        });
+                        update();
+                    }, { rootMargin: '-90px 0px -65% 0px', threshold: 0 });
+                    sections.forEach(function(s) { io.observe(s); });
+                }
             })();
         </script>
     </body>
