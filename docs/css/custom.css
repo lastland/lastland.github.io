@@ -393,49 +393,24 @@ button:focus-visible,
     min-width: 0;
 }
 
-.hero-kicker {
-    font-family: var(--font-body);
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    margin-bottom: var(--space-3);
-}
-
-[data-theme="dark"] .hero-kicker {
-    color: var(--accent);
-}
-
 .hero-name {
     font-family: var(--font-display);
     font-weight: 400;
     font-style: italic;
-    font-size: clamp(2.6rem, 7vw, var(--fs-display));
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--space-3);
+    color: var(--text);
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--text-light);
     margin: 0 0 var(--space-4);
-    color: var(--text);
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.4em;
-}
-
-.hero-name-en {
-    color: var(--text);
-}
-
-.hero-name-zh {
-    font-style: normal;
-    font-size: 0.55em;
-    font-weight: 400;
-    color: var(--accent-dark);
-    letter-spacing: 0;
-}
-
-[data-theme="dark"] .hero-name-zh {
-    color: var(--accent);
 }
 
 .hero-lead {
@@ -445,6 +420,14 @@ button:focus-visible,
     color: var(--text-light);
     max-width: 56ch;
     margin: 0 0 var(--space-5);
+}
+
+.hero-lead p {
+    margin: 0 0 var(--space-3);
+}
+
+.hero-lead p:last-child {
+    margin-bottom: 0;
 }
 
 .hero-lead a {
@@ -1490,18 +1473,10 @@ a.text-link {
     border-bottom: 1px solid var(--border);
 }
 
-.pub-detail-kicker {
-    font-family: var(--font-body);
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-dark);
-    margin: 0 0 var(--space-3);
-}
-
-[data-theme="dark"] .pub-detail-kicker {
-    color: var(--accent);
+.pub-detail-label {
+    font-weight: 700;
+    color: var(--text);
+    margin-right: 0.25rem;
 }
 
 .pub-detail-title {

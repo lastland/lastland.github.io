@@ -1,14 +1,13 @@
 <article class="pub-detail">
     <header class="pub-detail-header">
-        <p class="pub-detail-kicker">$if(draft)$Draft$else$Publication$endif$</p>
-        <h1 class="pub-detail-title">$title$</h1>
-        <p class="pub-detail-authors">$authors$</p>
+        <h1 class="pub-detail-title">$title$$if(draft)$ <span class="pub-chip pub-chip--draft">Draft</span>$endif$</h1>
+        <p class="pub-detail-authors"><span class="pub-detail-label">Authors:</span> $authors$</p>
         $if(venue)$
         <div class="pub-meta">
+            <span class="pub-detail-label">Venue:</span>
             <span class="pub-chip pub-chip--venue">$venue$</span>
             $if(openaccess)$<span class="pub-chip pub-chip--oa" title="Open Access">OA</span>$endif$
             $if(award)$<span class="pub-chip pub-chip--award"><i class="bi bi-trophy-fill" aria-hidden="true"></i> $award$</span>$endif$
-            $if(draft)$<span class="pub-chip pub-chip--draft">Draft</span>$endif$
         </div>
         $endif$
         <div class="pub-actions pub-actions--detail">
