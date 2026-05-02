@@ -90,6 +90,21 @@
     --text-body: 1rem;
     --text-meta: 0.9rem;
     --text-title: 1.2rem;
+
+    /* Modular type scale (1.25 ratio) */
+    --fs-xs: 0.8rem;
+    --fs-sm: 0.9rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.2rem;
+    --fs-xl: 1.5rem;
+    --fs-2xl: 1.95rem;
+    --fs-3xl: 2.4rem;
+    --fs-display: 3.4rem;
+
+    /* Font stacks */
+    --font-display: 'Instrument Serif', 'Fraunces', 'Times New Roman', Georgia, serif;
+    --font-body: 'Inter Tight', 'Inter', 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
 }
 
 /* Dark mode color scheme — warmer charcoal, softer green, brightened terracotta */
@@ -145,9 +160,12 @@
 }
 
 body {
-    font-family: 'Source Sans 3', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-body);
     color: var(--text);
-    line-height: 1.55;
+    line-height: 1.6;
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: var(--bg-alt);
     background-image:
         radial-gradient(900px 400px at 90% -10%, rgba(var(--accent-rgb), 0.10), rgba(var(--accent-rgb), 0)),
@@ -161,14 +179,40 @@ body {
         radial-gradient(800px 360px at -10% 10%, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0));
 }
 
+/* Display surfaces use the serif; body surfaces use the grotesque */
 .section-header,
-.hero h1 {
-    font-family: 'Fraunces', 'Times New Roman', serif;
-    letter-spacing: 0.2px;
+.hero h1,
+.publication-item h3,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+    line-height: 1.05;
 }
 
-h1, h2, h3, h4, h5, .navbar-brand {
-    font-family: 'Source Sans 3', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+
+/* Restore display font on the headings that should feel editorial */
+h1.display-4, .hero h1, .section-header {
+    font-family: var(--font-display);
+    font-weight: 400;
+}
+
+.navbar-brand {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: 1.4rem;
+}
+
+/* Tabular figures for years/dates */
+.talk-year, .publication-meta-row {
+    font-feature-settings: 'tnum';
 }
 
 /* High contrast links */
@@ -461,8 +505,9 @@ section {
 }
 
 .publication-item h3 {
-    font-family: 'Source Sans 3', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    letter-spacing: 0.1px;
+    font-family: var(--font-display);
+    letter-spacing: -0.005em;
+    font-weight: 400;
 }
 
 /* Custom button styles */
@@ -1074,12 +1119,21 @@ html {
 
 /* Phase 1 + 2 normalization overrides */
 body {
-    font-size: var(--text-body);
+    font-size: var(--fs-base);
 }
 
 .section-header {
-    font-size: 1.65rem;
+    font-size: var(--fs-2xl);
     margin-bottom: 0;
+}
+
+.hero h1 {
+    font-size: var(--fs-display);
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: var(--fs-2xl); }
+    .section-header { font-size: var(--fs-xl); }
 }
 
 section {
@@ -1108,8 +1162,8 @@ section {
 }
 
 .publication-item h3 {
-    font-size: 1.05rem;
-    line-height: 1.35;
+    font-size: var(--fs-lg);
+    line-height: 1.2;
     margin-bottom: var(--space-2) !important;
 }
 
