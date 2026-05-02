@@ -110,9 +110,10 @@ main = hakyllWith config $ do
         compile $ do
             courses <- recentFirst =<< loadAll "courses/*"
             papers  <- recentFirst =<< loadAll "papers/*"
+            let paperCtx = dateField "year" "%Y" `mappend` defaultContext
             let ctx =
                     listField "courses" defaultContext (return courses)
-                    `mappend` listField "papers" defaultContext (return papers)
+                    `mappend` listField "papers" paperCtx (return papers)
                     `mappend` navLinkPrefix
                     `mappend` defaultContext
             getResourceBody
@@ -124,8 +125,9 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             papers <- recentFirst =<< loadAll "papers/*"
+            let paperCtx = dateField "year" "%Y" `mappend` defaultContext
             let pubCtx =
-                    listField "papers" defaultContext (return papers)
+                    listField "papers" paperCtx (return papers)
                     `mappend` navLinkPrefix
                     `mappend` defaultContext
             getResourceBody

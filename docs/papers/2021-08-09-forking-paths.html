@@ -67,41 +67,36 @@
 
         <main id="main-content" role="main" tabindex="-1">
             <div class="container">
-                <article class="py-4">
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body p-4">
-            <header class="mb-4 pb-3 border-bottom">
-                <h1 class="display-5 fw-bold mb-3">Reasoning about the Garden of Forking Paths</h1>
-                <div class="text-secondary mb-3">
-                    <span class="fw-bold text-dark">Authors:</span> Yao Li, Li-yao Xia, Stephanie Weirich
-                </div>
-                
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span class="fw-bold text-dark">Venue:</span> <span class="badge bg-light text-dark border">Proceedings of the ACM on Programming Languages, 5(ICFP), 2021</span>
-                </div>
-                
-                
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                    
-                    <a href="https://www.youtube.com/watch?v=YSVFUjUcWzo" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill me-1" aria-hidden="true"></i> Talk</a>
-                    
-                    
-                    <a href="https://doi.org/10.1145/3473585" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
-                        <i class="bi bi-file-earmark-text-fill me-1" aria-hidden="true"></i> Paper
-                        <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
-                    </a>
-                    
-                    
-                    <a href="https://arxiv.org/pdf/2103.07543.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i> Pre-print</a>
-                    
-                    
-                    <a href="https://doi.org/10.5281/zenodo.4771438" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square me-1" aria-hidden="true"></i> Artifact</a>
-                    
-                </div>
-            </header>
+                <article class="pub-detail">
+    <header class="pub-detail-header">
+        <p class="pub-detail-kicker">Publication</p>
+        <h1 class="pub-detail-title">Reasoning about the Garden of Forking Paths</h1>
+        <p class="pub-detail-authors">Yao Li, Li-yao Xia, Stephanie Weirich</p>
+        
+        <div class="pub-meta">
+            <span class="pub-chip pub-chip--venue">Proceedings of the ACM on Programming Languages, 5(ICFP), 2021</span>
+            <span class="pub-chip pub-chip--oa" title="Open Access">OA</span>
             
-            <section class="card-text">
-                <p>Lazy evaluation is a powerful tool for functional programmers. It enables the
+            
+        </div>
+        
+        <div class="pub-actions pub-actions--detail">
+            
+            <a href="https://www.youtube.com/watch?v=YSVFUjUcWzo" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i> <span>Talk</span></a>
+            
+            
+            <a href="https://doi.org/10.1145/3473585" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> <span>Paper</span></a>
+            
+            
+            
+            
+            <a href="https://doi.org/10.5281/zenodo.4771438" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square" aria-hidden="true"></i> <span>Artifact</span></a>
+            
+        </div>
+    </header>
+
+    <section class="pub-detail-body">
+        <p>Lazy evaluation is a powerful tool for functional programmers. It enables the
 concise expression of on-demand computation and a form of compositionality not
 available under other evaluation strategies. However, the stateful nature of
 lazy evaluation makes it hard to analyze a program’s computational cost, either
@@ -112,10 +107,9 @@ its simplicity, as expressed by our definition of the clairvoyance monad. This
 monad is both simple to define (around 20 lines of Coq) and simple to reason
 about. We show that this monad can be effectively used to mechanically reason
 about the computational cost of lazy functional programs written in Coq.</p>
-            </section>
-        </div>
-    </div>
+    </section>
 </article>
+
             </div>
         </main>
 

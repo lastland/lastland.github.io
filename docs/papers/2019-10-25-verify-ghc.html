@@ -67,30 +67,28 @@
 
         <main id="main-content" role="main" tabindex="-1">
             <div class="container">
-                <article class="py-4">
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body p-4">
-            <header class="mb-4 pb-3 border-bottom">
-                <h1 class="display-5 fw-bold mb-3">Embracing a Mechanized Formalization Gap <span class="badge bg-warning text-dark align-middle fs-6">Draft</span></h1>
-                <div class="text-secondary mb-3">
-                    <span class="fw-bold text-dark">Authors:</span> Antal Spector-Zabusky, Joachim Breitner, Yao Li, Stephanie Weirich
-                </div>
-                
-                
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                    
-                    <a href="https://youtu.be/1NA6yV3cxNY" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill me-1" aria-hidden="true"></i> Talk</a>
-                    
-                    
-                    
-                    <a href="https://arxiv.org/pdf/1910.11724.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i> Pre-print</a>
-                    
-                    
-                </div>
-            </header>
+                <article class="pub-detail">
+    <header class="pub-detail-header">
+        <p class="pub-detail-kicker">Draft</p>
+        <h1 class="pub-detail-title">Embracing a Mechanized Formalization Gap</h1>
+        <p class="pub-detail-authors">Antal Spector-Zabusky, Joachim Breitner, Yao Li, Stephanie Weirich</p>
+        
+        <div class="pub-actions pub-actions--detail">
             
-            <section class="card-text">
-                <p>If a code base is so big and complicated that complete mechanical verification
+            <a href="https://youtu.be/1NA6yV3cxNY" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i> <span>Talk</span></a>
+            
+            
+            
+            
+            <a href="https://arxiv.org/pdf/1910.11724.pdf" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> <span>Pre-print</span></a>
+            
+            
+            
+        </div>
+    </header>
+
+    <section class="pub-detail-body">
+        <p>If a code base is so big and complicated that complete mechanical verification
 is intractable, can we still apply and benefit from verification methods? We
 show that by allowing a deliberate mechanized formalization gap we can shrink
 and simplify the model until it is manageable, while still retaining a
@@ -98,10 +96,9 @@ meaningful, declaratively documented connection to the original, unmodified
 source code. Concretely, we translate core parts of the Haskell compiler GHC
 into Coq, using hs-to-coq, and verify invariants related to the use of term
 variables.</p>
-            </section>
-        </div>
-    </div>
+    </section>
 </article>
+
             </div>
         </main>
 

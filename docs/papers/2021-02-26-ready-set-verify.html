@@ -67,39 +67,36 @@
 
         <main id="main-content" role="main" tabindex="-1">
             <div class="container">
-                <article class="py-4">
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body p-4">
-            <header class="mb-4 pb-3 border-bottom">
-                <h1 class="display-5 fw-bold mb-3">Ready, Set, Verify! Applying hs-to-coq to real-world Haskell code</h1>
-                <div class="text-secondary mb-3">
-                    <span class="fw-bold text-dark">Authors:</span> Joachim Breitner, Antal Spector-Zabusky, Yao Li, Christine Rizkallah, John Wiegley, Joshua Cohen, Stephanie Weirich
-                </div>
-                
-                <div class="mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span class="fw-bold text-dark">Venue:</span> <span class="badge bg-light text-dark border">Journal of Functional Programming, 31(e5), 2021</span>
-                </div>
-                
-                
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                    
-                    <a href="https://www.youtube.com/watch?v=9QL97E0cNk0" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill me-1" aria-hidden="true"></i> Talk</a>
-                    
-                    
-                    <a href="https://doi.org/10.1017/S0956796820000283" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
-                        <i class="bi bi-file-earmark-text-fill me-1" aria-hidden="true"></i> Paper
-                        <span class="badge bg-success ms-1" aria-label="Open Access">OA</span>
-                    </a>
-                    
-                    
-                    
-                    <a href="https://doi.org/10.1145/3235036" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square me-1" aria-hidden="true"></i> Artifact</a>
-                    
-                </div>
-            </header>
+                <article class="pub-detail">
+    <header class="pub-detail-header">
+        <p class="pub-detail-kicker">Publication</p>
+        <h1 class="pub-detail-title">Ready, Set, Verify! Applying hs-to-coq to real-world Haskell code</h1>
+        <p class="pub-detail-authors">Joachim Breitner, Antal Spector-Zabusky, Yao Li, Christine Rizkallah, John Wiegley, Joshua Cohen, Stephanie Weirich</p>
+        
+        <div class="pub-meta">
+            <span class="pub-chip pub-chip--venue">Journal of Functional Programming, 31(e5), 2021</span>
+            <span class="pub-chip pub-chip--oa" title="Open Access">OA</span>
             
-            <section class="card-text">
-                <p>Good tools can bring mechanical verification to programs written in mainstream
+            
+        </div>
+        
+        <div class="pub-actions pub-actions--detail">
+            
+            <a href="https://www.youtube.com/watch?v=9QL97E0cNk0" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i> <span>Talk</span></a>
+            
+            
+            <a href="https://doi.org/10.1017/S0956796820000283" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i> <span>Paper</span></a>
+            
+            
+            
+            
+            <a href="https://doi.org/10.1145/3235036" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square" aria-hidden="true"></i> <span>Artifact</span></a>
+            
+        </div>
+    </header>
+
+    <section class="pub-detail-body">
+        <p>Good tools can bring mechanical verification to programs written in mainstream
 functional languages. We use hs-to-coq to translate significant portions of
 Haskell’s containers library into Coq, and verify it against specifications that
 we derive from a variety of sources including type class laws, the library’s
@@ -108,10 +105,9 @@ is feasible to verify mature, widely used, highly optimized, and unmodified
 Haskell code. We also learn more about the theory of weight-balanced trees,
 extend hs-to-coq to handle partiality, and – since we found no bugs – attest to
 the superb quality of well-tested functional code.</p>
-            </section>
-        </div>
-    </div>
+    </section>
 </article>
+
             </div>
         </main>
 

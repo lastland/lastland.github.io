@@ -8,84 +8,77 @@ title: Publications
         <div class="flex-grow-1 border-bottom"></div>
     </div>
 
-    <div class="card border-0 shadow-sm mb-5">
-        <div class="card-body p-0">
-            <ul class="list-group list-group-flush">
-                $for(papers)$
-                $if(venue)$
-                <li class="list-group-item p-4 publication-item hover-bg-light">
-                    <h3 class="h5 fw-bold mb-2">$title$</h3>
-                    <div class="mb-2 text-secondary">by $authors$</div>
-                    <div class="mb-2 d-flex flex-wrap gap-2">
-                        <span class="badge bg-light text-dark border">$venue$</span>
-                        $if(award)$<span class="badge bg-accent text-dark"><i class="bi bi-trophy-fill me-1" aria-hidden="true"></i> $award$</span>$endif$
-                    </div>
-                    <div class="d-flex flex-wrap gap-2 mt-3">
-                        $if(talk)$
-                        <a href="$talk$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill me-1" aria-hidden="true"></i> Talk</a>
-                        $endif$
-                        $if(link)$
-                        <a href="$link$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
-                            <i class="bi bi-file-earmark-text-fill me-1" aria-hidden="true"></i> Paper
-                            $if(openaccess)$<span class="badge bg-success ms-1" aria-label="Open Access">OA</span>$endif$
-                        </a>
-                        $endif$
-                        $if(openaccess)$
-                        $else$
-                        $if(preprint)$
-                        <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i> Pre-print</a>
-                        $endif$
-                        $endif$
-                        <a href="$url$" class="btn btn-sm btn-outline-info" aria-label="View abstract"><i class="bi bi-info-circle-fill me-1" aria-hidden="true"></i> Abstract</a>
-                        $if(artifact)$
-                        <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square me-1" aria-hidden="true"></i> Artifact</a>
-                        $endif$
-                    </div>
-                </li>
-                $endif$
-                $endfor$
-            </ul>
-        </div>
-    </div>
+    <ol class="pub-archive">
+        $for(papers)$
+        $if(venue)$
+        <li class="pub-archive-row" data-year="$year$">
+            <aside class="pub-archive-year" aria-hidden="true">$year$</aside>
+            <article class="pub-card">
+                <h3 class="pub-title"><a href="$url$" class="pub-title-link">$title$</a></h3>
+                <p class="pub-authors">$authors$</p>
+                <div class="pub-meta">
+                    <span class="pub-chip pub-chip--venue">$venue$</span>
+                    $if(openaccess)$<span class="pub-chip pub-chip--oa" title="Open Access">OA</span>$endif$
+                    $if(award)$<span class="pub-chip pub-chip--award"><i class="bi bi-trophy-fill" aria-hidden="true"></i> $award$</span>$endif$
+                </div>
+                <div class="pub-actions">
+                    $if(link)$
+                    <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Paper" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i></a>
+                    $endif$
+                    $if(openaccess)$
+                    $else$
+                    $if(preprint)$
+                    <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Pre-print" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></a>
+                    $endif$
+                    $endif$
+                    $if(talk)$
+                    <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Talk video" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i></a>
+                    $endif$
+                    $if(artifact)$
+                    <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Artifact" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square" aria-hidden="true"></i></a>
+                    $endif$
+                    <a href="$url$" class="pub-btn" title="Abstract" aria-label="View abstract"><i class="bi bi-info-circle-fill" aria-hidden="true"></i></a>
+                </div>
+            </article>
+        </li>
+        $endif$
+        $endfor$
+    </ol>
 
-    <div class="d-flex align-items-center mb-4">
+    <div class="d-flex align-items-center mb-4 mt-5">
         <h2 class="section-header mb-0 me-3">Drafts</h2>
         <div class="flex-grow-1 border-bottom"></div>
     </div>
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body p-0">
-            <ul class="list-group list-group-flush">
-                $for(papers)$
-                $if(draft)$
-                <li class="list-group-item p-4 publication-item hover-bg-light">
-                    <h3 class="h5 fw-bold mb-2">$title$</h3>
-                    <div class="mb-2 text-secondary">by $authors$</div>
-                    <div class="d-flex flex-wrap gap-2 mt-3">
-                        $if(talk)$
-                        <a href="$talk$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill me-1" aria-hidden="true"></i> Talk</a>
-                        $endif$
-                        $if(link)$
-                        <a href="$link$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary" aria-label="View paper (opens in new tab)">
-                            <i class="bi bi-file-earmark-text-fill me-1" aria-hidden="true"></i> Paper
-                            $if(openaccess)$<span class="badge bg-success ms-1" aria-label="Open Access">OA</span>$endif$
-                        </a>
-                        $endif$
-                        $if(openaccess)$
-                        $else$
-                        $if(preprint)$
-                        <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i> Pre-print</a>
-                        $endif$
-                        $endif$
-                        <a href="$url$" class="btn btn-sm btn-outline-info" aria-label="View abstract"><i class="bi bi-info-circle-fill me-1" aria-hidden="true"></i> Abstract</a>
-                        $if(artifact)$
-                        <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square me-1" aria-hidden="true"></i> Artifact</a>
-                        $endif$
-                    </div>
-                </li>
-                $endif$
-                $endfor$
-            </ul>
-        </div>
-    </div>
+    <ol class="pub-archive">
+        $for(papers)$
+        $if(draft)$
+        <li class="pub-archive-row" data-year="$year$">
+            <aside class="pub-archive-year" aria-hidden="true">$year$</aside>
+            <article class="pub-card">
+                <h3 class="pub-title"><a href="$url$" class="pub-title-link">$title$</a></h3>
+                <p class="pub-authors">$authors$</p>
+                <div class="pub-meta">
+                    <span class="pub-chip pub-chip--draft">Draft</span>
+                </div>
+                <div class="pub-actions">
+                    $if(link)$
+                    <a href="$link$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Paper" aria-label="View paper (opens in new tab)"><i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i></a>
+                    $endif$
+                    $if(preprint)$
+                    <a href="$preprint$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Pre-print" aria-label="View preprint (opens in new tab)"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></a>
+                    $endif$
+                    $if(talk)$
+                    <a href="$talk$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Talk video" aria-label="View talk video (opens in new tab)"><i class="bi bi-camera-video-fill" aria-hidden="true"></i></a>
+                    $endif$
+                    $if(artifact)$
+                    <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn" title="Artifact" aria-label="View artifact (opens in new tab)"><i class="bi bi-code-square" aria-hidden="true"></i></a>
+                    $endif$
+                    <a href="$url$" class="pub-btn" title="Abstract" aria-label="View abstract"><i class="bi bi-info-circle-fill" aria-hidden="true"></i></a>
+                </div>
+            </article>
+        </li>
+        $endif$
+        $endfor$
+    </ol>
 </section>
