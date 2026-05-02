@@ -74,6 +74,7 @@
     --bg: #ffffff;
     --bg-alt: #f7f5f1;         /* Warmer than #f8fafc — pairs with terracotta */
     --surface: #fdfcfa;        /* Elevated surface (cards) */
+    --surface-rgb: 253, 252, 250;
     --border: #d8d3ca;         /* Warmer neutral border */
     --shadow: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06);
     --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.06), 0 2px 4px -2px rgb(15 23 42 / 0.06);
@@ -124,6 +125,7 @@
     --bg: #1c1f26;             /* Warmer than #1e293b — less blue */
     --bg-alt: #14171c;
     --surface: #232730;
+    --surface-rgb: 35, 39, 48;
     --border: #3a404c;
     --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
@@ -150,6 +152,7 @@
         --bg: #1c1f26;
         --bg-alt: #14171c;
         --surface: #232730;
+        --surface-rgb: 35, 39, 48;
         --border: #3a404c;
         --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
         --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
@@ -248,11 +251,19 @@ button:focus-visible,
 
 /* Navigation */
 .navbar {
-    background: var(--bg);
-    border-bottom: 3px solid var(--accent);
-    box-shadow: var(--shadow);
-    padding: 0.35rem 0;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background: rgba(var(--surface-rgb), 0.78);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 0 0 rgba(var(--accent-rgb), 0.25);
+    padding: 0.4rem 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+    .navbar {
+        background: var(--surface);
+    }
 }
 
 .navbar-brand {
@@ -779,17 +790,55 @@ section {
     }
 }
 
+/* ============================================================
+   Hobbies — inline coda, no card chrome
+   ============================================================ */
+
+.hobbies-section {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-5) !important;
+    padding-top: var(--space-5) !important;
+    border-top: 1px solid var(--border);
+}
+
+.hobbies-title {
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 var(--space-3);
+}
+
+.hobbies-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
 .hobby-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.25rem 0.55rem;
+    gap: 0.4rem;
+    padding: 0.3rem 0.7rem;
     border-radius: 999px;
     background: var(--bg);
     border: 1px solid var(--border);
-    font-weight: 600;
-    margin: 0.2rem 0.25rem;
-    box-shadow: var(--shadow);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--text);
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.hobby-chip i {
+    color: var(--accent);
+    font-size: 0.95em;
+}
+
+.hobby-chip:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
 }
 
 /* Legacy .publication-item — kept as no-op to avoid conflict with .pub-card */
@@ -859,26 +908,46 @@ section {
 }
 
 /* Footer */
-footer {
+.site-footer {
     border-top: 1px solid var(--border);
     margin-top: 4rem;
-    padding: 2rem 0;
-    background: var(--bg);
+    padding: 2.25rem 0;
+    background: var(--surface);
     color: var(--text);
 }
 
-footer a {
-    color: var(--primary);
-    font-weight: 500;
+.site-footer-inner {
+    text-align: center;
 }
 
-footer a {
-    color: var(--primary);
+.site-footer-line {
+    margin: 0;
+    font-size: var(--fs-sm);
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.site-footer-meta {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+}
+
+.site-footer a {
+    color: var(--text-light);
     text-decoration: none;
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.4);
+    padding-bottom: 1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-footer a:hover {
-    text-decoration: underline;
+.site-footer a:hover {
+    color: var(--accent-dark);
+    border-bottom-color: var(--accent);
+}
+
+[data-theme="dark"] .site-footer a:hover {
+    color: var(--accent);
 }
 
 /* Dark mode toggle button */
