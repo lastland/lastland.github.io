@@ -57,21 +57,29 @@
 }
 
 :root {
-    /* Portland State University Brand Colors */
-    --primary: #154734; /* PSU Green */
+    /* PSU Green anchor + warmer accent palette */
+    --primary: #154734;        /* PSU Green */
     --primary-light: #2d6b4f;
     --primary-dark: #0f3326;
+    --primary-rgb: 21, 71, 52;
     --secondary: #64748b;
-    --accent: #D1A10D; /* PSU Gold */
-    --accent-dark: #b0880a;
+    --accent: #E97A3A;         /* Warm terracotta — replaces PSU gold */
+    --accent-dark: #c25f23;
+    --accent-rgb: 233, 122, 58;
+    --accent-cool: #5C8AA8;    /* Slate-blue, for category chips / venues */
+    --accent-cool-dark: #426a86;
     --text: #0f172a;
-    --text-light: #334155;
+    --text-light: #475569;
+    --text-muted: #64748b;
     --bg: #ffffff;
-    --bg-alt: #f8fafc;
-    --border: #cbd5e1;
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --bg-alt: #f7f5f1;         /* Warmer than #f8fafc — pairs with terracotta */
+    --surface: #fdfcfa;        /* Elevated surface (cards) */
+    --border: #d8d3ca;         /* Warmer neutral border */
+    --shadow: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06);
+    --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.06), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.06);
+    --shadow-soft: 0 8px 24px -8px rgb(15 23 42 / 0.12);
+    --shadow-elevated: 0 2px 8px -2px rgb(15 23 42 / 0.06), 0 16px 32px -12px rgb(15 23 42 / 0.14);
     --transition: all 0.2s ease;
     --space-1: 0.25rem;
     --space-2: 0.5rem;
@@ -84,35 +92,55 @@
     --text-title: 1.2rem;
 }
 
-/* Dark mode color scheme */
+/* Dark mode color scheme — warmer charcoal, softer green, brightened terracotta */
 [data-theme="dark"] {
-    --primary: #4ade80; /* Lighter green for dark mode */
-    --primary-light: #6ee7b7;
-    --primary-dark: #22c55e;
-    --text: #ffffff;
-    --text-light: #e2e8f0;
-    --bg: #1e293b;
-    --bg-alt: #0f172a;
-    --border: #475569;
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --primary: #86efac;        /* Softened from #4ade80 — less neon */
+    --primary-light: #bbf7d0;
+    --primary-dark: #4ade80;
+    --primary-rgb: 134, 239, 172;
+    --accent: #F39361;         /* Brighter terracotta for dark backgrounds */
+    --accent-dark: #E97A3A;
+    --accent-rgb: 243, 147, 97;
+    --accent-cool: #7BA8C7;
+    --accent-cool-dark: #5C8AA8;
+    --text: #f1f5f9;
+    --text-light: #cbd5e1;
+    --text-muted: #94a3b8;
+    --bg: #1c1f26;             /* Warmer than #1e293b — less blue */
+    --bg-alt: #14171c;
+    --surface: #232730;
+    --border: #3a404c;
+    --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-soft: 0 8px 24px -8px rgb(0 0 0 / 0.5);
+    --shadow-elevated: 0 2px 8px -2px rgb(0 0 0 / 0.4), 0 16px 32px -12px rgb(0 0 0 / 0.55);
 }
 
 /* Respect system preference */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-        --primary: #4ade80;
-        --primary-light: #6ee7b7;
-        --primary-dark: #22c55e;
-        --text: #ffffff;
-        --text-light: #e2e8f0;
-        --bg: #1e293b;
-        --bg-alt: #0f172a;
-        --border: #475569;
-        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
-        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+        --primary: #86efac;
+        --primary-light: #bbf7d0;
+        --primary-dark: #4ade80;
+        --primary-rgb: 134, 239, 172;
+        --accent: #F39361;
+        --accent-dark: #E97A3A;
+        --accent-rgb: 243, 147, 97;
+        --accent-cool: #7BA8C7;
+        --accent-cool-dark: #5C8AA8;
+        --text: #f1f5f9;
+        --text-light: #cbd5e1;
+        --text-muted: #94a3b8;
+        --bg: #1c1f26;
+        --bg-alt: #14171c;
+        --surface: #232730;
+        --border: #3a404c;
+        --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+        --shadow-soft: 0 8px 24px -8px rgb(0 0 0 / 0.5);
+        --shadow-elevated: 0 2px 8px -2px rgb(0 0 0 / 0.4), 0 16px 32px -12px rgb(0 0 0 / 0.55);
     }
 }
 
@@ -122,15 +150,15 @@ body {
     line-height: 1.55;
     background-color: var(--bg-alt);
     background-image:
-        radial-gradient(900px 400px at 90% -10%, rgba(209, 161, 13, 0.08), rgba(209, 161, 13, 0)),
-        radial-gradient(800px 360px at -10% 10%, rgba(21, 71, 52, 0.08), rgba(21, 71, 52, 0));
+        radial-gradient(900px 400px at 90% -10%, rgba(var(--accent-rgb), 0.10), rgba(var(--accent-rgb), 0)),
+        radial-gradient(800px 360px at -10% 10%, rgba(var(--primary-rgb), 0.07), rgba(var(--primary-rgb), 0));
     padding-top: 44px; /* Offset for fixed navbar */
 }
 
 [data-theme="dark"] body {
     background-image:
-        radial-gradient(900px 400px at 90% -10%, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0)),
-        radial-gradient(800px 360px at -10% 10%, rgba(30, 41, 59, 0.6), rgba(30, 41, 59, 0));
+        radial-gradient(900px 400px at 90% -10%, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-rgb), 0)),
+        radial-gradient(800px 360px at -10% 10%, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0));
 }
 
 .section-header,
