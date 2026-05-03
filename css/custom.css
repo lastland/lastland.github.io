@@ -1522,8 +1522,10 @@ body, .card, .navbar, .btn, .nav-link, .theme-toggle, footer {
 .hero-lead     { animation-delay: 0.28s; }
 .hero-actions  { animation-delay: 0.38s; }
 
-/* Scroll reveal — non-hero sections fade up when they enter the viewport */
-main section:not(#home) {
+/* Scroll reveal — gated on .js-fx class added by JS only to below-the-fold
+   sections. If JS never runs (or IO fails), every section stays visible
+   because the .js-fx class is the only thing that hides them. */
+main section.js-fx {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.55s cubic-bezier(.2,.7,.2,1),
@@ -1531,20 +1533,21 @@ main section:not(#home) {
     will-change: opacity, transform;
 }
 
-main section.is-visible {
+main section.js-fx.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Section-header underline draws in from the left when its section reveals */
-main section .border-bottom {
+/* Section-header underline draws in from the left when its section reveals.
+   Same gating: only animate when JS adds .js-fx; otherwise show the line
+   immediately at full width. */
+main section.js-fx .border-bottom {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.7s cubic-bezier(.2,.8,.2,1) 0.18s;
 }
 
-main section.is-visible .border-bottom,
-main section#home .border-bottom {
+main section.js-fx.is-visible .border-bottom {
     transform: scaleX(1);
 }
 
@@ -1569,8 +1572,8 @@ main section#home .border-bottom {
 
     /* Make sure motion-gated content is still visible when motion is off */
     .hero-name, .hero-subtitle, .hero-lead, .hero-actions, .hero-portrait,
-    main section:not(#home),
-    main section .border-bottom {
+    main section.js-fx,
+    main section.js-fx .border-bottom {
         opacity: 1 !important;
         transform: none !important;
     }
