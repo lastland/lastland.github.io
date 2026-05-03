@@ -2,7 +2,6 @@
 title: "SymCode: A Neurosymbolic Approach to Mathematical Reasoning via Verifiable Code Generation"
 authors: Sina Bagheri Nezhad, Yao Li, Ameeta Agrawal
 preprint: "https://arxiv.org/pdf/2510.25975"
-featured: true
 venue: "Findings of the Association for Computational Linguistics: EACL 2026" 
 ---
 
