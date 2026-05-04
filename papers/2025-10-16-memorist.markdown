@@ -3,8 +3,8 @@ title: "The Memorist Tale: Every Thunk Every Cost All At Once"
 authors: Xing Li, Yao Li, Peter Schachte, Christine Rizkallah
 featured: true
 venue: 35th European Symposium on Programming, ESOP 2026
-preprint: /pdfs/memorist.pdf
-artifact: https://doi.org/10.5281/zenodo.18168559
+artifact: "https://doi.org/10.5281/zenodo.18168559"
+link: "https://doi.org/10.1007/978-3-032-22720-1_17"
 ---
 
 Lazy evaluation offers great flexibility by computing only what is necessary.

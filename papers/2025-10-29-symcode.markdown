@@ -3,6 +3,7 @@ title: "SymCode: A Neurosymbolic Approach to Mathematical Reasoning via Verifiab
 authors: Sina Bagheri Nezhad, Yao Li, Ameeta Agrawal
 preprint: "https://arxiv.org/pdf/2510.25975"
 venue: "Findings of the Association for Computational Linguistics: EACL 2026" 
+link: "https://aclanthology.org/2026.findings-eacl.76.pdf"
 ---
 
 Large Language Models (LLMs) often struggle with complex mathematical reasoning,
