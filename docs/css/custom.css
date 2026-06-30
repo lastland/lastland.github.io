@@ -2036,56 +2036,6 @@ a.text-link {
     font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Publication detail page (post.html) ---------- */
-
-.pub-detail {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: var(--space-6) 0;
-}
-
-.pub-detail-header {
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-5);
-    border-bottom: 1px solid var(--border);
-}
-
-.pub-detail-label {
-    font-weight: 700;
-    color: var(--text);
-    margin-right: 0.25rem;
-}
-
-.pub-detail-title {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: var(--text);
-    margin: 0 0 var(--space-4);
-}
-
-.pub-detail-authors {
-    font-size: var(--fs-base);
-    color: var(--text-light);
-    margin: 0 0 var(--space-4);
-}
-
-.pub-actions--detail {
-    margin-top: var(--space-4);
-}
-
-.pub-detail-body {
-    color: var(--text);
-    font-size: var(--fs-base);
-    line-height: 1.7;
-}
-
-.pub-detail-body p {
-    margin: 0 0 var(--space-4);
-}
-
 /* ============================================================
    Talks: vertical timeline with year-rail
    ============================================================ */
