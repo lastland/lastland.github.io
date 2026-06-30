@@ -14,7 +14,7 @@ title: Publications
         <li class="pub-archive-row" data-year="$year$">
             <aside class="pub-archive-year" aria-hidden="true">$year$</aside>
             <article class="pub-card">
-                <h3 class="pub-title"><a href="$url$" class="pub-title-link">$title$</a></h3>
+                <h3 class="pub-title">$if(primaryurl)$<a href="$primaryurl$" class="pub-title-link" target="_blank" rel="noopener noreferrer">$title$</a>$else$$title$$endif$</h3>
                 <p class="pub-authors">$authors$</p>
                 <div class="pub-meta">
                     <span class="pub-chip pub-chip--venue">$venue$</span>
@@ -37,7 +37,6 @@ title: Publications
                     $if(artifact)$
                     <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#code-square"/></svg> <span>Artifact</span></a>
                     $endif$
-                    <a href="$url$" class="pub-btn pub-btn--labeled" aria-label="View abstract"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#info-circle-fill"/></svg> <span>Abstract</span></a>
                 </div>
             </article>
         </li>
@@ -56,7 +55,7 @@ title: Publications
         <li class="pub-archive-row" data-year="$year$">
             <aside class="pub-archive-year" aria-hidden="true">$year$</aside>
             <article class="pub-card">
-                <h3 class="pub-title"><a href="$url$" class="pub-title-link">$title$</a></h3>
+                <h3 class="pub-title">$if(primaryurl)$<a href="$primaryurl$" class="pub-title-link" target="_blank" rel="noopener noreferrer">$title$</a>$else$$title$$endif$</h3>
                 <p class="pub-authors">$authors$</p>
                 <div class="pub-meta">
                     <span class="pub-chip pub-chip--draft">Draft</span>
@@ -74,7 +73,6 @@ title: Publications
                     $if(artifact)$
                     <a href="$artifact$" target="_blank" rel="noopener noreferrer" class="pub-btn pub-btn--labeled" aria-label="View artifact (opens in new tab)"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#code-square"/></svg> <span>Artifact</span></a>
                     $endif$
-                    <a href="$url$" class="pub-btn pub-btn--labeled" aria-label="View abstract"><svg class="icon" aria-hidden="true"><use href="/images/icons.svg#info-circle-fill"/></svg> <span>Abstract</span></a>
                 </div>
             </article>
         </li>
