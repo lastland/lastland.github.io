@@ -9,31 +9,36 @@ jobs:
   hlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: haskell-actions/hlint-setup@v2
         with:
           version: '3.5'   # match the local hlint so CI and dev agree on hints
       - uses: haskell-actions/hlint-run@v2
         with:
           path: '["site.hs", "src/", "test/"]'
-          fail-on: status   # the bar is "No hints" (see CLAUDE.md)
+          fail-on: status   # fail on any hint — the bar is "No hints" (see CLAUDE.md)
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: haskell-actions/setup@v2
         with:
           enable-stack: true
           stack-version: 'latest'
-      # stack installs the resolver's GHC into ~/.stack; cache it together
-      # with the compiled dependencies (pandoc is heavy — the first uncached
-      # run is slow, later runs restore from here).
-      - uses: actions/cache@v4
+          stack-no-global: true   # stack installs the resolver's GHC itself
+      # Two caches per the upstream actions/cache Haskell-Stack recipe:
+      # ~/.stack holds the stack-installed GHC + compiled deps (multi-GB,
+      # changes only with the resolver/deps), .stack-work churns with source.
+      # The first uncached run is slow (GHC + pandoc); later runs restore.
+      - uses: actions/cache@v6
         with:
-          path: |
-            ~/.stack
-            .stack-work
-          key: ${{ runner.os }}-stack-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal') }}
-          restore-keys: ${{ runner.os }}-stack-
+          path: ~/.stack
+          key: ${{ runner.os }}-stack-global-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal') }}
+          restore-keys: ${{ runner.os }}-stack-global-
+      - uses: actions/cache@v6
+        with:
+          path: .stack-work
+          key: ${{ runner.os }}-stack-work-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal', '**/*.hs') }}
+          restore-keys: ${{ runner.os }}-stack-work-
       - run: stack test
