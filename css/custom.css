@@ -248,7 +248,7 @@ main { display: block; }
 .h4 { font-size: var(--fs-xl); font-weight: 600; margin: 0; }
 .h5 { font-size: var(--fs-lg); font-weight: 600; margin: 0; }
 
-/* Buttons (kept for any residual .btn usage; pub-btn is preferred) */
+/* Buttons (kept for any residual .btn usage) */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -1079,7 +1079,7 @@ section {
     transform: translateY(-1px);
 }
 
-/* Legacy .publication-item — kept as no-op to avoid conflict with .pub-card */
+/* Legacy .publication-item — kept as no-op to avoid styling conflicts */
 .publication-item { background: transparent; }
 
 /* Custom button styles */
@@ -1649,21 +1649,34 @@ section {
 }
 
 /* ============================================================
-   Publications: pub-card, pub-grid, pub-archive (year rail)
+   Publications: flat academic list
    ============================================================ */
 
-.pub-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    gap: var(--space-4);
+.pub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.pub-grid-footer {
+.pub-entry {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.pub-entry:first-child {
+    padding-top: var(--space-1);
+}
+
+.pub-entry:last-child {
+    border-bottom: 0;
+}
+
+.pub-list-footer {
     margin: var(--space-5) 0 0;
     text-align: right;
 }
 
-.pub-grid-footer .text-link,
+.pub-list-footer .text-link,
 a.text-link {
     color: var(--accent-dark);
     font-weight: 500;
@@ -1673,34 +1686,9 @@ a.text-link {
     transition: color 0.15s ease, gap 0.15s ease;
 }
 
-.pub-grid-footer .text-link i {
-    transition: transform 0.2s ease;
-    display: inline-block;
-}
-
-.pub-grid-footer .text-link:hover i {
-    transform: translateX(3px);
-}
-
-[data-theme="dark"] .pub-grid-footer .text-link,
+[data-theme="dark"] .pub-list-footer .text-link,
 [data-theme="dark"] a.text-link {
     color: var(--accent);
-}
-
-.pub-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: var(--space-5);
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
-}
-
-.pub-card:hover {
-    border-color: var(--accent);
-    box-shadow: var(--shadow-soft);
 }
 
 .pub-title {
@@ -1742,167 +1730,104 @@ a.text-link {
     margin: 0 0 var(--space-3);
 }
 
-.pub-meta {
+.pub-entry .pub-title,
+.pub-entry .pub-authors {
+    margin-bottom: var(--space-1);
+}
+
+.pub-entry-meta,
+.pub-entry-links {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-}
-
-.pub-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3em;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    font-size: var(--fs-xs);
-    font-weight: 500;
-    line-height: 1.4;
-    border: 1px solid transparent;
-    white-space: nowrap;
-}
-
-.pub-chip--venue {
-    background: rgba(var(--primary-rgb), 0.10);
-    color: var(--primary);
-    border-color: rgba(var(--primary-rgb), 0.18);
-    white-space: normal;
-}
-
-[data-theme="dark"] .pub-chip--venue {
-    background: rgba(var(--primary-rgb), 0.14);
-    color: var(--primary);
-}
-
-.pub-chip--year {
-    background: var(--bg-alt);
-    color: var(--text-light);
-    border-color: var(--border);
-    font-feature-settings: 'tnum';
-    font-variant-numeric: tabular-nums;
-}
-
-.pub-chip--oa {
-    background: #ecfdf5;
-    color: #047857;
-    border-color: #a7f3d0;
-    font-weight: 600;
-}
-
-[data-theme="dark"] .pub-chip--oa {
-    background: rgba(5, 150, 105, 0.18);
-    color: #6ee7b7;
-    border-color: rgba(5, 150, 105, 0.4);
-}
-
-.pub-chip--award {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-    font-weight: 600;
-}
-
-[data-theme="dark"] .pub-chip--award {
-    color: #1c1f26;
-}
-
-.pub-chip--draft {
-    background: var(--bg-alt);
-    color: var(--text-muted);
-    border-color: var(--border);
-    font-style: italic;
-}
-
-.pub-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: auto;
-}
-
-.pub-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-light);
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-}
-
-.pub-btn:hover,
-.pub-btn:focus-visible {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-    text-decoration: none;
-    transform: translateY(-1px);
-}
-
-[data-theme="dark"] .pub-btn:hover,
-[data-theme="dark"] .pub-btn:focus-visible {
-    color: #1c1f26;
-}
-
-.pub-btn--labeled {
-    width: auto;
-    padding: 0 var(--space-4);
-    gap: 0.45rem;
     font-size: var(--fs-sm);
-    font-weight: 500;
-}
-
-/* ---------- Publication archive (year-rail layout) ---------- */
-
-.pub-archive {
-    list-style: none;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
 }
 
-.pub-archive-row {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: var(--space-5);
-    align-items: start;
+.pub-entry-meta {
+    color: var(--text-muted);
+    margin-bottom: var(--space-1);
 }
 
-.pub-archive-year {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.85rem;
-    line-height: 1;
-    color: var(--accent-dark);
-    text-align: right;
-    padding-top: 0.85rem;
+/* Decorative dot separators: empty pseudo-content, invisible to assistive
+   technology, rendered only between present siblings (fields are optional). */
+.pub-entry-meta > * + *::before,
+.pub-entry-links > * + *::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    margin: 0 var(--space-2);
+}
+
+.pub-venue {
+    color: var(--text-light);
+    font-weight: 500;
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.03em;
+}
+
+.pub-year {
     font-feature-settings: 'tnum';
     font-variant-numeric: tabular-nums;
 }
 
-[data-theme="dark"] .pub-archive-year {
+.pub-flag--draft {
+    font-style: italic;
+}
+
+.pub-award {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.pub-award .icon {
+    color: var(--accent-dark);
+}
+
+[data-theme="dark"] .pub-award .icon {
     color: var(--accent);
 }
 
-@media (max-width: 720px) {
-    .pub-archive-row {
-        grid-template-columns: 1fr;
-        gap: var(--space-2);
-    }
+.pub-res {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: var(--text-light);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
 
-    .pub-archive-year {
-        text-align: left;
-        padding-top: 0;
-        font-size: 1.4rem;
-    }
+.pub-res > span {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.25s ease;
+}
+
+.pub-res:hover,
+.pub-res:focus-visible {
+    color: var(--accent-dark);
+    text-decoration: none;
+}
+
+.pub-res:hover > span,
+.pub-res:focus-visible > span {
+    background-size: 100% 1px;
+}
+
+[data-theme="dark"] .pub-res:hover,
+[data-theme="dark"] .pub-res:focus-visible {
+    color: var(--accent);
 }
 
 /* ---------- Course detail page (course.html) ---------- */

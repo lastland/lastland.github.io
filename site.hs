@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
-import           Data.List   (intercalate, sortBy)
+import           Data.List   (intercalate, sortBy, isInfixOf)
 import           Data.Char   (toLower, isDigit, isUpper, isAlphaNum, isSpace)
 import           Data.Ord    (Down(..), comparing)
 import           Control.Applicative ((<|>))
@@ -122,6 +122,16 @@ deriveVenue e = case f "venue" of
       Nothing -> fmap (extractAcronym . decodeLaTeX) (f "booktitle")
   where f k = trim <$> lookup k (BibEntry.fields e)
 
+-- Year for the meta line, present only when the venue doesn't already contain
+-- it (conference acronyms embed the year; journals and some venue overrides
+-- don't; drafts have no venue at all).
+metaYear :: BibEntry.T -> Maybe String
+metaYear e
+  | null y                                             = Nothing
+  | maybe True (not . (y `isInfixOf`)) (deriveVenue e) = Just y
+  | otherwise                                          = Nothing
+  where y = maybe "" trim (lookup "year" (BibEntry.fields e))
+
 -- Title link target: link else preprint else absent. Stored raw (never decoded).
 primaryUrl :: BibEntry.T -> Maybe String
 primaryUrl e = (trim <$> lookup "link" (BibEntry.fields e))
@@ -139,6 +149,7 @@ toPaper e = concat
     , [("authors", formatAuthors (get "author"))]
     , [("year",    trim (get "year"))]
     , kv     "venue"      (deriveVenue e)
+    , kv     "metayear"   (metaYear e)
     , kv     "link"       (f "link")
     , kv     "preprint"   (f "preprint")
     , kv     "artifact"   (f "artifact")
@@ -184,7 +195,7 @@ paperContext :: Context Paper
 paperContext = mconcat [ lookupField k | k <- paperKeys ]
   where
     paperKeys =
-      [ "title", "authors", "venue", "year"
+      [ "title", "authors", "venue", "metayear", "year"
       , "link", "preprint", "artifact", "talk", "award"
       , "featured", "openaccess", "draft", "primaryurl" ]
     lookupField k = field k $ \item ->
