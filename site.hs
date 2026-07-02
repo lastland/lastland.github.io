@@ -160,7 +160,7 @@ toPaper e = concat
     , kv     "talk"       (f "talk")
     , kvText "award"      (f "award")
     , kvText "submitted"  (f "submitted")
-    , bool   "featured", bool "openaccess", bool "draft"
+    , bool   "openaccess", bool "draft"
     , kv     "primaryurl" (primaryUrl e)
     , kv     "_month"     (show . monthNum <$> f "month")
     ]
@@ -202,7 +202,7 @@ paperContext = mconcat [ lookupField k | k <- paperKeys ]
     paperKeys =
       [ "title", "authors", "venue", "metayear", "year"
       , "link", "preprint", "artifact", "talk", "award"
-      , "featured", "openaccess", "draft", "submitted", "primaryurl" ]
+      , "openaccess", "draft", "submitted", "primaryurl" ]
     lookupField k = field k $ \item ->
         maybe (noResult ("Paper has no field " ++ k)) return
               (lookup k (itemBody item))
@@ -300,10 +300,6 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "js/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
     match "mysteries/arith/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -327,12 +323,6 @@ main = hakyllWith config $ do
     -- Talks source of truth. Same pattern as publications.bib: stored raw,
     -- not routed; loadTalkYears parses it. Editing it rebuilds index.html.
     match "talks.yaml" $ compile getResourceString
-
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-        route   $ setExtension "html"
-        compile $ customPandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix `mappend` defaultContext)
-            >>= relativizeUrls
 
     match "courses/*" $ do
         route $ setExtension "html"

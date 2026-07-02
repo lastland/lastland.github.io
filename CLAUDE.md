@@ -36,7 +36,7 @@ pkill -f 'http.server 8765'
 - `publications.bib` (repo root) is the **single source of truth for all publications**. `site.hs` parses it with the `bibtex` library, decodes LaTeX via pandoc, and exposes the papers as a `listField "papers"` consumed by both `index.html` and `publication.html`. There are no per-paper markdown files or detail pages.
 - `courses/*.markdown` → through `templates/course.html` then `templates/default.html`
 - `index.html` and `publication.html` are templates themselves; their compilers build `listField "papers"` via `loadPapers` (parses `publications.bib`) and, for the homepage, `listField "courses"` via `recentFirst =<< loadAll "courses/*"`.
-- `images/*`, `pdfs/*`, `css/*`, `js/*` are copied wholesale to `/docs/`.
+- `images/*`, `pdfs/*`, `css/*` are copied wholesale to `/docs/`.
 
 **Per-paper context** (`paperContext` inside `site.hs`) exposes each bib entry's fields to templates. Every optional/boolean field is implemented with `field` + `noResult`, so `$if(field)$` tests **presence** — a key is in the assoc-list only when it applies. `$year$` comes from the bib `year` field; ordering is `(year, month)` descending (see `sortPapers`). The displayed `venue` is **auto-derived** (`deriveVenue`): a `venue = {…}` field wins if present, else a journal string is composed from `journal`/`volume`/`number`, else the conference acronym+year is extracted from `booktitle`. The title links to `primaryurl` (`link`, else `preprint`, else plain text). Author names are reordered to "First Last" and DBLP disambiguation digits (`Yao Li 0004`) are stripped.
 
@@ -63,12 +63,11 @@ Website-only custom fields (all optional):
   preprint  = {https://...},                   % optional
   artifact  = {https://doi.org/...},           % optional
   talk      = {https://youtu.be/...},          % optional
-  award     = {Distinguished Paper},           % optional; renders as accent chip
-  featured  = {true}                           % optional; appears on homepage Featured Publications
+  award     = {Distinguished Paper}            % optional; renders as accent chip
 }
 ```
 
-**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts section of `/publication.html`. An optional `submitted = {ACM TOPLAS ...}` field renders as "Submitted to …" on the draft's meta line (draft entries only — the published-list template ignores it). **Promotion**: remove `draft`, add the venue (and drop `submitted`). Booleans (`featured`/`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
+**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts section of `/publication.html`. An optional `submitted = {ACM TOPLAS ...}` field renders as "Submitted to …" on the draft's meta line (draft entries only — the published-list template ignores it). **Promotion**: remove `draft`, add the venue (and drop `submitted`). Booleans (`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
 
 **A new course:** drop `courses/YYYY-MM-DD-slug.markdown` with at minimum `title`, `term`, `show: true` (omit `show` to suppress the "click to view detail" link).
 
