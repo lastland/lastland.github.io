@@ -1671,12 +1671,6 @@ section {
     border-bottom: 0;
 }
 
-.pub-list-footer {
-    margin: var(--space-5) 0 0;
-    text-align: right;
-}
-
-.pub-list-footer .text-link,
 a.text-link {
     color: var(--accent-dark);
     font-weight: 500;
@@ -1686,7 +1680,6 @@ a.text-link {
     transition: color 0.15s ease, gap 0.15s ease;
 }
 
-[data-theme="dark"] .pub-list-footer .text-link,
 [data-theme="dark"] a.text-link {
     color: var(--accent);
 }
