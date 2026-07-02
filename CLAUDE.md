@@ -68,7 +68,7 @@ Website-only custom fields (all optional):
 }
 ```
 
-**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts section of `/publication.html`. **Promotion**: remove `draft`, add the venue. Booleans (`featured`/`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
+**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts section of `/publication.html`. An optional `submitted = {ACM TOPLAS ...}` field renders as "Submitted to …" on the draft's meta line (draft entries only — the published-list template ignores it). **Promotion**: remove `draft`, add the venue (and drop `submitted`). Booleans (`featured`/`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
 
 **A new course:** drop `courses/YYYY-MM-DD-slug.markdown` with at minimum `title`, `term`, `show: true` (omit `show` to suppress the "click to view detail" link).
 

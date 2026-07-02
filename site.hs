@@ -155,6 +155,7 @@ toPaper e = concat
     , kv     "artifact"   (f "artifact")
     , kv     "talk"       (f "talk")
     , kvText "award"      (f "award")
+    , kvText "submitted"  (f "submitted")
     , bool   "featured", bool "openaccess", bool "draft"
     , kv     "primaryurl" (primaryUrl e)
     , kv     "_month"     (show . monthNum <$> f "month")
@@ -197,7 +198,7 @@ paperContext = mconcat [ lookupField k | k <- paperKeys ]
     paperKeys =
       [ "title", "authors", "venue", "metayear", "year"
       , "link", "preprint", "artifact", "talk", "award"
-      , "featured", "openaccess", "draft", "primaryurl" ]
+      , "featured", "openaccess", "draft", "submitted", "primaryurl" ]
     lookupField k = field k $ \item ->
         maybe (noResult ("Paper has no field " ++ k)) return
               (lookup k (itemBody item))
