@@ -1,0 +1,21 @@
+<div class="d-flex align-items-center mb-4">
+    <h2 class="section-header mb-0 me-3">$pubsheading$</h2>
+    <div class="flex-grow-1 border-bottom"></div>
+</div>
+
+<ol class="pub-list" role="list">
+    $for(published)$
+    $partial("templates/pub-entry.html")$
+    $endfor$
+</ol>
+
+<div class="d-flex align-items-center mb-4 mt-5">
+    <h2 class="section-header mb-0 me-3">Drafts</h2>
+    <div class="flex-grow-1 border-bottom"></div>
+</div>
+
+<ol class="pub-list" role="list">
+    $for(drafts)$
+    $partial("templates/pub-entry.html")$
+    $endfor$
+</ol>

@@ -150,29 +150,31 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             courses <- recentFirst =<< loadAll "courses/*"
-            let ctx =
-                    listField "courses" defaultContext (return courses)
-                    `mappend` listField "published" paperContext loadPublished
-                    `mappend` listField "drafts" paperContext loadDrafts
-                    `mappend` listField "talkyears" talkYearContext loadTalkYears
-                    `mappend` navLinkPrefix
-                    `mappend` defaultContext
-            getResourceBody
-                >>= applyAsTemplate ctx
-                >>= loadAndApplyTemplate "templates/default.html" ctx
-                >>= relativizeUrls
+            renderPage $
+                listField "courses" defaultContext (return courses)
+                `mappend` listField "talkyears" talkYearContext loadTalkYears
+                `mappend` pubsContext
 
     match "publication.html" $ do
         route idRoute
-        compile $ do
-            let pubCtx =
-                    listField "published" paperContext loadPublished
-                    `mappend` listField "drafts" paperContext loadDrafts
-                    `mappend` navLinkPrefix
-                    `mappend` defaultContext
-            getResourceBody
-                >>= applyAsTemplate pubCtx
-                >>= loadAndApplyTemplate "templates/default.html" pubCtx
-                >>= relativizeUrls
+        compile $ renderPage pubsContext
 
     match "templates/*" $ compile templateBodyCompiler
+
+-- Shared by index.html and publication.html: both render the published and
+-- drafts lists (via templates/pub-sections.html) plus the base page fields.
+pubsContext :: Context String
+pubsContext =
+    listField "published" paperContext loadPublished
+    `mappend` listField "drafts" paperContext loadDrafts
+    `mappend` navLinkPrefix
+    `mappend` defaultContext
+
+-- Compile a top-level page: the page body is itself a template, then it is
+-- wrapped in default.html.
+renderPage :: Context String -> Compiler (Item String)
+renderPage ctx =
+    getResourceBody
+        >>= applyAsTemplate ctx
+        >>= loadAndApplyTemplate "templates/default.html" ctx
+        >>= relativizeUrls
