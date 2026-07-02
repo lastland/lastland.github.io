@@ -3,6 +3,7 @@
 import           Data.Monoid (mappend)
 import           Hakyll
 import           Publications
+import           Prose
 import           Talks
 
 
@@ -141,7 +142,9 @@ main = hakyllWith config $ do
 
     match "courses/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        -- boldToB: this site's prose bold means attention, not importance.
+        compile $ pandocCompilerWithTransform
+                      defaultHakyllReaderOptions defaultHakyllWriterOptions boldToB
             >>= loadAndApplyTemplate "templates/course.html"  defaultContext
             >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix `mappend` defaultContext)
             >>= relativizeUrls

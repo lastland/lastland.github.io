@@ -1,5 +1,7 @@
--- Tests exercise the Publications and Talks modules through their interfaces:
--- bib/YAML text in, display-ready values out. No Hakyll, no rebuild, no browser.
+-- Tests exercise the Publications, Talks, and Prose modules through their
+-- interfaces: bib/YAML/AST in, display-ready values out. No Hakyll, no
+-- rebuild, no browser.
+{-# LANGUAGE OverloadedStrings #-}
 module Main (main) where
 
 import           Test.Tasty
@@ -7,7 +9,10 @@ import           Test.Tasty.HUnit
 import           Data.Either (isRight, isLeft)
 import           Data.List (isInfixOf)
 import qualified Text.BibTeX.Entry as BibEntry
+import           Text.Pandoc.Definition
+                   (Pandoc(..), Block(..), Inline(..), Format(..), nullMeta)
 import           Publications
+import           Prose
 import           Talks
 
 entry :: String -> [(String, String)] -> BibEntry.T
@@ -25,6 +30,7 @@ main = defaultMain $ testGroup "site"
         ]
     , testGroup "Talks"
         [ talkGroupingTests, talkDisplayTests, talkPipelineTests ]
+    , testGroup "Prose" [ proseTests ]
     ]
 
 venueTests :: TestTree
@@ -218,6 +224,26 @@ talkDisplayTests = testGroup "display decisions"
                 let [(_, [t])] = ys
                 talkNote t @?= Just "Discussion"
                 map venueUrl (talkVenues t) @?= [Just "https://x", Nothing]
+    ]
+
+--------------------------------------------------------------------------------
+-- Prose
+
+proseTests :: TestTree
+proseTests = testGroup "bold renders as <b>"
+    [ testCase "Strong becomes raw <b>…</b>" $
+        boldToB (Pandoc nullMeta [Para [Strong [Str "Instructor:"], Space, Str "Yao"]])
+          @?= Pandoc nullMeta
+                [ Para [ RawInline (Format "html") "<b>"
+                       , Str "Instructor:"
+                       , RawInline (Format "html") "</b>"
+                       , Space, Str "Yao" ] ]
+    , testCase "markup nested inside the bold span survives" $
+        boldToB (Pandoc nullMeta [Para [Strong [Emph [Str "hi"]]]])
+          @?= Pandoc nullMeta
+                [ Para [ RawInline (Format "html") "<b>"
+                       , Emph [Str "hi"]
+                       , RawInline (Format "html") "</b>" ] ]
     ]
 
 talkPipelineTests :: TestTree

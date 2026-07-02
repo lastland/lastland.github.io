@@ -7,10 +7,12 @@ library
   hs-source-dirs:   src
   exposed-modules:  Publications
                   , Talks
+                  , Prose
   build-depends:    base == 4.*
                   , bibtex == 0.1.0.7
                   , parsec
                   , pandoc
+                  , pandoc-types
                   , text
                   , yaml
                   , aeson
@@ -31,6 +33,7 @@ test-suite site-test
   build-depends:    base == 4.*
                   , site
                   , bibtex == 0.1.0.7
+                  , pandoc-types
                   , tasty
                   , tasty-hunit
   default-language: Haskell2010

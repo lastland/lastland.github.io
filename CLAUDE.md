@@ -47,7 +47,7 @@ pkill -f 'http.server 8765'
 
 **Publication templates**: `templates/pub-entry.html` renders one paper (`<li>` with title/authors/meta/buttons); `templates/pub-sections.html` renders the whole section shape (heading, published `<ol>`, Drafts heading, drafts `<ol>`) for both pages.
 
-**Course markdown** compiles with the plain `pandocCompiler`, so `**bold**` produces semantic `<strong>`, styled by the `strong, .fw-bold` rule in `css/custom.css`.
+**`src/Prose.hs`** is the Prose module: it owns the rendering semantics of pandoc-compiled prose (currently the course pages). Site policy: bold in prose draws attention without claiming importance, so `**bold**` renders as `<b>`, not `<strong>` (`boldToB`, applied via `pandocCompilerWithTransform` in the `courses/*` rule; styled by the `b, strong, .fw-bold` rule in `css/custom.css`). Don't be surprised that markdown bold doesn't produce `<strong>` in the output. Tested in `test/Spec.hs`.
 
 **Templates** use Pandoc-style `$field$` interpolation. `$partial("templates/X.html")$` works only when X.html is registered under `match "templates/*"` (it already is). `$for(papers)$ … $endfor$` iterates list fields. `$if(field)$` tests presence/truthiness.
 
