@@ -3,3 +3,4 @@ _cache
 dist-newstyle
 .claude/
 .DS_Store
+.auctex-auto
