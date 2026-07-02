@@ -1,6 +1,5 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
 import           Hakyll
 import           Publications
 import           Prose
@@ -146,7 +145,7 @@ main = hakyllWith config $ do
         compile $ pandocCompilerWithTransform
                       defaultHakyllReaderOptions defaultHakyllWriterOptions boldToB
             >>= loadAndApplyTemplate "templates/course.html"  defaultContext
-            >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix `mappend` defaultContext)
+            >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix <> defaultContext)
             >>= relativizeUrls
 
     match "index.html" $ do
@@ -155,8 +154,8 @@ main = hakyllWith config $ do
             courses <- recentFirst =<< loadAll "courses/*"
             renderPage $
                 listField "courses" defaultContext (return courses)
-                `mappend` listField "talkyears" talkYearContext loadTalkYears
-                `mappend` pubsContext
+                <> listField "talkyears" talkYearContext loadTalkYears
+                <> pubsContext
 
     match "publication.html" $ do
         route idRoute
@@ -169,9 +168,9 @@ main = hakyllWith config $ do
 pubsContext :: Context String
 pubsContext =
     listField "published" paperContext loadPublished
-    `mappend` listField "drafts" paperContext loadDrafts
-    `mappend` navLinkPrefix
-    `mappend` defaultContext
+    <> listField "drafts" paperContext loadDrafts
+    <> navLinkPrefix
+    <> defaultContext
 
 -- Compile a top-level page: the page body is itself a template, then it is
 -- wrapped in default.html.

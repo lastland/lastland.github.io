@@ -1,4 +1,5 @@
 --------------------------------------------------------------------------------
+{-# LANGUAGE TupleSections #-}
 -- | The Publications module owns every bib semantic: parsing, LaTeX decoding,
 -- author formatting, venue derivation, the published/draft partition, ordering,
 -- and button visibility. Its interface is 'parsePublications': bib text in,
@@ -23,9 +24,10 @@ module Publications
     , monthNum
     ) where
 
-import           Data.List   (intercalate, sortBy, isInfixOf)
+import           Data.List   (intercalate, sortOn, isInfixOf)
 import           Data.Char   (toLower, isDigit, isUpper, isAlphaNum, isSpace)
-import           Data.Ord    (Down(..), comparing)
+import           Data.Maybe  (fromMaybe)
+import           Data.Ord    (Down(..))
 import           Control.Applicative ((<|>))
 import           Text.Read   (readMaybe)
 import qualified Data.Text   as T
@@ -50,8 +52,8 @@ parsePublications :: String -> Either String Publications
 parsePublications s = do
     entries <- either (Left . ("publications.bib parse error: " ++) . show) Right
                       (parse (BibParse.skippingLeadingSpace BibParse.file) "publications.bib" s)
-    classified <- mapM (\e -> fmap (\c -> (c, e)) (classify e))
-                       (map BibEntry.lowerCaseFieldNames entries)
+    classified <- mapM ((\e -> (, e) <$> classify e) . BibEntry.lowerCaseFieldNames)
+                       entries
     let papersOf c = sortPapers [ toPaper e | (c', e) <- classified, c' == c ]
     return (Publications (papersOf Published) (papersOf Draft))
 
@@ -164,7 +166,7 @@ monthNum :: String -> Int
 monthNum m = case map toLower (take 3 (trim m)) of
   "jan"->1; "feb"->2; "mar"->3; "apr"->4; "may"->5; "jun"->6
   "jul"->7; "aug"->8; "sep"->9; "oct"->10; "nov"->11; "dec"->12
-  _ -> maybe 0 id (readMaybe (trim m))
+  _ -> fromMaybe 0 (readMaybe (trim m))
 
 --------------------------------------------------------------------------------
 -- Normalization
@@ -189,14 +191,14 @@ toPaper e = concat
     , kv     "_month"     (show . monthNum <$> f "month")
     ]
   where
-    f k         = trim <$> lookup k (BibEntry.fields e)
-    get k       = maybe "" id (f k)
-    kv  k mv    = maybe [] (\v -> [(k, v)]) mv
-    kvText k mv = maybe [] (\v -> [(k, decodeLaTeX v)]) mv
-    bool k      = [(k, "true") | flagSet k e]
+    f k      = trim <$> lookup k (BibEntry.fields e)
+    get k    = fromMaybe "" (f k)
+    kv  k    = maybe [] (\v -> [(k, v)])
+    kvText k = maybe [] (\v -> [(k, decodeLaTeX v)])
+    bool k   = [(k, "true") | flagSet k e]
 
 sortPapers :: [Paper] -> [Paper]
-sortPapers = sortBy (comparing (Down . key))
+sortPapers = sortOn (Down . key)
   where key p = ( readDef 0 (lookup "year"   p)
                 , readDef 0 (lookup "_month" p) )
-        readDef d = maybe d (\s -> maybe d id (readMaybe (trim s)))
+        readDef d = maybe d (fromMaybe d . readMaybe . trim)

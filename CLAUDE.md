@@ -14,6 +14,7 @@ stack test                   # run the Publications and Talks module tests (fast
 stack exec site rebuild      # full rebuild → writes to /docs (commit /docs to publish)
 stack exec site watch        # autocompile + local dev server on :8000
 stack exec site clean        # nuke _cache and /docs
+hlint site.hs src/ test/     # Haskell style check — keep it at "No hints" (prefer <> over mappend)
 ```
 
 For browser verification (headless Chrome Beta is installed):

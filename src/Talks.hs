@@ -16,8 +16,8 @@ module Talks
     , groupTalksByYear
     ) where
 
-import           Data.List   (sortBy, nub)
-import           Data.Ord    (Down(..), comparing)
+import           Data.List   (sortOn, nub)
+import           Data.Ord    (Down(..))
 import qualified Data.Text   as T
 import qualified Data.Text.Encoding as TE
 import qualified Data.Yaml   as Yaml
@@ -67,4 +67,4 @@ groupTalksByYear :: [Talk] -> [TalkYear]
 groupTalksByYear ts =
     [ (y, filter ((== y) . talkYear) ts) | y <- years ]
   where
-    years = sortBy (comparing Down) (nub (map talkYear ts))
+    years = sortOn Down (nub (map talkYear ts))
