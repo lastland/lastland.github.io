@@ -1,12 +1,16 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
-import           Data.List   (intercalate, sortBy, isInfixOf)
+import           Data.List   (intercalate, sortBy, isInfixOf, nub)
 import           Data.Char   (toLower, isDigit, isUpper, isAlphaNum, isSpace)
 import           Data.Ord    (Down(..), comparing)
 import           Control.Applicative ((<|>))
 import           Text.Read   (readMaybe)
 import qualified Data.Text   as T
+import qualified Data.Text.Encoding as TE
+import qualified Data.Yaml   as Yaml
+import           Data.Yaml   (FromJSON(..), (.:), (.:?))
+import           Data.Aeson  (withObject)
 import           Text.Parsec (parse)
 import qualified Text.BibTeX.Parse  as BibParse
 import qualified Text.BibTeX.Entry  as BibEntry
@@ -205,6 +209,77 @@ paperContext = mconcat [ lookupField k | k <- paperKeys ]
 
 
 --------------------------------------------------------------------------------
+-- Talks: parsed from talks.yaml at build time.
+
+data Venue = Venue
+    { venueText :: String
+    , venueUrl  :: Maybe String
+    }
+
+data Talk = Talk
+    { talkTitle  :: String
+    , talkYear   :: Int
+    , talkNote   :: Maybe String
+    , talkVenues :: [Venue]
+    }
+
+instance FromJSON Venue where
+    parseJSON = withObject "venue" $ \o ->
+        Venue <$> o .: "text" <*> o .:? "url"
+
+instance FromJSON Talk where
+    parseJSON = withObject "talk" $ \o ->
+        Talk <$> o .: "title" <*> o .: "year"
+             <*> o .:? "note" <*> o .: "venues"
+
+parseTalks :: String -> [Talk]
+parseTalks s = case Yaml.decodeEither' (TE.encodeUtf8 (T.pack s)) of
+    Left err    -> error ("talks.yaml parse error: "
+                          ++ Yaml.prettyPrintParseException err)
+    Right talks -> talks
+
+-- Years descending; file order preserved within a year (filter is stable).
+groupTalksByYear :: [Talk] -> [(Int, [Talk])]
+groupTalksByYear ts =
+    [ (y, filter ((== y) . talkYear) ts) | y <- years ]
+  where
+    years = sortBy (comparing Down) (nub (map talkYear ts))
+
+-- Load the raw talks.yaml, parse it, and lift each year group to an Item
+-- for listField. Mirrors loadPapers.
+loadTalkYears :: Compiler [Item (Int, [Talk])]
+loadTalkYears = do
+    raw <- loadBody "talks.yaml" :: Compiler String
+    mapM makeItem (groupTalksByYear (parseTalks raw))
+
+venueContext :: Context Venue
+venueContext = mconcat
+    [ field "text" (return . venueText . itemBody)
+    , field "url"  $ \i ->
+        maybe (noResult "Venue has no url") return (venueUrl (itemBody i))
+    ]
+
+talkContext :: Context Talk
+talkContext = mconcat
+    [ field "title" (return . talkTitle . itemBody)
+    , field "note"  $ \i ->
+        maybe (noResult "Talk has no note") return (talkNote (itemBody i))
+    -- Presence-based flag: $if(multivenue)$ picks <ul> vs <p> markup.
+    , field "multivenue" $ \i ->
+        if length (talkVenues (itemBody i)) > 1
+            then return "true"
+            else noResult "Talk has a single venue"
+    , listFieldWith "venues" venueContext (mapM makeItem . talkVenues . itemBody)
+    ]
+
+talkYearContext :: Context (Int, [Talk])
+talkYearContext = mconcat
+    [ field "year" (return . show . fst . itemBody)
+    , listFieldWith "talks" talkContext (mapM makeItem . snd . itemBody)
+    ]
+
+
+--------------------------------------------------------------------------------
 
 config :: Configuration
 config = defaultConfiguration
@@ -249,6 +324,10 @@ main = hakyllWith config $ do
     -- output file); loadPapers parses it. Editing it rebuilds the listing pages.
     match "publications.bib" $ compile getResourceString
 
+    -- Talks source of truth. Same pattern as publications.bib: stored raw,
+    -- not routed; loadTalkYears parses it. Editing it rebuilds index.html.
+    match "talks.yaml" $ compile getResourceString
+
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ customPandocCompiler
@@ -269,6 +348,7 @@ main = hakyllWith config $ do
             let ctx =
                     listField "courses" defaultContext (return courses)
                     `mappend` listField "papers" paperContext loadPapers
+                    `mappend` listField "talkyears" talkYearContext loadTalkYears
                     `mappend` navLinkPrefix
                     `mappend` defaultContext
             getResourceBody

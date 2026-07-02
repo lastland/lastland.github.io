@@ -1,0 +1,57 @@
+# Talks source of truth. Rendered into index.html's Talks section by site.hs.
+# Years are grouped and sorted descending by site.hs; order within a year
+# follows file order. A venue with `url` renders as a link. An optional
+# `note` renders as "(note)" after the title.
+- title: "Don't Sweat Interaction Trees: Proof-Guided Local Variable Lifting for Interaction Trees"
+  year: 2026
+  venues:
+    - text: Portland PL Symposium (PorPL)
+      url: https://plv.cs.pdx.edu/porpl/
+
+- title: "Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation"
+  year: 2024
+  venues:
+    - text: Harvard PL Seminar, virtual talk
+
+- title: '"Shallower" Embeddings for Mechanized Reasoning'
+  year: 2023
+  venues:
+    - text: PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN
+
+- title: The Expression Problem and Theorem Proving
+  note: Discussion
+  year: 2022
+  venues:
+    - text: Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA
+
+- title: Effect-Oblivious Equivalence
+  year: 2022
+  venues:
+    - text: Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA
+
+- title: Reasoning about the Garden of Forking Paths
+  year: 2021
+  venues:
+    - text: POPV seminar at Boston University (Longer Version, Invited Talk)
+    - text: The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk
+    - text: "The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL"
+
+- title: "Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale"
+  year: 2020
+  venues:
+    - text: Haskell Implementors' Workshop (HIW), co-located with ICFP, virtual talk
+
+- title: The Science of Deep Specification
+  year: 2018
+  venues:
+    - text: NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC
+
+- title: Dependent Types in Scala
+  year: 2017
+  venues:
+    - text: Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA
+
+- title: "Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond"
+  year: 2017
+  venues:
+    - text: Comcast Scala By the Schuyllkill Conference, Philadelphia, PA

@@ -123,90 +123,20 @@ title: Yao Li (李垚), Ph.D.
     </div>
 
     <ol class="talks-timeline">
-        <li class="talks-row" data-year="2026">
-            <aside class="talks-year" aria-hidden="true">2026</aside>
+        $for(talkyears)$<li class="talks-row" data-year="$year$">
+            <aside class="talks-year" aria-hidden="true">$year$</aside>
             <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">Don't Sweat Interaction Trees: Proof-Guided Local Variable Lifting for Interaction Trees</h3>
-                    <p class="talk-venue">PorPL</p>
-                </article>
+                $for(talks)$<article class="talk-item">
+                    <h3 class="talk-title">$title$$if(note)$ <span class="talk-note">($note$)</span>$endif$</h3>
+                    $if(multivenue)$<ul class="talk-venues">
+                        $for(venues)$<li>$if(url)$<a href="$url$">$text$</a>$else$$text$$endif$</li>$sep$
+                        $endfor$
+                    </ul>$else$$for(venues)$<p class="talk-venue">$if(url)$<a href="$url$">$text$</a>$else$$text$$endif$</p>$endfor$$endif$
+                </article>$sep$
+                $endfor$
             </div>
-        </li> 
-       <li class="talks-row" data-year="2024">
-            <aside class="talks-year" aria-hidden="true">2024</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">Reasoning about Laziness is Reasoning about Future: Alternative Semantics to Lazy Evaluation</h3>
-                    <p class="talk-venue">Harvard PL Seminar, virtual talk</p>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2023">
-            <aside class="talks-year" aria-hidden="true">2023</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">"Shallower" Embeddings for Mechanized Reasoning</h3>
-                    <p class="talk-venue">PurPL (Purdue Programming Languages Group) Seminar, West Lafayette, IN</p>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2022">
-            <aside class="talks-year" aria-hidden="true">2022</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">The Expression Problem and Theorem Proving <span class="talk-note">(Discussion)</span></h3>
-                    <p class="talk-venue">Workshop on the Implementation of Type Systems (WITS), co-located with POPL, Philadelphia, PA</p>
-                </article>
-                <article class="talk-item">
-                    <h3 class="talk-title">Effect-Oblivious Equivalence</h3>
-                    <p class="talk-venue">Workshop on Principles of Secure Compilation (PriSC), co-located with POPL, Philadelphia, PA</p>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2021">
-            <aside class="talks-year" aria-hidden="true">2021</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">Reasoning about the Garden of Forking Paths</h3>
-                    <ul class="talk-venues">
-                        <li>POPV seminar at Boston University (Longer Version, Invited Talk)</li>
-                        <li>The ACM SIGPLAN International Conference on Functional Programming (ICFP), virtual talk</li>
-                        <li>The ACM SIGPLAN Conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH), Chicago, IL</li>
-                    </ul>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2020">
-            <aside class="talks-year" aria-hidden="true">2020</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">Embracing a Mechanized Formalization Gap: Interactive reasoning for Haskell at scale</h3>
-                    <p class="talk-venue">Haskell Implementors' Workshop (HIW), co-located with ICFP, virtual talk</p>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2018">
-            <aside class="talks-year" aria-hidden="true">2018</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">The Science of Deep Specification</h3>
-                    <p class="talk-venue">NSF Expeditions in Computing - 10 Years of Transforming Science and Society, Washington, DC</p>
-                </article>
-            </div>
-        </li>
-        <li class="talks-row" data-year="2017">
-            <aside class="talks-year" aria-hidden="true">2017</aside>
-            <div class="talks-items">
-                <article class="talk-item">
-                    <h3 class="talk-title">Dependent Types in Scala</h3>
-                    <p class="talk-venue">Philly Area Scala Enthusiasts Meetup (PHASE), Philadelphia, PA</p>
-                </article>
-                <article class="talk-item">
-                    <h3 class="talk-title">Scala-Forklift: Type-Safe Data Migration Tool for Slick, Git and Beyond</h3>
-                    <p class="talk-venue">Comcast Scala By the Schuyllkill Conference, Philadelphia, PA</p>
-                </article>
-            </div>
-        </li>
+        </li>$sep$
+        $endfor$
     </ol>
 </section>
 
