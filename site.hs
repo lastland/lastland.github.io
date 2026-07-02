@@ -28,29 +28,6 @@ navLinkPrefix = field "navLinkPrefix" $ \item -> do
     isIndex <- isIndexPage item
     return $ if isIndex then "" else "/index.html"
 
--- Custom compiler that replaces <strong> with <span class="fw-bold">
-customPandocCompiler :: Compiler (Item String)
-customPandocCompiler = do
-    item <- pandocCompiler
-    return $ fmap replaceStrongTags item
-  where
-    replaceStrongTags :: String -> String
-    replaceStrongTags = replaceAll' "</strong>" "</span>" . replaceAll' "<strong>" "<span class=\"fw-bold\">"
-
-    replaceAll' :: String -> String -> String -> String
-    replaceAll' old new = go
-      where
-        go [] = []
-        go str@(x:xs)
-            | old `isPrefixOf'` str = new ++ go (drop (length old) str)
-            | otherwise = x : go xs
-
-    isPrefixOf' :: String -> String -> Bool
-    isPrefixOf' [] _ = True
-    isPrefixOf' _ [] = False
-    isPrefixOf' (x:xs) (y:ys) = x == y && xs `isPrefixOf'` ys
-
-
 --------------------------------------------------------------------------------
 -- Publications: all bib semantics (parsing, decoding, venue derivation, the
 -- published/draft partition, ordering, button visibility) live in the
@@ -201,7 +178,7 @@ main = hakyllWith config $ do
 
     match "courses/*" $ do
         route $ setExtension "html"
-        compile $ customPandocCompiler
+        compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/course.html"  defaultContext
             >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix `mappend` defaultContext)
             >>= relativizeUrls

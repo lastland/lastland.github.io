@@ -168,7 +168,7 @@ main { display: block; }
 .text-primary { color: var(--primary); }
 .text-success { color: #16a34a; }
 .text-warning { color: #ca8a04; }
-.fw-bold { font-weight: 700; }
+strong, .fw-bold { font-weight: 700; }
 .lead { font-size: var(--fs-lg); line-height: 1.5; color: var(--text-light); }
 .small { font-size: var(--fs-sm); }
 .display-5 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; }
