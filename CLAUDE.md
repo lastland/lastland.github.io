@@ -9,7 +9,8 @@ Personal academic website for Yao Li (Assistant Professor at Portland State). Bu
 ## Commands
 
 ```bash
-stack build                  # recompile site.hs (only needed after editing site.hs)
+stack build                  # recompile (only needed after editing site.hs / src/Publications.hs)
+stack test                   # run the Publications module tests (fast, no rebuild)
 stack exec site rebuild      # full rebuild → writes to /docs (commit /docs to publish)
 stack exec site watch        # autocompile + local dev server on :8000
 stack exec site clean        # nuke _cache and /docs
@@ -31,14 +32,18 @@ pkill -f 'http.server 8765'
 
 ## Architecture
 
-**`site.hs`** is the entire build pipeline (~140 lines). It defines per-route `match` rules:
+**`src/Publications.hs`** is the Publications module: it owns every bib semantic (parsing via the `bibtex` library, LaTeX decoding via pandoc, author formatting, venue derivation, the published/draft partition, ordering, button visibility). Its interface is `parsePublications :: String -> Either String Publications` — bib text in, display-ready papers out, every failure as a `Left`. `test/Spec.hs` tests it through this interface (`stack test`), including a check that the real `publications.bib` parses and partitions.
 
-- `publications.bib` (repo root) is the **single source of truth for all publications**. `site.hs` parses it with the `bibtex` library, decodes LaTeX via pandoc, and exposes the papers as a `listField "papers"` consumed by both `index.html` and `publication.html`. There are no per-paper markdown files or detail pages.
+**`site.hs`** defines the Hakyll build: per-route `match` rules plus thin adapters (`loadPublished`/`loadDrafts`, `paperContext`) from the Publications module to Hakyll contexts.
+
+- `publications.bib` (repo root) is the **single source of truth for all publications**. Its papers are exposed as `listField "published"` and `listField "drafts"`, consumed by both `index.html` and `publication.html`. There are no per-paper markdown files or detail pages. **Every entry must be exactly one of published (derivable venue) or draft (`draft = {true}`)** — neither, or both, fails the build naming the entry.
 - `courses/*.markdown` → through `templates/course.html` then `templates/default.html`
-- `index.html` and `publication.html` are templates themselves; their compilers build `listField "papers"` via `loadPapers` (parses `publications.bib`) and, for the homepage, `listField "courses"` via `recentFirst =<< loadAll "courses/*"`.
+- `index.html` and `publication.html` are templates themselves; their compilers build the `published`/`drafts` listFields via `loadPublications` and, for the homepage, `listField "courses"` via `recentFirst =<< loadAll "courses/*"`.
 - `images/*`, `pdfs/*`, `css/*` are copied wholesale to `/docs/`.
 
-**Per-paper context** (`paperContext` inside `site.hs`) exposes each bib entry's fields to templates. Every optional/boolean field is implemented with `field` + `noResult`, so `$if(field)$` tests **presence** — a key is in the assoc-list only when it applies. `$year$` comes from the bib `year` field; ordering is `(year, month)` descending (see `sortPapers`). The displayed `venue` is **auto-derived** (`deriveVenue`): a `venue = {…}` field wins if present, else a journal string is composed from `journal`/`volume`/`number`, else the conference acronym+year is extracted from `booktitle`. The title links to `primaryurl` (`link`, else `preprint`, else plain text). Author names are reordered to "First Last" and DBLP disambiguation digits (`Yao Li 0004`) are stripped.
+**Per-paper context** (`paperContext` in `site.hs`) exposes each paper's fields to templates. Every optional/boolean field is implemented with `field` + `noResult`, so `$if(field)$` tests **presence** — a key is in the assoc-list only when it applies; all decisions (venue, meta-year, button visibility) are made in the Publications module, never in templates. `$year$` comes from the bib `year` field; ordering is `(year, month)` descending (`sortPapers`). The displayed `venue` is **auto-derived** (`deriveVenue`): a `venue = {…}` field wins if present, else a journal string is composed from `journal`/`volume`/`number`, else the conference acronym+year is extracted from `booktitle`. The title links to `primaryurl` (`link`, else `preprint`, else plain text). Author names are reordered to "First Last" and DBLP disambiguation digits (`Yao Li 0004`) are stripped. `openaccess = {true}` removes the `preprint` key (hiding the Pre-print button) while `primaryurl` may still fall back to the preprint URL.
+
+**Publication templates**: `templates/pub-entry.html` renders one paper (`<li>` with title/authors/meta/buttons) for both lists; `pub-list.html` and `pub-drafts.html` are just `<ol>` + loop + `$partial$` over `published`/`drafts` respectively.
 
 **`customPandocCompiler`** in `site.hs` replaces `<strong>` with `<span class="fw-bold">` in the rendered HTML. Don't be surprised that markdown bold doesn't produce `<strong>` in the output.
 
@@ -67,7 +72,7 @@ Website-only custom fields (all optional):
 }
 ```
 
-**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts section of `/publication.html`. An optional `submitted = {ACM TOPLAS ...}` field renders as "Submitted to …" on the draft's meta line (draft entries only — the published-list template ignores it). **Promotion**: remove `draft`, add the venue (and drop `submitted`). Booleans (`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
+**A draft** (not yet peer-reviewed): same, but add `draft = {true}` and omit the venue (`@unpublished` is conventional). It appears in the Drafts sections. An optional `submitted = {ACM TOPLAS ...}` field renders as "Submitted to …" on the draft's meta line (published entries never render it). **Promotion**: remove `draft`, add the venue (and drop `submitted`) — do it in one edit; an entry with both `draft` and a venue, or neither, fails the build with its cite key. Booleans (`openaccess`/`draft`) are presence-based — write `{true}`; omit the field to turn it off. There are no abstracts.
 
 **A new course:** drop `courses/YYYY-MM-DD-slug.markdown` with at minimum `title`, `term`, `show: true` (omit `show` to suppress the "click to view detail" link).
 
