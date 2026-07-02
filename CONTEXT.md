@@ -37,6 +37,17 @@ LaTeX decoding, author formatting, Venue derivation, the partition, ordering,
 and button visibility. Its interface — display-ready Papers — is the test
 surface.
 
+**Talk venue**:
+A place a talk was given: display text plus an optional link; a talk may have
+several. Not a Venue — that word is reserved for a Paper's publication venue.
+_Avoid_: bare "venue" when talking about talks
+
+**Talks module**:
+The deep module (`src/Talks.hs`) owning all talks.yaml semantics: decoding,
+year grouping, ordering, and the single/multi-venue display decision. Its
+interface — display-ready TalkYears — is the test surface, mirroring the
+Publications module.
+
 ## Example dialogue
 
 > **Dev:** ESOP 2026 shows no year chip but the TOPLAS paper does — where do I look?

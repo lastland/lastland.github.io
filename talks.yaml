@@ -1,7 +1,7 @@
-# Talks source of truth. Rendered into index.html's Talks section by site.hs.
-# Years are grouped and sorted descending by site.hs; order within a year
-# follows file order. A venue with `url` renders as a link. An optional
-# `note` renders as "(note)" after the title.
+# Talks source of truth. Rendered into index.html's Talks section.
+# Years are grouped and sorted descending by the Talks module (src/Talks.hs);
+# order within a year follows file order. A venue with `url` renders as a
+# link. An optional `note` renders as "(note)" after the title.
 - title: "Don't Sweat Interaction Trees: Proof-Guided Local Variable Lifting for Interaction Trees"
   year: 2026
   venues:

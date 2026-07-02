@@ -1,12 +1,14 @@
--- Tests exercise the Publications module through its interface: bib entries
--- in, display-ready Papers out. No Hakyll, no rebuild, no browser.
+-- Tests exercise the Publications and Talks modules through their interfaces:
+-- bib/YAML text in, display-ready values out. No Hakyll, no rebuild, no browser.
 module Main (main) where
 
 import           Test.Tasty
 import           Test.Tasty.HUnit
 import           Data.Either (isRight, isLeft)
+import           Data.List (isInfixOf)
 import qualified Text.BibTeX.Entry as BibEntry
 import           Publications
+import           Talks
 
 entry :: String -> [(String, String)] -> BibEntry.T
 entry key fs = BibEntry.Cons
@@ -16,9 +18,13 @@ entry key fs = BibEntry.Cons
     }
 
 main :: IO ()
-main = defaultMain $ testGroup "Publications"
-    [ venueTests, authorTests, decodeTests, monthTests
-    , classifyTests, buttonTests, sortTests, pipelineTests
+main = defaultMain $ testGroup "site"
+    [ testGroup "Publications"
+        [ venueTests, authorTests, decodeTests, monthTests
+        , classifyTests, buttonTests, sortTests, pipelineTests
+        ]
+    , testGroup "Talks"
+        [ talkGroupingTests, talkDisplayTests, talkPipelineTests ]
     ]
 
 venueTests :: TestTree
@@ -158,3 +164,70 @@ pipelineTests = testGroup "parsePublications"
                 assertBool "published years non-increasing" (and (zipWith (>=) years (drop 1 years)))
     ]
   where unquote c = if c == '\'' then ' ' else c
+
+--------------------------------------------------------------------------------
+-- Talks
+
+talkYaml :: [String] -> String
+talkYaml = unlines
+
+talkGroupingTests :: TestTree
+talkGroupingTests = testGroup "year grouping"
+    [ testCase "years descending, file order preserved within a year" $ do
+        let yaml = talkYaml
+              [ "- title: Old A"
+              , "  year: 2022"
+              , "  venues: [{text: \"X\"}]"
+              , "- title: New"
+              , "  year: 2026"
+              , "  venues: [{text: \"Y\"}]"   -- quoted: bare Y is YAML for true
+              , "- title: Old B"
+              , "  year: 2022"
+              , "  venues: [{text: \"Z\"}]"
+              ]
+        case parseTalks yaml of
+            Left err -> assertFailure err
+            Right ys -> map (fmap (map talkTitle)) ys
+                @?= [(2026, ["New"]), (2022, ["Old A", "Old B"])]
+    , testCase "malformed YAML fails naming talks.yaml" $
+        case parseTalks "- title: Broken\n  venues: notalist\n" of
+            Left msg -> assertBool "message names talks.yaml" ("talks.yaml" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    ]
+
+talkDisplayTests :: TestTree
+talkDisplayTests = testGroup "display decisions"
+    [ testCase "two venues render as a list" $
+        multiVenue (Talk "t" 2026 Nothing [TalkVenue "a" Nothing, TalkVenue "b" Nothing])
+          @?= True
+    , testCase "a single venue renders inline" $
+        multiVenue (Talk "t" 2026 Nothing [TalkVenue "a" Nothing]) @?= False
+    , testCase "venue url and talk note are optional" $ do
+        let yaml = talkYaml
+              [ "- title: T"
+              , "  note: Discussion"
+              , "  year: 2026"
+              , "  venues:"
+              , "    - text: Linked"
+              , "      url: https://x"
+              , "    - text: Plain"
+              ]
+        case parseTalks yaml of
+            Left err -> assertFailure err
+            Right ys -> do
+                let [(_, [t])] = ys
+                talkNote t @?= Just "Discussion"
+                map venueUrl (talkVenues t) @?= [Just "https://x", Nothing]
+    ]
+
+talkPipelineTests :: TestTree
+talkPipelineTests = testGroup "parseTalks on the real talks.yaml"
+    [ testCase "parses, non-empty, years strictly descending" $ do
+        raw <- readFile "talks.yaml"
+        case parseTalks raw of
+            Left err -> assertFailure err
+            Right ys -> do
+                assertBool "has talks" (not (null ys))
+                let years = map fst ys
+                assertBool "years strictly descending" (and (zipWith (>) years (drop 1 years)))
+    ]
