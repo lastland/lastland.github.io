@@ -2,6 +2,7 @@
 title: "CS 358: Principles of Programming Languages"
 terms:
   - "Spring, 2025"
+  - "Spring, 2026"
 show: true
 ---
 
