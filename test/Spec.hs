@@ -11,6 +11,7 @@ import           Data.List (isInfixOf)
 import qualified Text.BibTeX.Entry as BibEntry
 import           Text.Pandoc.Definition
                    (Pandoc(..), Block(..), Inline(..), Format(..), nullMeta)
+import           Courses
 import           Publications
 import           Prose
 import           Talks
@@ -30,6 +31,8 @@ main = defaultMain $ testGroup "site"
         ]
     , testGroup "Talks"
         [ talkGroupingTests, talkDisplayTests, talkPipelineTests ]
+    , testGroup "Courses"
+        [ courseTermTests, courseOrderTests, courseDisplayTests ]
     , testGroup "Prose" [ proseTests ]
     ]
 
@@ -224,6 +227,55 @@ talkDisplayTests = testGroup "display decisions"
                 let [(_, [t])] = ys
                 talkNote t @?= Just "Discussion"
                 map venueUrl (talkVenues t) @?= [Just "https://x", Nothing]
+    ]
+
+--------------------------------------------------------------------------------
+-- Courses
+
+courseTermTests :: TestTree
+courseTermTests = testGroup "term parsing"
+    [ testCase "all four seasons parse" $
+        traverse parseTerm ["Winter, 2023", "Spring, 2024", "Summer, 2025", "Fall, 2026"]
+          @?= Right [ Term 2023 Winter, Term 2024 Spring
+                    , Term 2025 Summer, Term 2026 Fall ]
+    , testCase "bad season fails naming the string" $
+        case parseTerm "Sprang, 2025" of
+            Left msg -> assertBool "message names the term" ("Sprang, 2025" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "bad year fails" $
+        assertBool "expected Left" (isLeft (parseTerm "Spring, soon"))
+    , testCase "missing comma fails" $
+        assertBool "expected Left" (isLeft (parseTerm "Spring 2025"))
+    ]
+
+courseOrderTests :: TestTree
+courseOrderTests = testGroup "term ordering"
+    [ testCase "later year wins" $
+        assertBool "2026 Winter after 2025 Fall" (Term 2026 Winter > Term 2025 Fall)
+    , testCase "within a year: Winter < Spring < Summer < Fall" $
+        assertBool "season order"
+            (  Term 2025 Winter < Term 2025 Spring
+            && Term 2025 Spring < Term 2025 Summer
+            && Term 2025 Summer < Term 2025 Fall )
+    , testCase "latestTerm is the maximum regardless of authored order" $
+        case parseTerms ["Fall, 2024", "Winter, 2023", "Fall, 2025", "Winter, 2024"] of
+            Left err -> assertFailure err
+            Right ts -> latestTerm ts @?= Term 2025 Fall
+    ]
+
+courseDisplayTests :: TestTree
+courseDisplayTests = testGroup "terms display and validation"
+    [ testCase "a single term displays as authored" $
+        fmap displayTerms (parseTerms ["Spring, 2024"]) @?= Right "Spring, 2024"
+    , testCase "multiple terms joined with a middle dot in authored order" $
+        fmap displayTerms (parseTerms ["Winter, 2023", "Fall, 2025"])
+          @?= Right "Winter, 2023 · Fall, 2025"
+    , testCase "empty terms list fails" $
+        assertBool "expected Left" (isLeft (parseTerms []))
+    , testCase "one bad term fails the whole list naming it" $
+        case parseTerms ["Spring, 2025", "Sprong, 2026"] of
+            Left msg -> assertBool "message names the bad term" ("Sprong, 2026" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
     ]
 
 --------------------------------------------------------------------------------
