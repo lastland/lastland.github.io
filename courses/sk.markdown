@@ -1,6 +1,7 @@
 ---
 title: "CS 669: Scholarship Skills"
-term: "Winter, 2026"
+terms:
+  - "Winter, 2026"
 show: true
 ---
 

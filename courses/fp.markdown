@@ -1,23 +1,15 @@
 ---
 title: "CS 457/557: Functional Programming"
-term: "Fall, 2025"
+terms:
+  - "Winter, 2023"
+  - "Winter, 2024"
+  - "Fall, 2024"
+  - "Fall, 2025"
 image: "magic.jpg"
 caption: "Are you ready to embark on a magical journey that will forever transform your view of programming?"
 source: "https://happygamer.com/tashas-cauldron-of-everything-dampds-newest-rules-expansion-adds-a-slew-of-magic-items-pt-16-98276/"
 show: true
 ---
-
-### Basic Information
-
-**Instructor:** [Yao Li](../index.html)
-
-**Office:** TBA
-
-**Office Hours:** TBA
-
-**Prerequisite:** CS 302: Programming Methodologies and Software Implementation
-
-**Syllabus:** TBA
 
 ## Course Description
 
@@ -47,7 +39,3 @@ class.
 - Lazy evaluation
 - Type checking
 - Property-based testing
-
-### Textbook
-
-_Programming in Haskell_ by Graham Hutton (Recommended)

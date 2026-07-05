@@ -1,5 +1,8 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+import           Courses
+import           Data.List (sortOn)
+import           Data.Ord (Down (..))
 import           Hakyll
 import           Publications
 import           Prose
@@ -95,6 +98,39 @@ talkYearContext = mconcat
 
 
 --------------------------------------------------------------------------------
+-- Courses: term semantics (parsing, validation, ordering, the joined display
+-- string) live in the Courses module; here we only adapt front matter to
+-- Hakyll. One course file covers every term it was taught (a terms: list).
+
+-- Read and validate a course's terms list. A Left (missing list, bad term)
+-- fails the build naming the course file.
+loadCourseTerms :: Identifier -> Compiler CourseTerms
+loadCourseTerms ident = do
+    metadata <- getMetadata ident
+    let terms = maybe (Left "no terms list in front matter") parseTerms
+                      (lookupStringList "terms" metadata)
+    either (error . named) return terms
+  where
+    named msg = "course " ++ toFilePath ident ++ ": " ++ msg
+
+-- The template field stays named "term": one string, all terms joined, so
+-- course.html and the index card markup are unchanged.
+courseContext :: Context String
+courseContext = field "term" $ \item ->
+    displayTerms <$> loadCourseTerms (itemIdentifier item)
+
+-- Homepage order: by the most recent term taught, descending (replaces
+-- recentFirst, which needed date-prefixed filenames); title breaks ties.
+sortCourses :: [Item a] -> Compiler [Item a]
+sortCourses items = map snd . sortOn fst <$> mapM keyed items
+  where
+    keyed item = do
+        let ident = itemIdentifier item
+        terms <- loadCourseTerms ident
+        title <- getMetadataField' ident "title"
+        return ((Down (latestTerm terms), title), item)
+
+--------------------------------------------------------------------------------
 
 config :: Configuration
 config = defaultConfiguration
@@ -144,16 +180,16 @@ main = hakyllWith config $ do
         -- boldToB: this site's prose bold means attention, not importance.
         compile $ pandocCompilerWithTransform
                       defaultHakyllReaderOptions defaultHakyllWriterOptions boldToB
-            >>= loadAndApplyTemplate "templates/course.html"  defaultContext
+            >>= loadAndApplyTemplate "templates/course.html"  (courseContext <> defaultContext)
             >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix <> defaultContext)
             >>= relativizeUrls
 
     match "index.html" $ do
         route idRoute
         compile $ do
-            courses <- recentFirst =<< loadAll "courses/*"
+            courses <- sortCourses =<< loadAll "courses/*"
             renderPage $
-                listField "courses" defaultContext (return courses)
+                listField "courses" (courseContext <> defaultContext) (return courses)
                 <> listField "talkyears" talkYearContext loadTalkYears
                 <> pubsContext
 

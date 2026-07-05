@@ -1,14 +1,9 @@
 ---
 title: "CS 358: Principles of Programming Languages"
-term: "Spring, 2025"
+terms:
+  - "Spring, 2025"
 show: true
 ---
-
-### Basic Information
-
-**Instructor:** [Yao Li](../index.html)
-
-**Office Hours:** TBA
 
 ### Course Description
 

@@ -1,19 +1,13 @@
 ---
 title: "CS 410/510 TOP: Proof Assistants and Program Verification"
-term: "Spring, 2025"
+terms:
+  - "Spring, 2023"
+  - "Spring, 2025"
 image: "puzzle.jpeg"
 caption: "A proof assistant turns a formal proof into an interactive puzzle."
 source: "https://unsplash.com/photos/B-x4VaIriRc"
 show: true
 ---
-
-### Basic Information
-
-**Instructor:** [Yao Li](../index.html)
-
-**Office Hours:** TBA
-
-**Textbook:** [Software Foundations](https://softwarefoundations.cis.upenn.edu/)
 
 ### Course Description
 
@@ -36,23 +30,3 @@ The past decade has seen enormous advances in the verification of important
 software infrastructure, including realistic cryptographic libraries, data
 structure libraries, compilers, operating systems, and file systems. This is a
 good opportunity for you to learn more about these cutting-edge techniques.
-
-### Prerequisites
-
-CS 250, Discrete Structures I, CS 251, Discrete Structures II or equivalent
-background in elementray discrete math and logic.
-
-### Goals:
-Upon the successful completion of this class, students will be able to:
-
-- Prove facts about elementary logic, arithmetic, and correctness of functional
-  programs using the Coq proof assistant.
-- Develop formal specifications for program behavior, including functional
-  specifications for imperative programs.
-- Make fluent use of a core set of Coq tactics.
-- Prove simple facts about imperative programs using a language-specific program
-  logic.
-
-### Textbooks:
-Benjamin Pierce et al., "Software Foundations" online text at
-[https://softwarefoundations.cis.upenn.edu/](https://softwarefoundations.cis.upenn.edu/)
