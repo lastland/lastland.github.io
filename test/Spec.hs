@@ -267,9 +267,12 @@ courseDisplayTests :: TestTree
 courseDisplayTests = testGroup "terms display and validation"
     [ testCase "a single term displays as authored" $
         fmap displayTerms (parseTerms ["Spring, 2024"]) @?= Right "Spring, 2024"
-    , testCase "multiple terms joined with a middle dot in authored order" $
+    , testCase "multiple terms joined with a middle dot, latest first" $
         fmap displayTerms (parseTerms ["Winter, 2023", "Fall, 2025"])
-          @?= Right "Winter, 2023 · Fall, 2025"
+          @?= Right "Fall, 2025 · Winter, 2023"
+    , testCase "display sorts by the parsed term, not merely reversing input" $
+        fmap displayTerms (parseTerms ["Fall, 2024", "Winter, 2023", "Fall, 2025"])
+          @?= Right "Fall, 2025 · Fall, 2024 · Winter, 2023"
     , testCase "empty terms list fails" $
         assertBool "expected Left" (isLeft (parseTerms []))
     , testCase "one bad term fails the whole list naming it" $

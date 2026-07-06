@@ -19,7 +19,8 @@ module Courses
     ) where
 
 import           Data.Char (isDigit)
-import           Data.List (intercalate)
+import           Data.List (intercalate, sortOn)
+import           Data.Ord (Down (..))
 
 -- PSU quarters, chronological within a calendar year.
 data Season = Winter | Spring | Summer | Fall
@@ -32,7 +33,8 @@ data Term = Term
     } deriving (Eq, Ord, Show)
 
 -- A validated, non-empty terms list. The authored strings are kept alongside
--- the parsed terms: display echoes the front matter, ordering uses the parse.
+-- the parsed terms: display echoes the authored strings, ordering (both the
+-- homepage key and the display order) uses the parse.
 newtype CourseTerms = CourseTerms [(String, Term)]
     deriving (Eq, Show)
 
@@ -58,6 +60,7 @@ parseTerms authored = CourseTerms . zip authored <$> traverse parseTerm authored
 latestTerm :: CourseTerms -> Term
 latestTerm (CourseTerms ts) = maximum (map snd ts)
 
--- | Authored order, joined with a middle dot; a single term is just itself.
+-- | Latest term first, joined with a middle dot; a single term is just itself.
 displayTerms :: CourseTerms -> String
-displayTerms (CourseTerms ts) = intercalate " · " (map fst ts)
+displayTerms (CourseTerms ts) =
+    intercalate " · " (map fst (sortOn (Down . snd) ts))
