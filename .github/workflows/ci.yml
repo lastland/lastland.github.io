@@ -42,3 +42,51 @@ jobs:
           key: ${{ runner.os }}-stack-work-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal', '**/*.hs') }}
           restore-keys: ${{ runner.os }}-stack-work-
       - run: stack test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true   # mysteries/ feeds docs/mysteries
+      - uses: haskell-actions/setup@v2
+        with:
+          enable-stack: true
+          stack-version: 'latest'
+          stack-no-global: true
+      # Same cache keys as the test job: both jobs share the restored
+      # dependency store; whichever saves first wins, the other is a no-op.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.stack
+          key: ${{ runner.os }}-stack-global-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal') }}
+          restore-keys: ${{ runner.os }}-stack-global-
+      - uses: actions/cache@v6
+        with:
+          path: .stack-work
+          key: ${{ runner.os }}-stack-work-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal', '**/*.hs') }}
+          restore-keys: ${{ runner.os }}-stack-work-
+      - run: stack build
+      - run: stack exec site build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs
+
+  # Publishes the build job's github-pages artifact; no checkout needed.
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # authorize the Pages deployment
+      id-token: write   # OIDC token deploy-pages authenticates with
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/configure-pages@v6
+      - id: deployment
+        uses: actions/deploy-pages@v5

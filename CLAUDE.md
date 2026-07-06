@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal academic website for Yao Li (Assistant Professor at Portland State). Built with **Hakyll 4.16** (Haskell static site generator), deployed to **GitHub Pages from `/docs`** on the `master` branch. There is no JS framework, no CSS framework — vanilla CSS + ~150 lines of inline JS.
+Personal academic website for Yao Li (Assistant Professor at Portland State). Built with **Hakyll 4.16** (Haskell static site generator), deployed to **GitHub Pages by CI**: on every push to `master`, the `build` job in `.github/workflows/ci.yml` runs `stack exec site build` and the `deploy` job publishes the result via `actions/deploy-pages`. `/docs` is gitignored local build output. There is no JS framework, no CSS framework — vanilla CSS + ~150 lines of inline JS.
 
 ## Commands
 
 ```bash
 stack build                  # recompile (only needed after editing site.hs / src/*.hs)
 stack test                   # run the Publications and Talks module tests (fast, no rebuild)
-stack exec site rebuild      # full rebuild → writes to /docs (commit /docs to publish)
+stack exec site rebuild      # full rebuild → writes to /docs (local preview; publishing = push to master, CI deploys)
 stack exec site watch        # autocompile + local dev server on :8000
 stack exec site clean        # nuke _cache and /docs
 hlint site.hs src/ test/     # Haskell style check — keep it at "No hints" (prefer <> over mappend)
@@ -97,4 +97,4 @@ Website-only custom fields (all optional):
 - The `$partial("…")$` directive errors silently if the referenced template isn't registered via `match "templates/*"`.
 - `git add -A` will sweep `.claude/settings.local.json` (Claude Code session settings) into commits. `.gitignore` includes `.claude/`; stage explicit paths instead of `-A`.
 - When restructuring/redesigning templates, treat the visible text, aria-labels, and content-shape choices (abbreviation vs spelled-out, icon-only vs labeled, ordering) as read-only. Restructure markup, not strings.
-- `/docs/` is committed for GitHub Pages — every Hakyll-touching commit must include both source and rebuilt `/docs/` output, or the deployed site goes stale.
+- `/docs/` is gitignored build output — never commit it. Deployment happens in CI on every `master` push (Pages source is "GitHub Actions", not the branch). The CI `build` job must check out with `submodules: true`, or the `mysteries/` content silently drops out of the site.

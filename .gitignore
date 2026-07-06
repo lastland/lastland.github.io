@@ -1,4 +1,5 @@
 _cache
+docs/
 .stack-work/
 dist-newstyle
 .claude/
