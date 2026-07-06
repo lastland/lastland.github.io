@@ -326,6 +326,11 @@ body {
         radial-gradient(800px 360px at -10% 10%, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0));
 }
 
+/* Text selection picks up the accent; token flip covers dark mode */
+::selection {
+    background: rgba(var(--accent-rgb), 0.3);
+}
+
 /* Display surfaces use the serif; body surfaces use the grotesque */
 .section-header,
 .hero h1,
