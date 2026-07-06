@@ -799,7 +799,9 @@ button:focus-visible,
 
 /* Section Header */
 .section-header {
-    font-weight: 700;
+    /* Instrument Serif ships only weight 400 — a heavier value would be
+       browser-synthesized fake bold; presence comes from size instead */
+    font-weight: 400;
     color: var(--primary);
     position: relative;
 }
@@ -1518,7 +1520,7 @@ body {
 }
 
 .section-header {
-    font-size: var(--fs-2xl);
+    font-size: var(--fs-3xl);
     margin-bottom: 0;
 }
 
@@ -1528,7 +1530,7 @@ body {
 
 @media (max-width: 768px) {
     .hero h1 { font-size: var(--fs-2xl); }
-    .section-header { font-size: var(--fs-xl); }
+    .section-header { font-size: var(--fs-2xl); }
 }
 
 section {
@@ -1750,11 +1752,11 @@ a.text-link {
 }
 
 .course-detail-title {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.012em;
     color: var(--text);
     margin: 0;
 }
