@@ -20,6 +20,7 @@
     --surface: #fdfcfa;        /* Elevated surface (cards) */
     --surface-rgb: 253, 252, 250;
     --border: #d8d3ca;         /* Warmer neutral border */
+    --card-line: transparent;  /* Card edge: invisible in light, hairline in dark */
     --shadow: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06);
     --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.06), 0 2px 4px -2px rgb(15 23 42 / 0.06);
     --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.06);
@@ -71,6 +72,7 @@
     --surface: #232730;
     --surface-rgb: 35, 39, 48;
     --border: #3a404c;
+    --card-line: rgba(255, 255, 255, 0.08);
     --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
@@ -98,6 +100,7 @@
         --surface: #232730;
         --surface-rgb: 35, 39, 48;
         --border: #3a404c;
+        --card-line: rgba(255, 255, 255, 0.08);
         --shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.3);
         --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.35), 0 2px 4px -2px rgb(0 0 0 / 0.3);
         --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
@@ -224,9 +227,10 @@ b, strong, .fw-bold { font-weight: 700; }
 .card {
     position: relative;          /* contains .stretched-link::after */
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    transition: border-color 0.2s ease;
+    border: 1px solid var(--card-line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .card.border-0 { border: 0; }
 .card-body { padding: 1rem; }
@@ -834,8 +838,9 @@ section {
 
 .sa-block {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1px solid var(--card-line);
     border-radius: 12px;
+    box-shadow: var(--shadow-soft);
     padding: var(--space-5);
 }
 
@@ -1272,35 +1277,35 @@ img {
 
 /* Card and component dark mode support */
 .card {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    background: var(--bg);
-    border-color: var(--border);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    background: var(--surface);
+    border-color: var(--card-line);
     color: var(--text);
     border-width: 1px;
-    box-shadow: none;
+    box-shadow: var(--shadow-soft);
 }
 
 .card:hover {
-    box-shadow: none;
-    border-color: var(--primary-light);
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-1px);
 }
 
 .module-card {
-    background: var(--bg);
-    border: 1px solid var(--border) !important;
-    box-shadow: none !important;
-    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--card-line) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-radius: 12px;
 }
 
 .module-card.bg-light {
-    background: var(--bg-alt) !important;
-    border: 1px solid var(--border) !important;
+    background: var(--surface) !important;
+    border: 1px solid var(--card-line) !important;
 }
 
 .module-card.transition-hover:hover {
-    transform: none;
-    box-shadow: none !important;
-    border-color: var(--primary-light) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-elevated) !important;
+    border-color: var(--card-line) !important;
 }
 
 .module-card .card-body {
@@ -1327,7 +1332,7 @@ img {
 }
 
 [data-theme="dark"] .card {
-    border-color: var(--border);
+    border-color: var(--card-line);
     border-width: 1px;
 }
 
@@ -1343,7 +1348,7 @@ img {
 }
 
 .card-body {
-    background: var(--bg);
+    background: transparent;
     color: var(--text);
     padding: 1rem;
 }
@@ -1470,6 +1475,12 @@ main section.js-fx.is-visible .border-bottom {
         opacity: 1 !important;
         transform: none !important;
     }
+
+    /* Cards keep their resting position when motion is off */
+    .card:hover,
+    .module-card.transition-hover:hover {
+        transform: none !important;
+    }
 }
 
 @media (prefers-contrast: more) {
@@ -1529,7 +1540,7 @@ section {
 #publications .card,
 #talks .talk-list,
 #service .card {
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 #teaching .card-title {
