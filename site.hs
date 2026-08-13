@@ -191,9 +191,13 @@ feedConfiguration = FeedConfiguration
     , feedRoot        = "https://lastland.github.io"
     }
 
--- Context a post page is rendered with (post.html and the default.html wrap).
+-- Context a post page is rendered with (post.html and the default.html
+-- wrap). katexversion is the Posts module's pin, interpolated by
+-- default.html into the KaTeX CDN tags so the version lives in one place.
 postCtx :: Context String
-postCtx = postContext <> defaultContext
+postCtx = postContext
+    <> constField "katexversion" katexVersion
+    <> defaultContext
 
 --------------------------------------------------------------------------------
 

@@ -26,6 +26,7 @@ module Posts
     , parseCoqSyntax
     , coqSyntaxMap
     , postWriterOptions
+    , katexVersion
       -- * Internals exposed for the test suite
     , stringify
     ) where
@@ -36,7 +37,8 @@ import qualified Data.Map.Strict as M
 import           Data.Ord (Down (..))
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
-import           Data.Time.Calendar (Day, fromGregorianValid, toGregorian)
+import           Data.Time.Calendar (Day, fromGregorianValid)
+import           Data.Time.Format (defaultTimeLocale, formatTime)
 import           Prose (boldToB)
 import           Skylighting (Syntax (..), SyntaxMap, defaultSyntaxMap)
 import           Skylighting.Parser (parseSyntaxDefinitionFromText)
@@ -100,13 +102,7 @@ parsePostDate str = case splitOn '-' str of
 -- | Display a date as "August 12, 2026": full month name, day of month
 -- without zero-padding, year.
 formatPostDate :: Day -> String
-formatPostDate day =
-    monthNames !! (m - 1) ++ " " ++ show d ++ ", " ++ show y
-  where
-    (y, m, d) = toGregorian day
-    monthNames = [ "January", "February", "March", "April", "May", "June"
-                 , "July", "August", "September", "October", "November"
-                 , "December" ]
+formatPostDate = formatTime defaultTimeLocale "%B %-e, %Y"
 
 -- | The index sort key: date descending, title ascending breaks ties.
 postSortKey :: PostMeta -> (Down Day, String)
@@ -162,12 +158,16 @@ postWriterOptions opts sm = opts
     , writerSyntaxMap = sm
     }
 
--- Pinned KaTeX release. Pandoc's fragment output ignores this URL (it only
--- matters in standalone mode, which Hakyll never uses); the <link>/<script>
--- the browser actually loads live in templates/default.html. Keep the two
--- pins in sync when upgrading KaTeX.
+-- | The pinned KaTeX release. Single source of the version: the writer
+-- options below consume it (pandoc's fragment output ignores the URL, but
+-- the method selection matters), and templates/default.html interpolates it
+-- into the CDN <link>/<script> via the katexversion context field.
+katexVersion :: String
+katexVersion = "0.18.4"
+
 katexBaseUrl :: T.Text
-katexBaseUrl = "https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/"
+katexBaseUrl = "https://cdn.jsdelivr.net/npm/katex@"
+    <> T.pack katexVersion <> "/dist/"
 
 -- | Flatten a document to plain text, for assertions. pandoc-types 1.23
 -- removed 'stringify' from "Text.Pandoc.Generic"; pandoc's lives in

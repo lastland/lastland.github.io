@@ -51,9 +51,10 @@ Publications module.
 **Blogpost**:
 One file in `posts/`, rendered to its own page through `templates/post.html`.
 Body is Pandoc Markdown or Org (reader chosen by extension); YAML front matter
-carries `title`, `date`, `description`, and the optional presence-based
-`draft` flag. Drafts compile to a page but stay off `/blog.html` and the Atom
-feed until promotion (deleting the `draft` line). The word "post" belongs to
+carries `title`, `date`, `description`, and the optional `draft` flag (site
+boolean convention: `true` sets it, `false` or absent unsets it, any other
+value fails the build). Drafts compile to a page but stay off `/blog.html`
+and the Atom feed until promotion (deleting the `draft` line). The word "post" belongs to
 blogposts — a Paper is never called a post.
 _Avoid_: article, entry
 

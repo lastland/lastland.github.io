@@ -1,15 +1,39 @@
+<!-- Standalone SVG: loaded through <img>, it cannot read the page's CSS
+     custom properties, so it embeds its own palette and flips it with the
+     system color scheme (the documented exception to the token rule). -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 320 60" role="img" aria-label="Markdown is parsed into an AST, then rendered to HTML">
+  <style>
+    .outline { fill: none; stroke: #154734; stroke-width: 2; }
+    .label { fill: #154734; }
+    .solid { fill: #154734; }
+    .on-solid { fill: #ffffff; }
+    .accent-outline { fill: none; stroke: #E97A3A; stroke-width: 2; }
+    .accent-label { fill: #E97A3A; }
+    .arrow-line { fill: none; stroke: #154734; stroke-width: 2; }
+    .arrow-head { fill: #154734; }
+    text { font-family: sans-serif; font-size: 14px; }
+    @media (prefers-color-scheme: dark) {
+      .outline { stroke: #86efac; }
+      .label { fill: #86efac; }
+      .solid { fill: #86efac; }
+      .on-solid { fill: #14171c; }
+      .accent-outline { stroke: #F39361; }
+      .accent-label { fill: #F39361; }
+      .arrow-line { stroke: #86efac; }
+      .arrow-head { fill: #86efac; }
+    }
+  </style>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#154734"/>
+      <path class="arrow-head" d="M0 0 L10 5 L0 10 z"/>
     </marker>
   </defs>
-  <rect x="10" y="45" width="90" height="50" rx="8" fill="none" stroke="#154734" stroke-width="2"/>
-  <text x="55" y="75" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#154734">Markdown</text>
-  <rect x="120" y="45" width="80" height="50" rx="8" fill="#154734"/>
-  <text x="160" y="75" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ffffff">AST</text>
-  <rect x="220" y="45" width="90" height="50" rx="8" fill="none" stroke="#E97A3A" stroke-width="2"/>
-  <text x="265" y="75" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#E97A3A">HTML</text>
-  <path d="M100 70 H118" stroke="#154734" stroke-width="2" marker-end="url(#arrow)"/>
-  <path d="M200 70 H218" stroke="#154734" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect class="outline" x="10" y="45" width="90" height="50" rx="8"/>
+  <text class="label" x="55" y="75" text-anchor="middle">Markdown</text>
+  <rect class="solid" x="120" y="45" width="80" height="50" rx="8"/>
+  <text class="on-solid" x="160" y="75" text-anchor="middle">AST</text>
+  <rect class="accent-outline" x="220" y="45" width="90" height="50" rx="8"/>
+  <text class="accent-label" x="265" y="75" text-anchor="middle">HTML</text>
+  <path class="arrow-line" d="M100 70 H118" marker-end="url(#arrow)"/>
+  <path class="arrow-line" d="M200 70 H218" marker-end="url(#arrow)"/>
 </svg>
