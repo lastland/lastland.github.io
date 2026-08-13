@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  KDE/Kate-format syntax definition for the Rocq/Coq proof assistant (Gallina).
+
+  Provenance: written from scratch for this site; no Coq definition exists in
+  KDE syntax-highlighting upstream (checked invent.kde.org/frameworks/
+  syntax-highlighting, master, 2026-08). XML structure modelled on KDE's
+  haskell.xml and ocaml.xml (LGPL), used only as structural references.
+
+  Loaded at build time by Skylighting.Parser.parseSyntaxDefinition and used to
+  highlight ```coq and ```rocq fenced code blocks in blog posts.
+
+  Coverage: vernacular commands, Gallina term keywords, common tactics, sorts
+  and base types, nested (* ... *) comments (doc comments (** ... *) included),
+  strings with backslash escapes, decimal/hex integers, operator runs.
+  Type/Set/Prop/SProp live in the "sorts and base types" list only (one home
+  per word). Primes are word characters, so x' / foo'' stay one identifier.
+
+  License: MIT
+-->
+<language name="Coq"
+          section="Scientific"
+          version="1"
+          kateSyntaxVersion="5.53"
+          extensions="*.v"
+          mimetype="text/x-coq"
+          author="Yao Li"
+          license="MIT">
+  <highlighting>
+    <list name="vernacular">
+      <item>Theorem</item>
+      <item>Lemma</item>
+      <item>Corollary</item>
+      <item>Remark</item>
+      <item>Fact</item>
+      <item>Proposition</item>
+      <item>Definition</item>
+      <item>Let</item>
+      <item>Inductive</item>
+      <item>CoInductive</item>
+      <item>Variant</item>
+      <item>Record</item>
+      <item>Structure</item>
+      <item>Class</item>
+      <item>Instance</item>
+      <item>Fixpoint</item>
+      <item>CoFixpoint</item>
+      <item>Function</item>
+      <item>Program</item>
+      <item>Example</item>
+      <item>Axiom</item>
+      <item>Conjecture</item>
+      <item>Parameter</item>
+      <item>Parameters</item>
+      <item>Variable</item>
+      <item>Variables</item>
+      <item>Hypothesis</item>
+      <item>Hypotheses</item>
+      <item>Context</item>
+      <item>Section</item>
+      <item>Module</item>
+      <item>End</item>
+      <item>Proof</item>
+      <item>Qed</item>
+      <item>Defined</item>
+      <item>Admitted</item>
+      <item>Abort</item>
+      <item>Require</item>
+      <item>Import</item>
+      <item>Export</item>
+      <item>Open</item>
+      <item>Close</item>
+      <item>Scope</item>
+      <item>Delimit</item>
+      <item>Bind</item>
+      <item>Notation</item>
+      <item>Infix</item>
+      <item>Reserved</item>
+      <item>Arguments</item>
+      <item>Canonical</item>
+      <item>Existing</item>
+      <item>Global</item>
+      <item>Local</item>
+      <item>Unset</item>
+      <item>Check</item>
+      <item>Print</item>
+      <item>Eval</item>
+      <item>Compute</item>
+      <item>Search</item>
+      <item>SearchAbout</item>
+      <item>Locate</item>
+      <item>About</item>
+      <item>Ltac</item>
+      <item>Ltac2</item>
+    </list>
+    <list name="term keywords">
+      <item>forall</item>
+      <item>exists</item>
+      <item>fun</item>
+      <item>fix</item>
+      <item>cofix</item>
+      <item>match</item>
+      <item>with</item>
+      <item>end</item>
+      <item>if</item>
+      <item>then</item>
+      <item>else</item>
+      <item>return</item>
+      <item>as</item>
+      <item>in</item>
+      <item>let</item>
+      <item>where</item>
+      <item>struct</item>
+      <item>wf</item>
+      <item>measure</item>
+    </list>
+    <list name="tactics">
+      <item>intros</item>
+      <item>intro</item>
+      <item>apply</item>
+      <item>eapply</item>
+      <item>exact</item>
+      <item>assumption</item>
+      <item>reflexivity</item>
+      <item>simpl</item>
+      <item>cbn</item>
+      <item>cbv</item>
+      <item>hnf</item>
+      <item>rewrite</item>
+      <item>erewrite</item>
+      <item>induction</item>
+      <item>destruct</item>
+      <item>case</item>
+      <item>split</item>
+      <item>left</item>
+      <item>right</item>
+      <item>constructor</item>
+      <item>econstructor</item>
+      <item>inversion</item>
+      <item>discriminate</item>
+      <item>exfalso</item>
+      <item>contradiction</item>
+      <item>congruence</item>
+      <item>subst</item>
+      <item>rename</item>
+      <item>revert</item>
+      <item>generalize</item>
+      <item>pose</item>
+      <item>remember</item>
+      <item>unfold</item>
+      <item>fold</item>
+      <item>change</item>
+      <item>pattern</item>
+      <item>assert</item>
+      <item>enough</item>
+      <item>specialize</item>
+      <item>clear</item>
+      <item>red</item>
+      <item>f_equal</item>
+      <item>extensionality</item>
+      <item>tauto</item>
+      <item>intuition</item>
+      <item>firstorder</item>
+      <item>eauto</item>
+      <item>auto</item>
+      <item>trivial</item>
+      <item>omega</item>
+      <item>lia</item>
+      <item>nia</item>
+      <item>lra</item>
+      <item>ring</item>
+      <item>field</item>
+      <item>crush</item>
+      <item>now</item>
+      <item>progress</item>
+      <item>try</item>
+      <item>repeat</item>
+      <item>solve</item>
+      <item>fail</item>
+      <item>idtac</item>
+      <item>refine</item>
+      <item>transitivity</item>
+      <item>symmetry</item>
+      <item>replace</item>
+      <item>injection</item>
+      <item>dependent</item>
+    </list>
+    <list name="sorts and base types">
+      <item>Type</item>
+      <item>Set</item>
+      <item>Prop</item>
+      <item>SProp</item>
+      <item>nat</item>
+      <item>bool</item>
+      <item>option</item>
+      <item>list</item>
+      <item>unit</item>
+      <item>sum</item>
+      <item>and</item>
+      <item>or</item>
+      <item>not</item>
+      <item>True</item>
+      <item>False</item>
+      <item>Some</item>
+      <item>None</item>
+      <item>nil</item>
+      <item>cons</item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <Detect2Chars attribute="Comment" context="Comment" char="(" char1="*" beginRegion="Comment"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <!-- multi-word command: keyword rules only match single words -->
+        <StringDetect attribute="Keyword" context="#stay" String="Tactic Notation"/>
+        <keyword attribute="Keyword" context="#stay" String="vernacular"/>
+        <keyword attribute="Keyword" context="#stay" String="term keywords"/>
+        <keyword attribute="Tactic" context="#stay" String="tactics"/>
+        <keyword attribute="Sort" context="#stay" String="sorts and base types"/>
+        <RegExpr attribute="Number" context="#stay" String="0[xX][0-9a-fA-F]+"/>
+        <Int attribute="Number" context="#stay"/>
+        <RegExpr attribute="Operator" context="#stay" String="[-+*/=&lt;&gt;@|^~?!.;:,$%#&amp;\\(){}\[\]]+"/>
+      </context>
+      <!-- (* ... *) comments nest; (** ... *) doc comments share this style.
+           Strings inside comments must be well-formed, so "..." is tracked. -->
+      <context attribute="Comment" lineEndContext="#stay" name="Comment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")" endRegion="Comment"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="(" char1="*" beginRegion="Comment"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <DetectSpaces attribute="Comment"/>
+        <DetectIdentifier attribute="Comment"/>
+      </context>
+      <context attribute="String" lineEndContext="#stay" name="String">
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+        <RegExpr attribute="String" context="#stay" String="\\."/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Tactic" defStyleNum="dsBuiltIn" spellChecking="false"/>
+      <itemData name="Sort" defStyleNum="dsDataType" spellChecking="false"/>
+      <itemData name="Operator" defStyleNum="dsOperator" spellChecking="false"/>
+      <itemData name="Number" defStyleNum="dsDecVal" spellChecking="false"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="multiLine" start="(*" end="*)" region="Comment"/>
+    </comments>
+    <!-- Coq identifiers may carry primes (x', foo''): a prime is not a word
+         delimiter, so a keyword never matches the head of a primed identifier. -->
+    <keywords casesensitive="1" weakDeliminators="'"/>
+  </general>
+</language>

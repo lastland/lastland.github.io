@@ -1,3 +1,14 @@
 resolver: lts-24.0
 packages:
   - .
+extra-deps:
+  - pandoc-crossref-0.3.20
+# pandoc-crossref-0.3.20 declares containers <0.7, data-default <0.8,
+# open-browser ==0.2.*, but lts-24.0 ships containers-0.7, data-default-0.8,
+# open-browser-0.4. Its library uses only stable APIs from these, so relax its
+# bounds rather than downgrading core libraries. open-browser backs only the
+# pandoc-crossref executable, which is never built here. allow-newer-deps
+# scopes the relaxation to pandoc-crossref alone.
+allow-newer: true
+allow-newer-deps:
+  - pandoc-crossref

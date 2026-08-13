@@ -8,13 +8,19 @@ library
   exposed-modules:  Publications
                   , Talks
                   , Courses
+                  , Posts
                   , Prose
   build-depends:    base == 4.*
                   , bibtex == 0.1.0.7
+                  , containers
                   , parsec
                   , pandoc
+                  , pandoc-crossref
                   , pandoc-types
+                  , skylighting
+                  , skylighting-core
                   , text
+                  , time
                   , yaml
                   , aeson
   default-language: Haskell2010
@@ -37,4 +43,6 @@ test-suite site-test
                   , pandoc-types
                   , tasty
                   , tasty-hunit
+                  , text
+                  , time
   default-language: Haskell2010

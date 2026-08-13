@@ -1,17 +1,21 @@
--- Tests exercise the Publications, Talks, and Prose modules through their
--- interfaces: bib/YAML/AST in, display-ready values out. No Hakyll, no
--- rebuild, no browser.
+-- Tests exercise the Publications, Talks, Courses, Posts, and Prose modules
+-- through their interfaces: bib/YAML/AST/front matter in, display-ready
+-- values out. No Hakyll, no rebuild, no browser.
 {-# LANGUAGE OverloadedStrings #-}
 module Main (main) where
 
 import           Test.Tasty
 import           Test.Tasty.HUnit
 import           Data.Either (isRight, isLeft)
-import           Data.List (isInfixOf)
+import           Data.List (isInfixOf, sortOn)
+import           Data.Time.Calendar (fromGregorian)
+import qualified Data.Text as T
 import qualified Text.BibTeX.Entry as BibEntry
 import           Text.Pandoc.Definition
-                   (Pandoc(..), Block(..), Inline(..), Format(..), nullMeta)
+                   (Pandoc(..), Block(..), Inline(..), Format(..)
+                   , Caption(..), Citation(..), CitationMode(..), nullMeta)
 import           Courses
+import           Posts
 import           Publications
 import           Prose
 import           Talks
@@ -33,6 +37,9 @@ main = defaultMain $ testGroup "site"
         [ talkGroupingTests, talkDisplayTests, talkPipelineTests ]
     , testGroup "Courses"
         [ courseTermTests, courseOrderTests, courseDisplayTests ]
+    , testGroup "Posts"
+        [ postDateTests, postMetaTests, postSortTests, postMathTests
+        , postRocqTests, postCrossRefTests, postSyntaxTests ]
     , testGroup "Prose" [ proseTests ]
     ]
 
@@ -311,4 +318,124 @@ talkPipelineTests = testGroup "parseTalks on the real talks.yaml"
                 assertBool "has talks" (not (null ys))
                 let years = map fst ys
                 assertBool "years strictly descending" (and (zipWith (>) years (drop 1 years)))
+    ]
+
+--------------------------------------------------------------------------------
+-- Posts
+
+-- Front matter as an assoc list, queried the way site.hs queries Hakyll
+-- metadata.
+postMeta :: [(String, String)] -> Either String PostMeta
+postMeta fs = parsePostMeta (`lookup` fs)
+
+validMeta :: [(String, String)]
+validMeta = [("title", "T"), ("date", "2026-08-12"), ("description", "D")]
+
+postDateTests :: TestTree
+postDateTests = testGroup "date parsing and formatting"
+    [ testCase "ISO date parses" $
+        parsePostDate "2026-08-12" @?= Right (fromGregorian 2026 8 12)
+    , testCase "single-digit month rejected" $
+        assertBool "expected Left" (isLeft (parsePostDate "2026-8-12"))
+    , testCase "invalid calendar day rejected" $
+        assertBool "expected Left" (isLeft (parsePostDate "2026-02-30"))
+    , testCase "non-ISO rejected naming the string" $
+        case parsePostDate "Aug 12 2026" of
+            Left msg -> assertBool "message names the date" ("Aug 12 2026" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "formats as Month Day, Year" $
+        formatPostDate (fromGregorian 2026 8 12) @?= "August 12, 2026"
+    , testCase "day of month not zero-padded" $
+        formatPostDate (fromGregorian 2026 8 1) @?= "August 1, 2026"
+    ]
+
+postMetaTests :: TestTree
+postMetaTests = testGroup "front-matter validation"
+    [ testCase "title, date, description parse" $
+        case postMeta validMeta of
+            Left err -> assertFailure err
+            Right pm -> do
+                postTitle pm       @?= "T"
+                postDate pm        @?= fromGregorian 2026 8 12
+                postDescription pm @?= "D"
+                postDraft pm       @?= False
+    , testCase "missing title fails naming the field" $
+        case postMeta [("date", "2026-08-12"), ("description", "D")] of
+            Left msg -> assertBool "message names title" ("title" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "missing date fails naming the field" $
+        case postMeta [("title", "T"), ("description", "D")] of
+            Left msg -> assertBool "message names date" ("date" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "missing description fails naming the field" $
+        case postMeta [("title", "T"), ("date", "2026-08-12")] of
+            Left msg -> assertBool "message names description" ("description" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "empty required field fails" $
+        assertBool "expected Left"
+            (isLeft (postMeta [("title", "T"), ("date", "2026-08-12"), ("description", "")]))
+    , testCase "malformed date fails" $
+        assertBool "expected Left"
+            (isLeft (postMeta [("title", "T"), ("date", "soon"), ("description", "D")]))
+    , testCase "draft: true marks a draft" $
+        fmap postDraft (postMeta (validMeta ++ [("draft", "true")])) @?= Right True
+    , testCase "draft: false counts as unset" $
+        fmap postDraft (postMeta (validMeta ++ [("draft", "false")])) @?= Right False
+    , testCase "unrecognized draft value fails naming it" $
+        case postMeta (validMeta ++ [("draft", "banana")]) of
+            Left msg -> assertBool "message names the value" ("banana" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    ]
+
+postSortTests :: TestTree
+postSortTests = testGroup "ordering"
+    [ testCase "date descending, title ascending breaks ties" $ do
+        let Right old  = postMeta [("title", "B"), ("date", "2025-01-01"), ("description", "D")]
+            Right new  = postMeta [("title", "A"), ("date", "2026-01-01"), ("description", "D")]
+            Right tie1 = postMeta [("title", "A"), ("date", "2025-01-01"), ("description", "D")]
+            Right tie2 = postMeta [("title", "C"), ("date", "2025-01-01"), ("description", "D")]
+        map postTitle (sortOn postSortKey [old, new, tie2, tie1])
+            @?= ["A", "A", "B", "C"]
+    ]
+
+postMathTests :: TestTree
+postMathTests = testGroup "math detection in rendered HTML"
+    [ testCase "inline math span" $
+        postHasMath "<p><span class=\"math inline\">x^2</span></p>" @?= True
+    , testCase "display math span" $
+        postHasMath "<span class=\"math display\">x</span>" @?= True
+    , testCase "no math" $
+        postHasMath "<p>nothing to see</p>" @?= False
+    ]
+
+postRocqTests :: TestTree
+postRocqTests = testGroup "rocq fence normalization"
+    [ testCase "rocq block becomes coq" $
+        normalizeRocq (Pandoc nullMeta [CodeBlock ("", ["rocq"], []) "Theorem t."])
+          @?= Pandoc nullMeta [CodeBlock ("", ["coq"], []) "Theorem t."]
+    , testCase "other languages untouched" $
+        normalizeRocq (Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"])
+          @?= Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"]
+    ]
+
+postCrossRefTests :: TestTree
+postCrossRefTests = testGroup "numbered cross-references"
+    [ testCase "figure numbered and @fig: reference resolved" $ do
+        -- pandoc 3 reads a standalone image paragraph as a Figure block;
+        -- pandoc-crossref numbers Figure blocks, not bare image paragraphs.
+        let doc = Pandoc nullMeta
+                [ Figure ("fig:hello", [], [])
+                    (Caption Nothing [Plain [Str "A caption"]])
+                    [Plain [Image ("", [], []) [Str "A caption"] ("images/hello.png", "")]]
+                , Para [Cite [Citation "fig:hello" [] [] NormalCitation 0 0] [Str "@fig:hello"]]
+                ]
+            out = stringify (applyCrossRef doc)
+        assertBool ("expected \"Figure 1\" in: " ++ out) ("Figure 1" `isInfixOf` out)
+    ]
+
+postSyntaxTests :: TestTree
+postSyntaxTests = testGroup "vendored Coq syntax definition"
+    [ testCase "syntax/coq.xml parses" $ do
+        raw <- readFile "syntax/coq.xml"
+        assertBool "expected Right" (isRight (parseCoqSyntax (T.pack raw)))
     ]
