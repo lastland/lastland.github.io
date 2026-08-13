@@ -48,6 +48,21 @@ year grouping, ordering, and the single/multi-venue display decision. Its
 interface — display-ready TalkYears — is the test surface, mirroring the
 Publications module.
 
+**Blogpost**:
+One file in `posts/`, rendered to its own page through `templates/post.html`.
+Body is Pandoc Markdown or Org (reader chosen by extension); YAML front matter
+carries `title`, `date`, `description`, and the optional presence-based
+`draft` flag. Drafts compile to a page but stay off `/blog.html` and the Atom
+feed until promotion (deleting the `draft` line).
+_Avoid_: post, article, entry (those collide with Paper)
+
+**Posts module**:
+The deep module (`src/Posts.hs`) owning every blogpost semantic: front-matter
+validation, date parsing/formatting, ordering, math detection (gating KaTeX),
+rocq→coq fence normalization, pandoc-crossref numbering, and the KaTeX/Coq
+writer options. Its interface — validated PostMeta plus the pandoc pipeline —
+is the test surface.
+
 ## Example dialogue
 
 > **Dev:** ESOP 2026 shows no year chip but the TOPLAS paper does — where do I look?
