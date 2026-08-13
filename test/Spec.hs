@@ -39,7 +39,8 @@ main = defaultMain $ testGroup "site"
         [ courseTermTests, courseOrderTests, courseDisplayTests ]
     , testGroup "Posts"
         [ postDateTests, postMetaTests, postSortTests, postMathTests
-        , postRocqTests, postCrossRefTests, postSyntaxTests ]
+        , postAlectryonDetectTests
+        , postRocqTests, postAlectryonTests, postCrossRefTests, postSyntaxTests ]
     , testGroup "Prose" [ proseTests ]
     ]
 
@@ -408,6 +409,14 @@ postMathTests = testGroup "math detection in rendered HTML"
         postHasMath "<p>nothing to see</p>" @?= False
     ]
 
+postAlectryonDetectTests :: TestTree
+postAlectryonDetectTests = testGroup "alectryon detection in rendered HTML"
+    [ testCase "alectryon-io block present" $
+        postHasAlectryon "<pre class=\"alectryon-io highlight\">code</pre>" @?= True
+    , testCase "no alectryon" $
+        postHasAlectryon "<pre class=\"sourceCode coq\">code</pre>" @?= False
+    ]
+
 postRocqTests :: TestTree
 postRocqTests = testGroup "rocq fence normalization"
     [ testCase "rocq block becomes coq" $
@@ -416,6 +425,22 @@ postRocqTests = testGroup "rocq fence normalization"
     , testCase "other languages untouched" $
         normalizeRocq (Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"])
           @?= Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"]
+    ]
+
+postAlectryonTests :: TestTree
+postAlectryonTests = testGroup "alectryon fence normalization"
+    [ testCase "coq block becomes alectryon" $
+        normalizeAlectryon (Pandoc nullMeta [CodeBlock ("", ["coq"], []) "Theorem t."])
+          @?= Pandoc nullMeta [CodeBlock ("", ["alectryon"], []) "Theorem t."]
+    , testCase "rocq block becomes alectryon" $
+        normalizeAlectryon (Pandoc nullMeta [CodeBlock ("", ["rocq"], []) "Theorem t."])
+          @?= Pandoc nullMeta [CodeBlock ("", ["alectryon"], []) "Theorem t."]
+    , testCase "other languages untouched" $
+        normalizeAlectryon (Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"])
+          @?= Pandoc nullMeta [CodeBlock ("", ["haskell"], []) "main"]
+    , testCase "identifier, key-values, extra classes preserved" $
+        normalizeAlectryon (Pandoc nullMeta [CodeBlock ("cb1", ["coq","numberLines"], [("foo","bar")]) "x."])
+          @?= Pandoc nullMeta [CodeBlock ("cb1", ["alectryon","numberLines"], [("foo","bar")]) "x."]
     ]
 
 postCrossRefTests :: TestTree

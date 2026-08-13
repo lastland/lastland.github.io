@@ -66,8 +66,28 @@ jobs:
           path: .stack-work
           key: ${{ runner.os }}-stack-work-${{ hashFiles('stack.yaml', 'stack.yaml.lock', 'site.cabal', '**/*.hs') }}
           restore-keys: ${{ runner.os }}-stack-work-
+      # Coq toolchain for Alectryon proof-state generation. Posts that opt in
+      # via an "alectryon" front-matter field are checked at build time
+      # (--run-alectryon), so the prover, SerAPI, and Alectryon must be on
+      # PATH. setup-ocaml caches ~/.opam (the switch persists across runs, so
+      # the heavy Coq + SerAPI compile happens only on cache miss / version
+      # bump). Pin the exact versions and bump the cache suffix with them.
+      - uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 4.14.2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install Coq 8.20, SerAPI, and Alectryon
+        run: |
+          opam install -y coq.8.20.1 coq-serapi
+          pip install alectryon==2.0.0
       - run: stack build
-      - run: stack exec site build
+      # --run-alectryon executes the Coq snippets and records their proof
+      # states (committed caches let local builds skip this without a Coq
+      # install). opam env puts sertop on PATH; setup-python put alectryon
+      # and python3 there.
+      - run: eval $(opam env) && stack exec site -- build --run-alectryon
       - uses: actions/upload-pages-artifact@v5
         with:
           path: docs

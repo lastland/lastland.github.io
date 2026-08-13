@@ -4,8 +4,9 @@
 -- (title, date, description, draft), the date parse (exactly "YYYY-MM-DD")
 -- and display ("August 12, 2026"), the index ordering key (date descending,
 -- title ascending breaks ties), and the markdown-to-HTML pipeline decisions —
--- rocq fences normalized to coq, numbered cross-references, bold as <b>,
--- KaTeX math, and the vendored Coq syntax definition. Its interface is
+-- rocq fences normalized to coq, coq/rocq fences rewritten to alectryon on
+-- Alectryon-enabled posts, numbered cross-references, bold as <b>, KaTeX
+-- math, and the vendored Coq syntax definition. Its interface is
 -- 'parsePostMeta': front-matter lookups in, a display-ready 'PostMeta' out,
 -- every failure as a 'Left'.
 module Posts
@@ -20,9 +21,12 @@ module Posts
     , formatPostDate
     , postSortKey
     , postHasMath
+    , postHasAlectryon
     , normalizeRocq
+    , normalizeAlectryon
     , applyCrossRef
     , postTransform
+    , alectryonTransform
     , parseCoqSyntax
     , coqSyntaxMap
     , postWriterOptions
@@ -115,16 +119,38 @@ postHasMath html =
     isInfixOf "class=\"math inline\"" html
     || isInfixOf "class=\"math display\"" html
 
+-- | Whether the rendered HTML carries an Alectryon proof-state block. Decides
+-- whether the page loads the Alectryon stylesheet.
+postHasAlectryon :: String -> Bool
+postHasAlectryon = isInfixOf "alectryon-io"
+
+-- | Rewrite the language classes of code blocks by a per-class mapping. Both
+-- 'normalizeRocq' and 'normalizeAlectryon' are instances of this; only the
+-- class mapping differs. Identifier, key-values, and extra classes survive.
+renameClasses :: (T.Text -> T.Text) -> Pandoc -> Pandoc
+renameClasses f = walk rename
+  where
+    rename (CodeBlock (ident, classes, kvs) code) =
+        CodeBlock (ident, map f classes, kvs) code
+    rename block = block
+
 -- | Rename rocq code fences to coq: the vendored syntax definition is keyed
 -- under its historical name, while authors write ```rocq.
 normalizeRocq :: Pandoc -> Pandoc
-normalizeRocq = walk rename
+normalizeRocq = renameClasses rocqToCoq
   where
-    rename (CodeBlock (ident, classes, kvs) code) =
-        CodeBlock (ident, map rocqToCoq classes, kvs) code
-    rename block = block
     rocqToCoq "rocq" = "coq"
     rocqToCoq c      = c
+
+-- | Rewrite coq and rocq code fences to alectryon: on Alectryon-enabled
+-- posts every Coq/Rocq block is executed and annotated with proof states, so
+-- all of them are handed to the Alectryon transform (keyed under the
+-- "alectryon" class). Identifier, key-values, and extra classes are preserved.
+normalizeAlectryon :: Pandoc -> Pandoc
+normalizeAlectryon = renameClasses toAlectryon
+  where
+    toAlectryon c | c `elem` ["coq", "rocq"] = "alectryon"
+    toAlectryon c = c
 
 -- | Resolve numbered cross-references (figures, equations, tables) in
 -- process, purely: pandoc-crossref with its default action, HTML format.
@@ -136,6 +162,14 @@ applyCrossRef doc@(Pandoc meta _) =
 -- definition matches, cross-references numbered, bold rendered as <b>.
 postTransform :: Pandoc -> Pandoc
 postTransform = boldToB . applyCrossRef . normalizeRocq
+
+-- | The whole AST pipeline, in order, for Alectryon-enabled posts: coq/rocq
+-- fences rewritten to alectryon (so the Alectryon transform claims them),
+-- cross-references numbered, bold rendered as <b>. Alectryon's own transform —
+-- which turns alectryon blocks into proof-state HTML — runs afterwards in the
+-- Compiler monad in site.hs.
+alectryonTransform :: Pandoc -> Pandoc
+alectryonTransform = boldToB . applyCrossRef . normalizeAlectryon
 
 -- | Parse the vendored Kate XML syntax definition from its text. The
 -- file name stands in for the one the definition ships in; skylighting

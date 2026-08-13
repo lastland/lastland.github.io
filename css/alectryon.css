@@ -1,0 +1,197 @@
+/* ============================================================
+   Alectryon proof-state styles (loaded only on posts with proof goals)
+
+   Adapted from Alectryon's MIT-licensed alectryon.css, restyled to the
+   site's design tokens and laid out inline (each sentence's goals appear
+   directly beneath it, revealed on hover or click) rather than floating.
+   Loaded conditionally via $if(hasalectryon)$ in templates/default.html.
+   ============================================================ */
+
+/* The whole interactive block reads as one code listing. The site's
+   .post-body pre rule already supplies the surface, border, radius, and
+   padding; we only adjust spacing and ensure the contents can wrap. */
+.post-body .alectryon-io {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    margin: var(--space-5) 0;
+}
+
+/* --- Reset site blockquote/prose rules inside an Alectryon block ---------
+   Alectryon renders goals and messages as <blockquote>; the site styles
+   blockquotes with a terracotta rule and muted text, which would clash.
+   Scope the reset to .alectryon-io so prose blockquotes elsewhere keep
+   their styling. */
+.post-body .alectryon-io blockquote,
+.post-body .alectryon-io blockquote.alectryon-goal,
+.post-body .alectryon-io blockquote.alectryon-message {
+    border: none;
+    border-left: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    background: none;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.post-body .alectryon-io small.alectryon-output { font-size: inherit; }
+
+/* --- Sentences, inputs, and the reveal mechanism ----------------------- */
+
+.post-body .alectryon-io .alectryon-sentence { position: relative; }
+
+/* Alectryon marks the toggle checkbox with an inline `display: none`, which
+   removes it from the accessibility tree. Override to a visually-hidden but
+   focusable element so keyboard users can pin a goal with Space/Enter. The
+   !important is required to beat the inline style. */
+.post-body .alectryon-io input.alectryon-toggle {
+    display: inline !important;
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+.post-body .alectryon-io input.alectryon-toggle:focus-visible + .alectryon-input {
+    outline: 2px solid var(--accent-cool);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Each sentence's source is a clickable label. The cursor and a subtle
+   underline hint at interactivity; the bubble marker is omitted (we lean
+   on hover/focus affordances instead). */
+.post-body .alectryon-io label.alectryon-input {
+    cursor: pointer;
+    display: inline;
+    padding: 0 0.15em;
+    border-radius: var(--radius-sm);
+}
+@media (any-hover: hover) {
+    .post-body .alectryon-io label.alectryon-input:hover {
+        background: var(--bg-alt);
+    }
+}
+/* The currently targeted sentence (keyboard nav via :target, or the
+   document-wide checkbox) is emphasized. */
+.post-body .alectryon-io .alectryon-sentence.alectryon-target .alectryon-input {
+    font-weight: 600;
+}
+
+/* Output is hidden by default and revealed inline-below the sentence, on
+   hover (pointer devices) or when the sentence's checkbox is checked. The
+   :checked rule uses the general sibling combinator: the toggle precedes
+   the label and the output within the sentence span. */
+.post-body .alectryon-io .alectryon-output {
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+@media (any-hover: hover) {
+    .post-body .alectryon-io .alectryon-sentence:hover .alectryon-output {
+        display: block;
+    }
+}
+.post-body .alectryon-io .alectryon-toggle:checked ~ .alectryon-output {
+    display: block;
+}
+
+/* --- Goal and message panes ------------------------------------------- */
+
+.post-body .alectryon-io .alectryon-goals,
+.post-body .alectryon-io .alectryon-messages {
+    margin: var(--space-2) 0 var(--space-3);
+    padding: var(--space-2);
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.post-body .alectryon-io .alectryon-goal {
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-2);
+}
+.post-body .alectryon-io .alectryon-goal:last-child { margin-bottom: 0; }
+
+/* Hypotheses stack above the separator line. */
+.post-body .alectryon-io .goal-hyps {
+    margin-bottom: var(--space-2);
+}
+.post-body .alectryon-io .goal-hyps > span {
+    display: block;
+    padding: 0.1em 0;
+}
+.post-body .alectryon-io .goal-hyps var {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--text);
+    margin-right: 0.4em;
+}
+.post-body .alectryon-io .goal-hyps b {
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-right: 0.3em;
+}
+
+/* The horizontal rule separating hypotheses from the conclusion. */
+.post-body .alectryon-io .goal-separator {
+    display: flex;
+    align-items: center;
+    margin: var(--space-2) 0;
+}
+.post-body .alectryon-io .goal-separator hr {
+    border: none;
+    border-top: var(--rule-accent) solid var(--accent);
+    width: 100%;
+    margin: 0;
+}
+.post-body .alectryon-io .goal-separator .goal-name {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    margin-left: var(--space-2);
+}
+
+/* The conclusion (the goal itself). */
+.post-body .alectryon-io .goal-conclusion {
+    font-weight: 500;
+}
+
+/* Messages (e.g. from `Print`, or warnings) get a distinct left accent. */
+.post-body .alectryon-io .alectryon-message {
+    padding: var(--space-1) var(--space-3);
+    border-left: var(--rule-accent) solid var(--accent-cool);
+    background: var(--bg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: var(--space-1);
+    color: var(--text-light);
+}
+
+/* --- Pygments token colors --------------------------------------------
+   Alectryon highlights code with Pygments, whose short class names differ
+   from skylighting's (the site's existing token rules target .kw/.bu/.dt
+   etc.). Map the Coq Pygments classes to the same design tokens so the
+   palette stays consistent across the two highlighters. */
+.post-body .alectryon-io .kn { color: var(--primary); font-weight: 600; }     /* Keyword */
+.post-body .alectryon-io .kt { color: var(--accent-dark); }                   /* Type/Sort */
+.post-body .alectryon-io .bp,
+.post-body .alectryon-io .nb { color: var(--accent-cool-dark); }              /* Builtin */
+.post-body .alectryon-io .mi,
+.post-body .alectryon-io .mf { color: var(--accent-cool-dark); }              /* Number */
+.post-body .alectryon-io .nf { color: var(--text); }                          /* Function */
+.post-body .alectryon-io .nv { color: var(--text); }                          /* Variable */
+.post-body .alectryon-io .st { color: var(--primary-light); }                 /* String */
+.post-body .alectryon-io .c,
+.post-body .alectryon-io .c1,
+.post-body .alectryon-io .cm { color: var(--text-muted); font-style: italic; } /* Comment (Coq (* … *)) */
+
+/* Dark theme: the keyword green flips to the light variant automatically
+   because --primary rebinds under [data-theme="dark"]; the other tokens
+   are already theme-aware. */

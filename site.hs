@@ -1,15 +1,20 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Control.Monad (filterM)
+import           Control.Monad (filterM, (>=>))
 import           Courses
 import           Data.List (sortOn)
 import           Data.Ord (Down (..))
 import           Data.String (fromString)
 import           Hakyll
+import qualified Hakyll.Alectryon as Alectryon
 import           Posts
 import           Publications
 import           Prose
+import           Skylighting (SyntaxMap)
+import           System.FilePath ((</>))
 import           Talks
+import           Text.Pandoc.Definition (Pandoc)
+import           Text.Pandoc.Options (WriterOptions)
 
 
 --------------------------------------------------------------------------------
@@ -158,7 +163,8 @@ loadPostMeta ident = do
 
 -- A field per template key. date/isodate/description come from the validated
 -- front matter; hasmath is presence-based ($if(hasmath)$ gates the KaTeX
--- assets in default.html), mirroring paperContext's field + noResult style.
+-- assets in default.html), and hasalectryon likewise gates the Alectryon
+-- stylesheet — both mirroring paperContext's field + noResult style.
 postContext :: Context String
 postContext = mconcat
     [ field "date" $ \item ->
@@ -171,6 +177,10 @@ postContext = mconcat
         if postHasMath (itemBody item)
             then return "true"
             else noResult "post has no math"
+    , field "hasalectryon" $ \item ->
+        if postHasAlectryon (itemBody item)
+            then return "true"
+            else noResult "post has no alectryon blocks"
     ]
 
 -- Blog order: date descending, title ascending breaks ties (postSortKey).
@@ -201,6 +211,66 @@ postCtx = postContext
 
 --------------------------------------------------------------------------------
 
+-- The pure AST pipeline for Alectryon-enabled posts lives in the Posts
+-- module alongside the standard 'postTransform' (coq/rocq fences rewritten to
+-- alectryon, cross-references numbered, bold as <b>). Alectryon's own transform
+-- — which turns alectryon blocks into proof-state HTML — runs afterwards in
+-- the Compiler monad (it shells out to the alectryon executable).
+
+-- Wrap a rendered post body in the post and default templates and relativize
+-- URLs. Shared by the standard and Alectryon post-page compilers.
+wrapPostPage :: Item String -> Compiler (Item String)
+wrapPostPage =
+    loadAndApplyTemplate "templates/post.html" postCtx
+    >=> loadAndApplyTemplate "templates/default.html" (postCtx <> navLinkPrefix)
+    >=> relativizeUrls
+
+-- A post page compiler. Posts without an "alectryon" front-matter field follow
+-- the standard pipeline (skylighting Coq highlighting). Posts WITH the field —
+-- a list of Alectryon arguments, possibly empty — are Alectryon-enabled: their
+-- Coq/Rocq blocks are executed and annotated with proof states for the web
+-- page, while the Atom feed snapshot keeps the plain Coq-highlighted version.
+-- Proof states are a web enhancement that degrades poorly in feed readers (the
+-- goals are present in the HTML and shown expanded without the stylesheet), so
+-- the feed carries source only.
+--
+-- "alectryon-cache" (optional) names a directory holding a committed
+-- alectryon.html cache; builds without --run-alectryon read it so the site
+-- builds without a Coq toolchain. Pass --run-alectryon to regenerate it.
+postPageCompiler :: SyntaxMap -> Alectryon.Options -> Compiler (Item String)
+postPageCompiler syntaxes alectryonOpts = do
+    raw      <- getResourceBody
+    pandoc   <- readPandocWith defaultHakyllReaderOptions raw
+    metadata <- getMetadata (itemIdentifier pandoc)
+    let wopt = postWriterOptions defaultHakyllWriterOptions syntaxes
+    case lookupStringList "alectryon" metadata of
+        Nothing   -> standardPostPage wopt pandoc
+        Just args ->
+            alectryonPostPage wopt alectryonOpts
+                ((</> "alectryon.html") <$> lookupString "alectryon-cache" metadata)
+                args pandoc
+
+standardPostPage :: WriterOptions -> Item Pandoc -> Compiler (Item String)
+standardPostPage wopt pandoc = do
+    let html = writePandocWith wopt (postTransform <$> pandoc)
+    saveSnapshot "content" html >>= wrapPostPage
+
+alectryonPostPage :: WriterOptions -> Alectryon.Options -> Maybe FilePath -> [String]
+                 -> Item Pandoc -> Compiler (Item String)
+alectryonPostPage wopt alectryonOpts cacheFile args pandoc = do
+    -- Feed snapshot: plain Coq-highlighted HTML (no proof states).
+    let feedHtml = writePandocWith wopt (postTransform <$> pandoc)
+    _ <- saveSnapshot "content" feedHtml
+    -- Web page: rewrite Coq/Rocq blocks to Alectryon, number cross-refs and
+    -- bold, then run Alectryon (recording proof states) on the alectryon blocks.
+    let pre = alectryonTransform (itemBody pandoc)
+    annotated <- Alectryon.transformAlectryon alectryonOpts cacheFile args
+                     Alectryon.rawHTML pre
+    let webHtml = writePandocWith wopt (pandoc { itemBody = annotated })
+    wrapPostPage webHtml
+
+--------------------------------------------------------------------------------
+
 config :: Configuration
 config = defaultConfiguration
   { destinationDirectory = "docs"
@@ -214,7 +284,7 @@ main = do
     coqXml <- fromString <$> readFile "syntax/coq.xml"
     coq    <- either (error . ("syntax/coq.xml: " ++)) return (parseCoqSyntax coqXml)
     let postSyntaxes = coqSyntaxMap coq
-    hakyllWith config $ do
+    Alectryon.hakyllWith config $ \alectryonOpts -> do
         match "images/**" $ do
             route   idRoute
             compile copyFileCompiler
@@ -263,16 +333,10 @@ main = do
         match "posts/*" $ do
             route $ setExtension "html"
             -- The whole pandoc pipeline (rocq fences, cross-references, bold
-            -- as <b>, KaTeX math, Coq highlighting) is the Posts module's.
-            compile $
-                pandocCompilerWithTransform
-                    defaultHakyllReaderOptions
-                    (postWriterOptions defaultHakyllWriterOptions postSyntaxes)
-                    postTransform
-                >>= saveSnapshot "content"
-                >>= loadAndApplyTemplate "templates/post.html" postCtx
-                >>= loadAndApplyTemplate "templates/default.html" (postCtx <> navLinkPrefix)
-                >>= relativizeUrls
+            -- as <b>, KaTeX math, Coq highlighting, and Alectryon proof states
+            -- on posts that opt in via an "alectryon" front-matter field) is
+            -- the Posts module's; postPageCompiler adapts it to Hakyll.
+            compile $ postPageCompiler postSyntaxes alectryonOpts
 
         match "index.html" $ do
             route idRoute

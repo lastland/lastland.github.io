@@ -3,6 +3,7 @@ packages:
   - .
 extra-deps:
   - pandoc-crossref-0.3.20
+  - hakyll-alectryon-0.2.0.0
 # pandoc-crossref-0.3.20 declares containers <0.7, data-default <0.8,
 # open-browser ==0.2.*, but lts-24.0 ships containers-0.7, data-default-0.8,
 # open-browser-0.4. Its library uses only stable APIs from these, so relax its

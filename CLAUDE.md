@@ -14,6 +14,7 @@ stack test                   # run the Publications and Talks module tests (fast
 stack exec site rebuild      # full rebuild → writes to /docs (local preview; publishing = push to master, CI deploys)
 stack exec site watch        # autocompile + local dev server on :8000
 stack exec site clean        # nuke _cache and /docs
+stack exec site -- build --run-alectryon   # regenerate Alectryon proof-state caches (needs Coq + SerAPI + Alectryon on PATH; see "Alectryon" below)
 hlint site.hs src/ test/     # Haskell style check — keep it at "No hints" (prefer <> over mappend)
 ```
 
@@ -53,7 +54,7 @@ pkill -f 'http.server 8765'
 
 **`src/Prose.hs`** is the Prose module: it owns the rendering semantics of pandoc-compiled prose (currently the course pages). Site policy: bold in prose draws attention without claiming importance, so `**bold**` renders as `<b>`, not `<strong>` (`boldToB`, applied via `pandocCompilerWithTransform` in the `courses/*` rule; styled by the `b, strong, .fw-bold` rule in `css/custom.css`). Don't be surprised that markdown bold doesn't produce `<strong>` in the output. Tested in `test/Spec.hs`.
 
-**`src/Posts.hs`** is the Posts module: it owns every blogpost semantic (front-matter validation — `title`/`date`/`description` required, `draft` flag under the site boolean convention: `true` sets, `false`/absent unsets, garbage fails; strict `YYYY-MM-DD` date parsing; the display date string; listing order; math detection that gates KaTeX loading; `rocq`→`coq` fence normalization; pandoc-crossref numbering; the KaTeX/Coq writer options). Its interface is `parsePostMeta :: (String -> Maybe String) -> Either String PostMeta` plus the pandoc pipeline pieces, every failure as a `Left`. `site.hs` adapts it (`loadPostMeta`/`postContext`/`sortPosts`/`publishedPosts`), failing the build naming the post file. Also tested via `test/Spec.hs`.
+**`src/Posts.hs`** is the Posts module: it owns every blogpost semantic (front-matter validation — `title`/`date`/`description` required, `draft` flag under the site boolean convention: `true` sets, `false`/absent unsets, garbage fails; strict `YYYY-MM-DD` date parsing; the display date string; listing order; math detection that gates KaTeX loading; Alectryon-block detection that gates the Alectryon stylesheet; `rocq`→`coq` fence normalization for plain highlighting and `coq`/`rocq`→`alectryon` rewriting for Alectryon-enabled posts; pandoc-crossref numbering; the KaTeX/Coq writer options). Its interface is `parsePostMeta :: (String -> Maybe String) -> Either String PostMeta` plus the pandoc pipeline pieces, every failure as a `Left`. `site.hs` adapts it (`loadPostMeta`/`postContext`/`sortPosts`/`publishedPosts`), failing the build naming the post file. Also tested via `test/Spec.hs`.
 
 **Templates** use Pandoc-style `$field$` interpolation. `$partial("templates/X.html")$` works only when X.html is registered under `match "templates/*"` (it already is). `$for(papers)$ … $endfor$` iterates list fields. `$if(field)$` tests presence/truthiness.
 
@@ -88,6 +89,8 @@ Website-only custom fields (all optional):
 
 **A new blogpost:** drop `posts/slug.md` (Pandoc Markdown) or `posts/slug.org` (Org) with YAML front matter `title`, `date: YYYY-MM-DD`, `description`, and optionally `draft: true`. Markdown is primary: it unlocks the full pipeline — figures (`![caption](/images/posts/slug/img.svg){#fig:label}`), tables with captions, `@fig:`/`@tbl:`/`@eq:` cross-references (auto-numbered by pandoc-crossref), and `$…$`/`$$…$$` math rendered by KaTeX. Org covers prose/math/tables/code but not figure labeling. Code fences highlight via skylighting; `coq` and `rocq` fences both use the vendored `syntax/coq.xml`. Bold renders as `<b>` (site policy). A draft compiles to a page but stays off `/blog.html` and `/feed.xml`; **promotion** is deleting the `draft: true` line (or writing `draft: false`).
 
+**A post with proof goals (Alectryon):** add `alectryon: []` to the front matter (the list may carry Alectryon load-path args like `["-Q", "dir,Lib"]`). Every `coq`/`rocq` fence in that post is then executed by Coq in one shared session and annotated with the proof state after each sentence; the goals appear inline beneath each step, revealed on hover or click. Ordinary posts (no `alectryon` field) keep plain skylighting and need no Coq. The proof states are generated into a committed cache (see "Alectryon" below) so Coq-free builds stay fast; the Atom feed snapshot deliberately keeps the plain Coq-highlighted version, since folded goals degrade without the stylesheet. See `posts/alectryon-demo.md` for a worked example.
+
 ## CSS / JS conventions
 
 - **No Bootstrap, no icon font.** A minimal utility-shim layer in `css/custom.css` covers the small set of legacy utility classes still in markup (`.d-flex`, `.row/.col`, `.card`, `.btn`, `.badge`, etc.) — it is not a Bootstrap reimplementation. Add to it only if you need a class that's already used 3+ times.
@@ -97,7 +100,18 @@ Website-only custom fields (all optional):
 - **Motion is additive, never gating.** Sections default to visible. Only when JS confirms motion is permitted AND the section is below the fold does it get a `.js-fx` class that hides it; the IntersectionObserver then adds `.is-visible` to reveal. If JS / IO fails, content is still visible. Pattern is in `templates/default.html` inline script + `css/custom.css` `.js-fx` rules.
 - **Standalone images embed their own colors.** A post figure loaded through `<img>` is its own document: it cannot read the page's CSS custom properties. So SVGs under `images/posts/` carry an internal palette and flip it with `@media (prefers-color-scheme: dark)` — the one sanctioned exception to the design-token rule (they follow the system scheme, not a manual toggle).
 - **KaTeX loads only where math is.** The posts pipeline writes pandoc's KaTeX-method spans (`class="math inline|display"`); `postHasMath` turns that into the presence-based `hasmath` field, and `templates/default.html` gates the KaTeX CDN `<link>`/`<script>` (version interpolated from the Posts module's `katexVersion` via `$katexversion$` — one pin) plus the tiny `katex.render` bootstrap on `$if(hasmath)$`. Math-free pages load no KaTeX. Code highlighting is class-only (no inline styles) so one token palette serves both themes; the palette maps skylighting token classes to design tokens.
+- **Alectryon loads only where proof goals are.** `postHasAlectryon` detects an `alectryon-io` block in the rendered page and exposes the presence-based `hasalectryon` field; `templates/default.html` gates the `/css/alectryon.css` `<link>` on `$if(hasalectryon)$`. That stylesheet is a token-restyled, inline-layout adaptation of Alectryon's MIT-licensed CSS (goals reveal beneath each sentence on hover/click); it also maps Alectryon's Pygments token classes (`kn`/`kt`/`bp`/…) to the same design tokens as the skylighting palette.
 - **Hakyll re-copies `/css/*` and `/images/*` from source on every rebuild.** Deleting a file from `/docs/css/` alone won't stick — also delete the source under `/css/` (and likewise for `/images/`).
+
+## Alectryon (proof-state generation)
+
+Posts opt into Alectryon with an `alectryon:` front-matter field (a YAML list, possibly empty, of Alectryon args). On an enabled post, `site.hs` rewrites every `coq`/`rocq` block to `alectryon` (`normalizeAlectryon`), numbers cross-references and applies bold, then runs the prover via the `hakyll-alectryon` package (`Alectryon.transformAlectryon`), which shells out to the `alectryon` executable (Coq 8.20.1 + `coq-serapi.8.20.0+0.20.0` + Alectryon 2.0.0). The web page carries the proof-state HTML; the Atom feed snapshot is taken *before* Alectryon runs, so the feed keeps plain Coq-highlighted source (folded goals degrade without the stylesheet).
+
+**Two build modes** (the `hakyll-alectryon` CLI flag, wired through `Alectryon.hakyllWith`):
+- `stack exec site build` (default) reads committed proof-state caches — no Coq install needed. An enabled post names its cache directory via `alectryon-cache:` (e.g. `alectryon-cache/demo`); the cache file `alectryon-cache/<dir>/alectryon.html` must exist or the build fails, telling you to regenerate.
+- `stack exec site -- build --run-alectryon` executes Coq and (re)writes the caches — needs Coq + SerAPI + Alectryon + python3 (for Pygments) on PATH. Run this after editing any `coq`/`rocq` block in an enabled post, then commit the regenerated cache.
+
+CI (`build` job in `.github/workflows/ci.yml`) installs the pinned toolchain via `ocaml/setup-ocaml` + pip and builds with `--run-alectryon`, so a pushed change that breaks a proof fails CI. Locally, `stack test` never invokes Coq (it tests the pure module functions only).
 
 ## Pitfalls that have bitten
 
