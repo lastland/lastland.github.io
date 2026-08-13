@@ -1,0 +1,23 @@
+---
+title: Org Sample
+date: 2026-08-11
+description: A draft post that checks the org-mode reader path.
+draft: true
+---
+
+Inline math $x^2 + y^2 = z^2$ works, and so does display math:
+
+$$\int_0^1 x \, dx = \frac{1}{2}$$
+
+A table:
+
+| term | season |
+|------+--------|
+| Fall | 2026   |
+
+And a code block:
+
+#+BEGIN_SRC haskell
+main :: IO ()
+main = putStrLn "org"
+#+END_SRC

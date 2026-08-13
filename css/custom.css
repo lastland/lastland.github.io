@@ -1927,3 +1927,65 @@ a.text-link {
 .people-list li {
     line-height: 1.45;
 }
+
+/* ============================================================
+   Blog
+   ============================================================ */
+
+/* Archive listing (blog.html) */
+.post-list { max-width: 760px; margin: 0 auto; }
+.post-list-item { padding: var(--space-5) 0; border-bottom: 1px solid var(--border); }
+.post-list-item:first-child { padding-top: 0; }
+.post-list-item:last-child { border-bottom: none; }
+.post-list-title { font-size: var(--fs-lg); font-weight: 600; line-height: 1.3; margin: 0 0 var(--space-1); }
+.post-list-title a { color: var(--text); text-decoration: none; }
+.post-list-title a:hover { color: var(--primary); }
+.post-list-meta { font-size: var(--fs-xs); color: var(--text-muted); font-variant-numeric: tabular-nums; margin: 0 0 var(--space-2); }
+.post-list-description { font-size: var(--fs-sm); color: var(--text-light); line-height: 1.5; margin: 0; }
+
+/* Post page (long-form reading measure, serif display title) */
+.post { max-width: 720px; margin: 0 auto; padding: var(--space-6) 0 var(--space-5); }
+.post-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, var(--fs-3xl)); line-height: 1.1; letter-spacing: -0.012em; margin: 0 0 var(--space-3); }
+.post-meta { font-size: var(--fs-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; margin: 0 0 var(--space-6); }
+.post-body { font-size: 1.0625rem; line-height: 1.7; }
+.post-body p { margin: 0 0 var(--space-4); }
+.post-body h2 { font-size: var(--fs-xl); margin: var(--space-6) 0 var(--space-3); }
+.post-body h3 { font-size: var(--fs-lg); margin: var(--space-5) 0 var(--space-3); }
+.post-body h4, .post-body h5, .post-body h6 { font-size: var(--fs-base); margin: var(--space-5) 0 var(--space-2); }
+.post-body a { text-decoration: underline; text-underline-offset: 2px; }
+.post-body ul, .post-body ol { margin: 0 0 var(--space-4); padding-left: 1.5em; }
+.post-body li { margin-bottom: var(--space-1); }
+.post-body li > p { margin-bottom: var(--space-2); }
+.post-body blockquote { margin: var(--space-5) 0; padding: var(--space-1) 0 var(--space-1) var(--space-5); border-left: 3px solid var(--accent); color: var(--text-light); }
+.post-body blockquote p:last-child { margin-bottom: 0; }
+.post-body hr { border: none; border-top: 1px solid var(--border); margin: var(--space-6) 0; }
+.post-body img { max-width: 100%; height: auto; border-radius: 8px; }
+.post-body figure { margin: var(--space-5) 0; text-align: center; }
+.post-body figcaption { font-size: var(--fs-sm); color: var(--text-light); margin-top: var(--space-2); line-height: 1.5; }
+.post-body table { display: block; overflow-x: auto; border-collapse: collapse; width: max-content; max-width: 100%; margin: var(--space-5) auto; font-size: var(--fs-sm); }
+.post-body th, .post-body td { border: 1px solid var(--border); padding: var(--space-2) var(--space-3); text-align: left; }
+.post-body th { font-weight: 600; background: var(--surface); }
+.post-body caption { caption-side: bottom; font-size: var(--fs-sm); color: var(--text-light); padding-top: var(--space-2); }
+.post-body .footnotes { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--border); font-size: var(--fs-sm); color: var(--text-light); }
+.post-body .footnotes ol { margin-bottom: 0; }
+.post-body :not(pre) > code { font-family: var(--font-mono); font-size: 0.875em; padding: 0.1em 0.35em; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); }
+.post-body pre { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: var(--space-4); overflow-x: auto; line-height: 1.55; margin: var(--space-5) 0; }
+.post-body pre code { font-family: var(--font-mono); font-size: var(--fs-sm); background: none; border: none; padding: 0; }
+.post-body pre a { color: inherit; text-decoration: none; }
+.post-body .katex-display { overflow-x: auto; overflow-y: hidden; padding: var(--space-2) 0; }
+.post-footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+.post-back { font-size: var(--fs-sm); }
+
+/* Syntax highlighting tokens (pandoc/skylighting class-only spans). Colors
+   are design tokens whose values flip between themes, so no per-theme
+   overrides are needed. */
+.post-body pre .kw { color: var(--primary); font-weight: 600; }
+.post-body pre .bu { color: var(--accent-cool-dark); }
+.post-body pre .dt { color: var(--accent-dark); }
+.post-body pre .fu { color: var(--text); }
+.post-body pre .st { color: var(--primary-light); }
+.post-body pre .ch { color: var(--primary-light); }
+.post-body pre .co { color: var(--text-muted); font-style: italic; }
+.post-body pre .dv, .post-body pre .bn, .post-body pre .fl { color: var(--accent-cool-dark); }
+.post-body pre .op { color: var(--text-light); }
+.post-body pre .al, .post-body pre .er { color: var(--accent-dark); font-weight: 600; }

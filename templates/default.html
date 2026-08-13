@@ -13,6 +13,11 @@
         <meta name="theme-color" content="#154734" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="#1c1f26" media="(prefers-color-scheme: dark)">
         <link rel="stylesheet" href="/css/custom.css">
+        <link rel="alternate" type="application/atom+xml" title="Yao Li - Blog" href="/feed.xml">
+        $if(hasmath)$
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/katex.min.js"></script>
+        $endif$
         <title>$title$</title>
     </head>
     <body>
@@ -36,6 +41,7 @@
                         <li><a class="site-nav-link" href="$navLinkPrefix$#teaching" data-target="teaching">Teaching</a></li>
                         <li><a class="site-nav-link" href="$navLinkPrefix$#publications" data-target="publications">Publications</a></li>
                         <li><a class="site-nav-link" href="$navLinkPrefix$#service" data-target="service">Service</a></li>
+                        <li><a class="site-nav-link" href="/blog.html">Blog</a></li>
                         <li class="site-nav-toggle-item">
                             <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">
                                 <svg class="icon" aria-hidden="true"><use href="/images/icons.svg#moon-stars-fill"/></svg>
@@ -180,5 +186,17 @@
                 }
             })();
         </script>
+        $if(hasmath)$
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('span.math').forEach(function(el) {
+                    katex.render(el.textContent, el, {
+                        displayMode: el.classList.contains('display'),
+                        throwOnError: false
+                    });
+                });
+            });
+        </script>
+        $endif$
     </body>
 </html>

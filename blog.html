@@ -1,0 +1,20 @@
+---
+title: Blog
+---
+
+<section class="py-4">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="section-header mb-0 me-3">Blog</h2>
+        <div class="flex-grow-1 border-bottom"></div>
+    </div>
+
+    <div class="post-list" role="list">
+        $for(posts)$
+        <article class="post-list-item" role="listitem">
+            <h3 class="post-list-title"><a href="$url$">$title$</a></h3>
+            <p class="post-list-meta"><time datetime="$isodate$">$date$</time></p>
+            <p class="post-list-description">$description$</p>
+        </article>
+        $endfor$
+    </div>
+</section>

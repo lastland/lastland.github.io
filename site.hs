@@ -1,9 +1,12 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+import           Control.Monad (filterM)
 import           Courses
 import           Data.List (sortOn)
 import           Data.Ord (Down (..))
+import           Data.String (fromString)
 import           Hakyll
+import           Posts
 import           Publications
 import           Prose
 import           Talks
@@ -130,6 +133,65 @@ sortCourses items = map snd . sortOn fst <$> mapM keyed items
         title <- getMetadataField' ident "title"
         return ((Down (latestTerm terms), title), item)
 
+
+--------------------------------------------------------------------------------
+-- Posts: all blog-post semantics (front-matter validation, date parsing and
+-- display, ordering, the pandoc pipeline — rocq fences, cross-references,
+-- bold as <b>, KaTeX math, Coq highlighting) live in the Posts module; here
+-- we only adapt its display-ready posts to Hakyll.
+
+-- Read and validate a post's front matter. A Left (missing title/date/
+-- description, bad date, bad draft value) fails the build naming the post.
+loadPostMeta :: Identifier -> Compiler PostMeta
+loadPostMeta ident = do
+    metadata <- getMetadata ident
+    either (error . named) return (parsePostMeta (`lookupString` metadata))
+  where
+    named msg = "post " ++ toFilePath ident ++ ": " ++ msg
+
+-- A field per template key. date/isodate/description come from the validated
+-- front matter; hasmath is presence-based ($if(hasmath)$ gates the KaTeX
+-- assets in default.html), mirroring paperContext's field + noResult style.
+postContext :: Context String
+postContext = mconcat
+    [ field "date" $ \item ->
+        formatPostDate . postDate <$> loadPostMeta (itemIdentifier item)
+    , field "isodate" $ \item ->
+        show . postDate <$> loadPostMeta (itemIdentifier item)
+    , field "description" $ \item ->
+        postDescription <$> loadPostMeta (itemIdentifier item)
+    , field "hasmath" $ \item ->
+        if postHasMath (itemBody item)
+            then return "true"
+            else noResult "post has no math"
+    ]
+
+-- Blog order: date descending, title ascending breaks ties (postSortKey).
+sortPosts :: [Item a] -> Compiler [Item a]
+sortPosts items = map snd . sortOn fst <$> mapM keyed items
+  where
+    keyed item = do
+        meta <- loadPostMeta (itemIdentifier item)
+        return (postSortKey meta, item)
+
+-- Drafts stay buildable (their pages exist) but are kept off blog.html and
+-- the feed, mirroring the published/draft partition in Publications.
+publishedPosts :: [Item a] -> Compiler [Item a]
+publishedPosts = filterM (fmap (not . postDraft) . loadPostMeta . itemIdentifier)
+
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle       = "Yao Li - Blog"
+    , feedDescription = "Posts by Yao Li"
+    , feedAuthorName  = "Yao Li"
+    , feedAuthorEmail = "liyao@pdx.edu"
+    , feedRoot        = "https://lastland.github.io"
+    }
+
+-- Context a post page is rendered with (post.html and the default.html wrap).
+postCtx :: Context String
+postCtx = postContext <> defaultContext
+
 --------------------------------------------------------------------------------
 
 config :: Configuration
@@ -138,66 +200,103 @@ config = defaultConfiguration
   }
 
 main :: IO ()
-main = hakyllWith config $ do
-    match "images/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+main = do
+    -- text is a dependency of the site library only, so it stays hidden from
+    -- this executable; read the file as a String and let the IsString
+    -- instance produce the Text parseCoqSyntax expects.
+    coqXml <- fromString <$> readFile "syntax/coq.xml"
+    coq    <- either (error . ("syntax/coq.xml: " ++)) return (parseCoqSyntax coqXml)
+    let postSyntaxes = coqSyntaxMap coq
+    hakyllWith config $ do
+        match "images/**" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "pdfs/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "pdfs/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "css/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "css/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "mysteries/arith/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "mysteries/arith/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "mysteries/cond/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "mysteries/cond/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "mysteries/func/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "mysteries/func/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    match "mysteries/array/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        match "mysteries/array/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    -- Publications source of truth. Stored as a raw string (not routed, so no
-    -- output file); loadPublications parses it. Editing it rebuilds the listing pages.
-    match "publications.bib" $ compile getResourceString
+        -- Publications source of truth. Stored as a raw string (not routed, so no
+        -- output file); loadPublications parses it. Editing it rebuilds the listing pages.
+        match "publications.bib" $ compile getResourceString
 
-    -- Talks source of truth. Same pattern as publications.bib: stored raw,
-    -- not routed; loadTalkYears parses it. Editing it rebuilds index.html.
-    match "talks.yaml" $ compile getResourceString
+        -- Talks source of truth. Same pattern as publications.bib: stored raw,
+        -- not routed; loadTalkYears parses it. Editing it rebuilds index.html.
+        match "talks.yaml" $ compile getResourceString
 
-    match "courses/*" $ do
-        route $ setExtension "html"
-        -- boldToB: this site's prose bold means attention, not importance.
-        compile $ pandocCompilerWithTransform
-                      defaultHakyllReaderOptions defaultHakyllWriterOptions boldToB
-            >>= loadAndApplyTemplate "templates/course.html"  (courseContext <> defaultContext)
-            >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix <> defaultContext)
-            >>= relativizeUrls
+        match "courses/*" $ do
+            route $ setExtension "html"
+            -- boldToB: this site's prose bold means attention, not importance.
+            compile $ pandocCompilerWithTransform
+                          defaultHakyllReaderOptions defaultHakyllWriterOptions boldToB
+                >>= loadAndApplyTemplate "templates/course.html"  (courseContext <> defaultContext)
+                >>= loadAndApplyTemplate "templates/default.html" (navLinkPrefix <> defaultContext)
+                >>= relativizeUrls
 
-    match "index.html" $ do
-        route idRoute
-        compile $ do
-            courses <- sortCourses =<< loadAll "courses/*"
-            renderPage $
-                listField "courses" (courseContext <> defaultContext) (return courses)
-                <> listField "talkyears" talkYearContext loadTalkYears
-                <> pubsContext
+        match "posts/*" $ do
+            route $ setExtension "html"
+            -- The whole pandoc pipeline (rocq fences, cross-references, bold
+            -- as <b>, KaTeX math, Coq highlighting) is the Posts module's.
+            compile $
+                pandocCompilerWithTransform
+                    defaultHakyllReaderOptions
+                    (postWriterOptions defaultHakyllWriterOptions postSyntaxes)
+                    postTransform
+                >>= saveSnapshot "content"
+                >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= loadAndApplyTemplate "templates/default.html" (postCtx <> navLinkPrefix <> defaultContext)
+                >>= relativizeUrls
 
-    match "publication.html" $ do
-        route idRoute
-        compile $ renderPage pubsContext
+        match "index.html" $ do
+            route idRoute
+            compile $ do
+                courses <- sortCourses =<< loadAll "courses/*"
+                renderPage $
+                    listField "courses" (courseContext <> defaultContext) (return courses)
+                    <> listField "talkyears" talkYearContext loadTalkYears
+                    <> pubsContext
 
-    match "templates/*" $ compile templateBodyCompiler
+        match "publication.html" $ do
+            route idRoute
+            compile $ renderPage pubsContext
+
+        match "blog.html" $ do
+            route idRoute
+            compile $ do
+                posts <- sortPosts =<< publishedPosts =<< loadAll "posts/*"
+                renderPage $
+                    listField "posts" (postContext <> defaultContext) (return posts)
+                    <> navLinkPrefix
+                    <> defaultContext
+
+        -- create, not match: feed.xml has no source file on disk.
+        create ["feed.xml"] $ do
+            route idRoute
+            compile $ do
+                posts <- sortPosts =<< publishedPosts =<< loadAllSnapshots "posts/*" "content"
+                renderAtom feedConfiguration (postContext <> defaultContext) posts
+
+        match "templates/*" $ compile templateBodyCompiler
 
 -- Shared by index.html and publication.html: both render the published and
 -- drafts lists (via templates/pub-sections.html) plus the base page fields.
