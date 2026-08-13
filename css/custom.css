@@ -1943,11 +1943,12 @@ a.text-link {
 .post-list-meta { font-size: var(--fs-xs); color: var(--text-muted); font-variant-numeric: tabular-nums; margin: 0 0 var(--space-2); }
 .post-list-description { font-size: var(--fs-sm); color: var(--text-light); line-height: 1.5; margin: 0; }
 
-/* Post page (long-form reading measure, serif display title) */
-.post { max-width: 720px; margin: 0 auto; padding: var(--space-6) 0 var(--space-5); }
+/* Post page (long-form reading measure ~68ch, serif display title).
+   The measure is in ch at the body font-size, so the column tracks the text. */
+.post { max-width: 68ch; margin: 0 auto; padding: var(--space-6) 0 var(--space-5); font-size: 1.0625rem; }
 .post-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, var(--fs-3xl)); line-height: 1.1; letter-spacing: -0.012em; margin: 0 0 var(--space-3); }
 .post-meta { font-size: var(--fs-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; margin: 0 0 var(--space-6); }
-.post-body { font-size: 1.0625rem; line-height: 1.7; }
+.post-body { line-height: 1.7; }
 .post-body p { margin: 0 0 var(--space-4); }
 .post-body h2 { font-size: var(--fs-xl); margin: var(--space-6) 0 var(--space-3); }
 .post-body h3 { font-size: var(--fs-lg); margin: var(--space-5) 0 var(--space-3); }

@@ -162,7 +162,10 @@ postWriterOptions opts sm = opts
     , writerSyntaxMap = sm
     }
 
--- Pinned KaTeX release the site loads.
+-- Pinned KaTeX release. Pandoc's fragment output ignores this URL (it only
+-- matters in standalone mode, which Hakyll never uses); the <link>/<script>
+-- the browser actually loads live in templates/default.html. Keep the two
+-- pins in sync when upgrading KaTeX.
 katexBaseUrl :: T.Text
 katexBaseUrl = "https://cdn.jsdelivr.net/npm/katex@0.18.4/dist/"
 

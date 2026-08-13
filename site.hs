@@ -122,16 +122,23 @@ courseContext :: Context String
 courseContext = field "term" $ \item ->
     displayTerms <$> loadCourseTerms (itemIdentifier item)
 
+-- Order items by a per-item key computed in the Compiler (a Down inside the
+-- key makes that field descending); shared by the course and post listings.
+sortItemsBy :: Ord k => (Item a -> Compiler k) -> [Item a] -> Compiler [Item a]
+sortItemsBy keyOf items = map snd . sortOn fst <$> mapM keyed items
+  where
+    keyed item = do
+        key <- keyOf item
+        return (key, item)
+
 -- Homepage order: by the most recent term taught, descending (replaces
 -- recentFirst, which needed date-prefixed filenames); title breaks ties.
 sortCourses :: [Item a] -> Compiler [Item a]
-sortCourses items = map snd . sortOn fst <$> mapM keyed items
-  where
-    keyed item = do
-        let ident = itemIdentifier item
-        terms <- loadCourseTerms ident
-        title <- getMetadataField' ident "title"
-        return ((Down (latestTerm terms), title), item)
+sortCourses = sortItemsBy $ \item -> do
+    let ident = itemIdentifier item
+    terms <- loadCourseTerms ident
+    title <- getMetadataField' ident "title"
+    return (Down (latestTerm terms), title)
 
 
 --------------------------------------------------------------------------------
@@ -168,11 +175,7 @@ postContext = mconcat
 
 -- Blog order: date descending, title ascending breaks ties (postSortKey).
 sortPosts :: [Item a] -> Compiler [Item a]
-sortPosts items = map snd . sortOn fst <$> mapM keyed items
-  where
-    keyed item = do
-        meta <- loadPostMeta (itemIdentifier item)
-        return (postSortKey meta, item)
+sortPosts = sortItemsBy (fmap postSortKey . loadPostMeta . itemIdentifier)
 
 -- Drafts stay buildable (their pages exist) but are kept off blog.html and
 -- the feed, mirroring the published/draft partition in Publications.
@@ -264,7 +267,7 @@ main = do
                     postTransform
                 >>= saveSnapshot "content"
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
-                >>= loadAndApplyTemplate "templates/default.html" (postCtx <> navLinkPrefix <> defaultContext)
+                >>= loadAndApplyTemplate "templates/default.html" (postCtx <> navLinkPrefix)
                 >>= relativizeUrls
 
         match "index.html" $ do
@@ -285,16 +288,16 @@ main = do
             compile $ do
                 posts <- sortPosts =<< publishedPosts =<< loadAll "posts/*"
                 renderPage $
-                    listField "posts" (postContext <> defaultContext) (return posts)
+                    listField "posts" postCtx (return posts)
                     <> navLinkPrefix
-                    <> defaultContext
+                    <> postCtx
 
         -- create, not match: feed.xml has no source file on disk.
         create ["feed.xml"] $ do
             route idRoute
             compile $ do
                 posts <- sortPosts =<< publishedPosts =<< loadAllSnapshots "posts/*" "content"
-                renderAtom feedConfiguration (postContext <> defaultContext) posts
+                renderAtom feedConfiguration postCtx posts
 
         match "templates/*" $ compile templateBodyCompiler
 

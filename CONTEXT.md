@@ -53,8 +53,9 @@ One file in `posts/`, rendered to its own page through `templates/post.html`.
 Body is Pandoc Markdown or Org (reader chosen by extension); YAML front matter
 carries `title`, `date`, `description`, and the optional presence-based
 `draft` flag. Drafts compile to a page but stay off `/blog.html` and the Atom
-feed until promotion (deleting the `draft` line).
-_Avoid_: post, article, entry (those collide with Paper)
+feed until promotion (deleting the `draft` line). The word "post" belongs to
+blogposts — a Paper is never called a post.
+_Avoid_: article, entry
 
 **Posts module**:
 The deep module (`src/Posts.hs`) owning every blogpost semantic: front-matter
