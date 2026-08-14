@@ -2,15 +2,15 @@
 title: Displaying Proof Goals with Alectryon
 date: 2026-08-13
 description: A draft post showing Rocq proof states rendered inline by Alectryon.
-draft: true
 alectryon: []
 alectryon-cache: "alectryon-cache/demo"
 ---
 
-This draft post exercises the Alectryon integration: every `coq` and `rocq`
-fence below is executed by Coq, and the proof state after each sentence is
-recorded and shown inline. Hover a sentence (or tap it) to reveal the goals it
-produces.
+This post exercises the Alectryon integration: every `coq` and `rocq` fence
+below is executed by Coq, and the proof state after each sentence is recorded.
+Not every sentence produces a state (the closing `Qed.`, for instance, produces
+none), so only the steps that do are marked with a trailing dot. Hover a marked
+step, or tap it, to reveal the goals it produces.
 
 ## A trivial proof
 

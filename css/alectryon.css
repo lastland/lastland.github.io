@@ -64,19 +64,46 @@
     border-radius: var(--radius-sm);
 }
 
-/* Each sentence's source is a clickable label. The cursor and a subtle
-   background hint at interactivity; the bubble marker is omitted (we lean
-   on hover/focus affordances instead). */
+/* Each output-bearing sentence's source is a <label>; no-output sentences
+   use a plain <span class="alectryon-input">, so label.alectryon-input
+   targets exactly the revealable steps. The cursor, an enlarged hit area,
+   and a trailing dot marker signal interactivity. The dot shifts color on
+   hover and to a distinct hue when pinned (checked), so idle / hover /
+   pinned read at a glance; plain <span> inputs get no marker (and no
+   padding/badge) automatically, since this rule is label-scoped. */
 .post-body .alectryon-io label.alectryon-input {
     cursor: pointer;
     display: inline;
-    padding: 0 0.15em;
+    padding: var(--space-1) var(--space-1);
     border-radius: var(--radius-sm);
+}
+/* Trailing dot marker — "this step has output". Sized in --space-1 units so
+   it scales with the spacing system; placed after the source text and
+   middle-aligned so it reads as a badge, not punctuation. */
+.post-body .alectryon-io label.alectryon-input::after {
+    content: "";
+    display: inline-block;
+    width: calc(var(--space-1) * 1.5);
+    height: calc(var(--space-1) * 1.5);
+    margin-left: var(--space-1);
+    vertical-align: middle;
+    border-radius: 50%;
+    background: var(--accent);
 }
 @media (any-hover: hover) {
     .post-body .alectryon-io label.alectryon-input:hover {
         background: var(--bg-alt);
     }
+    .post-body .alectryon-io label.alectryon-input:hover::after {
+        background: var(--accent-dark);
+    }
+}
+/* When the toggle is checked (clicked, or Space-toggled via keyboard), the
+   marker flips to the cool accent to mark the "pinned open" state. The
+   toggle immediately precedes its label, so the adjacent-sibling combinator
+   applies. */
+.post-body .alectryon-io input.alectryon-toggle:checked + label.alectryon-input::after {
+    background: var(--accent-cool);
 }
 /* The currently targeted sentence (keyboard nav via :target, or the
    document-wide checkbox) is emphasized. */
