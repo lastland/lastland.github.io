@@ -60,6 +60,9 @@
     --radius-sm: 4px;
     --underline-offset: 2px;
     --rule-accent: 3px;
+    --hairline: 1px;          /* 1px border width for subtle rules and outlines */
+    --focus-ring-width: 2px;  /* Keyboard focus outline thickness */
+    --focus-ring-offset: 2px; /* Gap between focused element and its outline */
 }
 
 /* Dark mode color scheme — warmer charcoal, softer green, brightened terracotta */

@@ -80,7 +80,7 @@ jobs:
           python-version: '3.13'
       - name: Install Coq 8.20, SerAPI, and Alectryon
         run: |
-          opam install -y coq.8.20.1 coq-serapi
+          opam install -y coq.8.20.1 coq-serapi.8.20.0+0.20.0
           pip install alectryon==2.0.0
       - run: stack build
       # --run-alectryon executes the Coq snippets and records their proof

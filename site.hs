@@ -157,7 +157,7 @@ sortCourses = sortItemsBy $ \item -> do
 loadPostMeta :: Identifier -> Compiler PostMeta
 loadPostMeta ident = do
     metadata <- getMetadata ident
-    either (error . named) return (parsePostMeta (`lookupString` metadata))
+    either (error . named) return (parsePostMeta metadata)
   where
     named msg = "post " ++ toFilePath ident ++ ": " ++ msg
 
@@ -234,37 +234,42 @@ wrapPostPage =
 -- goals are present in the HTML and shown expanded without the stylesheet), so
 -- the feed carries source only.
 --
--- "alectryon-cache" (optional) names a directory holding a committed
--- alectryon.html cache; builds without --run-alectryon read it so the site
--- builds without a Coq toolchain. Pass --run-alectryon to regenerate it.
+-- "alectryon-cache" (required on Alectryon-enabled posts, validated by
+-- parsePostMeta) names a directory holding a committed alectryon.html cache;
+-- builds without --run-alectryon read it so the site builds without a Coq
+-- toolchain. Pass --run-alectryon to regenerate it.
 postPageCompiler :: SyntaxMap -> Alectryon.Options -> Compiler (Item String)
 postPageCompiler syntaxes alectryonOpts = do
-    raw      <- getResourceBody
-    pandoc   <- readPandocWith defaultHakyllReaderOptions raw
-    metadata <- getMetadata (itemIdentifier pandoc)
+    raw    <- getResourceBody
+    pandoc <- readPandocWith defaultHakyllReaderOptions raw
+    pm     <- loadPostMeta (itemIdentifier pandoc)
     let wopt = postWriterOptions defaultHakyllWriterOptions syntaxes
-    case lookupStringList "alectryon" metadata of
-        Nothing   -> standardPostPage wopt pandoc
-        Just args ->
+    case postAlectryon pm of
+        Nothing        -> standardPostPage wopt pandoc
+        Just alectryon ->
             alectryonPostPage wopt alectryonOpts
-                ((</> "alectryon.html") <$> lookupString "alectryon-cache" metadata)
-                args pandoc
+                (alectryonCache alectryon </> "alectryon.html")
+                (alectryonArgs alectryon) pandoc
+
+-- | Write the plain Coq-highlighted post HTML and snapshot it for the Atom
+-- feed. Both post-page paths call this before any web-only enhancement
+-- (Alectryon proof states), so the feed always carries source-only HTML.
+snapshotPlainPost :: WriterOptions -> Item Pandoc -> Compiler (Item String)
+snapshotPlainPost wopt pandoc =
+    saveSnapshot "content" (writePandocWith wopt (postTransform <$> pandoc))
 
 standardPostPage :: WriterOptions -> Item Pandoc -> Compiler (Item String)
-standardPostPage wopt pandoc = do
-    let html = writePandocWith wopt (postTransform <$> pandoc)
-    saveSnapshot "content" html >>= wrapPostPage
+standardPostPage wopt pandoc = snapshotPlainPost wopt pandoc >>= wrapPostPage
 
-alectryonPostPage :: WriterOptions -> Alectryon.Options -> Maybe FilePath -> [String]
+alectryonPostPage :: WriterOptions -> Alectryon.Options -> FilePath -> [String]
                  -> Item Pandoc -> Compiler (Item String)
 alectryonPostPage wopt alectryonOpts cacheFile args pandoc = do
     -- Feed snapshot: plain Coq-highlighted HTML (no proof states).
-    let feedHtml = writePandocWith wopt (postTransform <$> pandoc)
-    _ <- saveSnapshot "content" feedHtml
+    _ <- snapshotPlainPost wopt pandoc
     -- Web page: rewrite Coq/Rocq blocks to Alectryon, number cross-refs and
     -- bold, then run Alectryon (recording proof states) on the alectryon blocks.
     let pre = alectryonTransform (itemBody pandoc)
-    annotated <- Alectryon.transformAlectryon alectryonOpts cacheFile args
+    annotated <- Alectryon.transformAlectryon alectryonOpts (Just cacheFile) args
                      Alectryon.rawHTML pre
     let webHtml = writePandocWith wopt (pandoc { itemBody = annotated })
     wrapPostPage webHtml

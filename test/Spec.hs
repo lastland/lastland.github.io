@@ -9,6 +9,10 @@ import           Test.Tasty.HUnit
 import           Data.Either (isRight, isLeft)
 import           Data.List (isInfixOf, sortOn)
 import           Data.Time.Calendar (fromGregorian)
+import qualified Data.Aeson as Aeson
+import qualified Data.Aeson.Key as AKey
+import qualified Data.Aeson.KeyMap as KeyMap
+import qualified Data.Vector as V
 import qualified Data.Text as T
 import qualified Text.BibTeX.Entry as BibEntry
 import           Text.Pandoc.Definition
@@ -39,7 +43,7 @@ main = defaultMain $ testGroup "site"
         [ courseTermTests, courseOrderTests, courseDisplayTests ]
     , testGroup "Posts"
         [ postDateTests, postMetaTests, postSortTests, postMathTests
-        , postAlectryonDetectTests
+        , postAlectryonDetectTests, postAlectryonConfigTests
         , postRocqTests, postAlectryonTests, postCrossRefTests, postSyntaxTests ]
     , testGroup "Prose" [ proseTests ]
     ]
@@ -327,7 +331,15 @@ talkPipelineTests = testGroup "parseTalks on the real talks.yaml"
 -- Front matter as an assoc list, queried the way site.hs queries Hakyll
 -- metadata.
 postMeta :: [(String, String)] -> Either String PostMeta
-postMeta fs = parsePostMeta (`lookup` fs)
+postMeta = parsePostMeta . stringMeta
+
+-- | Build metadata from string fields.
+stringMeta :: [(String, String)] -> KeyMap.KeyMap Aeson.Value
+stringMeta fs = KeyMap.fromList [(AKey.fromString k, Aeson.String (T.pack v)) | (k, v) <- fs]
+
+-- | Add fields (any value type) to a metadata object.
+withFields :: [(String, Aeson.Value)] -> KeyMap.KeyMap Aeson.Value -> KeyMap.KeyMap Aeson.Value
+withFields extra meta = foldr (\(k, v) m -> KeyMap.insert (AKey.fromString k) v m) meta extra
 
 validMeta :: [(String, String)]
 validMeta = [("title", "T"), ("date", "2026-08-12"), ("description", "D")]
@@ -415,6 +427,52 @@ postAlectryonDetectTests = testGroup "alectryon detection in rendered HTML"
         postHasAlectryon "<pre class=\"alectryon-io highlight\">code</pre>" @?= True
     , testCase "no alectryon" $
         postHasAlectryon "<pre class=\"sourceCode coq\">code</pre>" @?= False
+    ]
+
+postAlectryonConfigTests :: TestTree
+postAlectryonConfigTests = testGroup "alectryon front-matter validation"
+    [ testCase "absent alectryon field yields Nothing" $
+        case postMeta validMeta of
+            Left err -> assertFailure err
+            Right pm -> postAlectryon pm @?= Nothing
+    , testCase "non-empty args list + cache validated" $
+        case parsePostMeta (withFields
+            [ ("alectryon", Aeson.Array (V.fromList
+                [Aeson.String (T.pack "-Q"), Aeson.String (T.pack "dir,Lib")]))
+            , ("alectryon-cache", Aeson.String (T.pack "cache/demo"))
+            ] (stringMeta validMeta)) of
+            Left err -> assertFailure err
+            Right pm -> case postAlectryon pm of
+                Nothing -> assertFailure "expected Alectryon config"
+                Just cfg -> do
+                    alectryonArgs cfg  @?= ["-Q", "dir,Lib"]
+                    alectryonCache cfg @?= "cache/demo"
+    , testCase "empty args list + cache validated" $
+        case parsePostMeta (withFields
+            [ ("alectryon", Aeson.Array V.empty)
+            , ("alectryon-cache", Aeson.String (T.pack "cache/demo"))
+            ] (stringMeta validMeta)) of
+            Left err -> assertFailure err
+            Right pm -> case postAlectryon pm of
+                Nothing -> assertFailure "expected Alectryon config"
+                Just cfg -> alectryonArgs cfg @?= []
+    , testCase "malformed scalar alectryon fails naming the field" $
+        case parsePostMeta (withFields
+            [ ("alectryon", Aeson.Bool True) ] (stringMeta validMeta)) of
+            Left msg -> assertBool "message names alectryon" ("alectryon" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "missing cache fails naming the field" $
+        case parsePostMeta (withFields
+            [ ("alectryon", Aeson.Array V.empty) ] (stringMeta validMeta)) of
+            Left msg -> assertBool "message names alectryon-cache" ("alectryon-cache" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
+    , testCase "non-string array elements fail mentioning strings" $
+        case parsePostMeta (withFields
+            [ ("alectryon", Aeson.Array (V.fromList [Aeson.Number 1]))
+            , ("alectryon-cache", Aeson.String (T.pack "cache/demo"))
+            ] (stringMeta validMeta)) of
+            Left msg -> assertBool "message mentions strings" ("strings" `isInfixOf` msg)
+            Right _  -> assertFailure "expected Left"
     ]
 
 postRocqTests :: TestTree

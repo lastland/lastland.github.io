@@ -45,8 +45,9 @@
 
 /* Alectryon marks the toggle checkbox with an inline `display: none`, which
    removes it from the accessibility tree. Override to a visually-hidden but
-   focusable element so keyboard users can pin a goal with Space/Enter. The
-   !important is required to beat the inline style. */
+   focusable element so keyboard users can pin a goal with Space (native
+   checkboxes activate on Space, not Enter). The !important is required to
+   beat the inline style. */
 .post-body .alectryon-io input.alectryon-toggle {
     display: inline !important;
     position: absolute;
@@ -58,13 +59,13 @@
     white-space: nowrap;
 }
 .post-body .alectryon-io input.alectryon-toggle:focus-visible + .alectryon-input {
-    outline: 2px solid var(--accent-cool);
-    outline-offset: 2px;
+    outline: var(--focus-ring-width) solid var(--accent-cool);
+    outline-offset: var(--focus-ring-offset);
     border-radius: var(--radius-sm);
 }
 
 /* Each sentence's source is a clickable label. The cursor and a subtle
-   underline hint at interactivity; the bubble marker is omitted (we lean
+   background hint at interactivity; the bubble marker is omitted (we lean
    on hover/focus affordances instead). */
 .post-body .alectryon-io label.alectryon-input {
     cursor: pointer;
@@ -108,14 +109,14 @@
     margin: var(--space-2) 0 var(--space-3);
     padding: var(--space-2);
     background: var(--bg-alt);
-    border: 1px solid var(--border);
+    border: var(--hairline) solid var(--border);
     border-radius: var(--radius-sm);
 }
 
 .post-body .alectryon-io .alectryon-goal {
     padding: var(--space-2) var(--space-3);
     background: var(--bg);
-    border: 1px solid var(--border);
+    border: var(--hairline) solid var(--border);
     border-radius: var(--radius-sm);
     margin-bottom: var(--space-2);
 }

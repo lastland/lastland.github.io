@@ -23,6 +23,7 @@ library
                   , time
                   , yaml
                   , aeson
+                  , vector
   default-language: Haskell2010
 
 executable site
@@ -50,4 +51,6 @@ test-suite site-test
                   , tasty-hunit
                   , text
                   , time
+                  , aeson
+                  , vector
   default-language: Haskell2010

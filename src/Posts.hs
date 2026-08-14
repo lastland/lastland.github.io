@@ -1,14 +1,16 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 -- | The Posts module owns every blog-post semantic: front-matter validation
--- (title, date, description, draft), the date parse (exactly "YYYY-MM-DD")
--- and display ("August 12, 2026"), the index ordering key (date descending,
--- title ascending breaks ties), and the markdown-to-HTML pipeline decisions —
+-- (title, date, description, draft, and the Alectryon opt-in plus its
+-- required cache), the date parse (exactly "YYYY-MM-DD") and display
+-- ("August 12, 2026"), the index ordering key (date descending, title
+-- ascending breaks ties), and the markdown-to-HTML pipeline decisions —
 -- rocq fences normalized to coq, coq/rocq fences rewritten to alectryon on
 -- Alectryon-enabled posts, numbered cross-references, bold as <b>, KaTeX
 -- math, and the vendored Coq syntax definition. Its interface is
--- 'parsePostMeta': front-matter lookups in, a display-ready 'PostMeta' out,
--- every failure as a 'Left'.
+-- 'parsePostMeta': a JSON 'KeyMap' of front matter in (so a scalar
+-- @alectryon:@ is distinguished from a list and rejected), a display-ready
+-- 'PostMeta' out, every failure as a 'Left'.
 module Posts
     ( -- * Interface
       PostMeta
@@ -16,6 +18,10 @@ module Posts
     , postDate
     , postDescription
     , postDraft
+    , postAlectryon
+    , AlectryonConfig
+    , alectryonArgs
+    , alectryonCache
     , parsePostMeta
     , parsePostDate
     , formatPostDate
@@ -36,6 +42,9 @@ module Posts
     ) where
 
 import           Data.Char (isDigit)
+import qualified Data.Aeson as Aeson
+import qualified Data.Aeson.Key as AKey
+import qualified Data.Aeson.KeyMap as KeyMap
 import           Data.List (isInfixOf)
 import qualified Data.Map.Strict as M
 import           Data.Ord (Down (..))
@@ -43,6 +52,7 @@ import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import           Data.Time.Calendar (Day, fromGregorianValid)
 import           Data.Time.Format (defaultTimeLocale, formatTime)
+import qualified Data.Vector as V
 import           Prose (boldToB)
 import           Skylighting (Syntax (..), SyntaxMap, defaultSyntaxMap)
 import           Skylighting.Parser (parseSyntaxDefinitionFromText)
@@ -52,32 +62,50 @@ import           Text.Pandoc.Options (HTMLMathMethod (..), WriterOptions (..))
 import qualified Text.Pandoc.Shared as PandocShared (stringify)
 import           Text.Pandoc.Walk (walk)
 
+-- | A validated Alectryon configuration: the arguments forwarded to the
+-- Alectryon executable and the committed cache directory holding the
+-- proof-state HTML. Required on every post that opts in via an @alectryon:@
+-- front-matter field.
+data AlectryonConfig = AlectryonConfig
+    { alectryonArgs  :: [String]
+    , alectryonCache :: FilePath
+    } deriving (Eq, Show)
+
 -- A validated post front matter: the required fields, parsed.
 data PostMeta = PostMeta
     { postTitle       :: String
     , postDate        :: Day
     , postDescription :: String
     , postDraft       :: Bool
+    , postAlectryon   :: Maybe AlectryonConfig
     } deriving (Eq, Show)
 
 -- | Parse the post front matter. title, date, and description are required
 -- and non-empty; date must parse as 'parsePostDate'. draft is optional:
 -- absent or "false" means published, "true" means draft, anything else is an
--- error naming the value.
-parsePostMeta :: (String -> Maybe String) -> Either String PostMeta
-parsePostMeta lookupField = do
+-- error naming the value. alectryon is optional: absent means a standard
+-- post; a list (possibly empty) of string arguments opts the post into
+-- Alectryon and requires a non-empty 'alectryon-cache' field; any other
+-- shape (e.g. a scalar) fails the build.
+parsePostMeta :: KeyMap.KeyMap Aeson.Value -> Either String PostMeta
+parsePostMeta meta = do
     title <- required "title"
     date <- parsePostDate =<< required "date"
     description <- required "description"
-    draft <- parseDraft (lookupField "draft")
+    draft <- parseDraft (lookupStr "draft")
+    alectryon <- parseAlectryonField
     Right PostMeta
         { postTitle = title
         , postDate = date
         , postDescription = description
         , postDraft = draft
+        , postAlectryon = alectryon
         }
   where
-    required key = case lookupField key of
+    lookupStr key = case KeyMap.lookup (AKey.fromString key) meta of
+        Just (Aeson.String s) -> Just (T.unpack s)
+        _                     -> Nothing
+    required key = case lookupStr key of
         Just value | not (null value) -> Right value
         _ -> Left ("missing required field " ++ show key)
     parseDraft Nothing        = Right False
@@ -86,6 +114,29 @@ parsePostMeta lookupField = do
     parseDraft (Just other)   = Left
         ("unrecognized draft value " ++ show other
          ++ " (expected \"true\" or \"false\")")
+    parseAlectryonField =
+        case KeyMap.lookup (AKey.fromString "alectryon") meta of
+            Nothing -> Right Nothing
+            Just (Aeson.Array xs) -> do
+                args <- arrayStrings xs
+                cache <- case lookupStr "alectryon-cache" of
+                    Just c | not (null c) -> Right c
+                    _ -> Left "an alectryon-enabled post requires a non-empty 'alectryon-cache' field"
+                Right (Just AlectryonConfig
+                    { alectryonArgs  = args
+                    , alectryonCache = cache
+                    })
+            Just _ -> Left "alectryon must be a list of arguments (e.g. alectryon: [])"
+
+-- | Extract all-string elements from a JSON array; fail if any element is
+-- not a string.
+arrayStrings :: V.Vector Aeson.Value -> Either String [String]
+arrayStrings xs
+    | all isString (V.toList xs) = Right [T.unpack s | Aeson.String s <- V.toList xs]
+    | otherwise = Left "alectryon list elements must be strings"
+  where
+    isString (Aeson.String _) = True
+    isString _ = False
 
 -- | Parse a post date, exactly zero-padded "YYYY-MM-DD" and a valid calendar
 -- day. Anything else fails naming the offending string.

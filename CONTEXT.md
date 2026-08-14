@@ -62,7 +62,7 @@ _Avoid_: article, entry
 The deep module (`src/Posts.hs`) owning every blogpost semantic: front-matter
 validation, date parsing/formatting, ordering, math detection (gating KaTeX),
 rocq→coq fence normalization, pandoc-crossref numbering, and the KaTeX/Coq
-writer options. Its interface — validated PostMeta plus the pandoc pipeline —
+writer options. Its interface — `parsePostMeta` takes Hakyll's Metadata object directly (returning validated PostMeta plus the pandoc pipeline) —
 is the test surface.
 
 ## Example dialogue
