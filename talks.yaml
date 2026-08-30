@@ -2,6 +2,12 @@
 # Years are grouped and sorted descending by the Talks module (src/Talks.hs);
 # order within a year follows file order. A venue with `url` renders as a
 # link. An optional `note` renders as "(note)" after the title.
+- title: "What's Next with Freer Arrows?"
+  year: 2026
+  venues:
+    - text: Haskell Symposium
+      url: https://icfp26.sigplan.org/details/haskellsymp-2026-papers-talks/20/Lightning-Talk-What-s-Next-with-Freer-Arrows-
+      
 - title: "Don't Sweat Interaction Trees: Proof-Guided Local Variable Lifting for Interaction Trees"
   year: 2026
   venues:
