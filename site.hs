@@ -181,6 +181,15 @@ postContext = mconcat
         if postHasAlectryon (itemBody item)
             then return "true"
             else noResult "post has no alectryon blocks"
+    -- Presence-based noindex: a draft's page compiles but asks crawlers not
+    -- to index it (gates the robots meta in default.html). Parsed leniently
+    -- because non-post pages share postContext via blog.html: anything
+    -- without a valid draft flag is simply not a draft.
+    , field "noindex" $ \item -> do
+        metadata <- getMetadata (itemIdentifier item)
+        case parsePostMeta metadata of
+            Right meta | postDraft meta -> return "true"
+            _                           -> noResult "not a draft post"
     ]
 
 -- Blog order: date descending, title ascending breaks ties (postSortKey).
@@ -192,13 +201,18 @@ sortPosts = sortItemsBy (fmap postSortKey . loadPostMeta . itemIdentifier)
 publishedPosts :: [Item a] -> Compiler [Item a]
 publishedPosts = filterM (fmap (not . postDraft) . loadPostMeta . itemIdentifier)
 
+-- | The site's canonical origin. The Atom feed and the sitemap build their
+-- absolute URLs on it.
+siteRoot :: String
+siteRoot = "https://lastland.github.io"
+
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
     { feedTitle       = "Yao Li - Blog"
     , feedDescription = "Posts by Yao Li"
     , feedAuthorName  = "Yao Li"
     , feedAuthorEmail = "liyao@pdx.edu"
-    , feedRoot        = "https://lastland.github.io"
+    , feedRoot        = siteRoot
     }
 
 -- Context a post page is rendered with (post.html and the default.html
@@ -372,6 +386,32 @@ main = do
                 posts <- sortPosts =<< publishedPosts =<< loadAllSnapshots "posts/*" "content"
                 renderAtom feedConfiguration postCtx posts
 
+        -- Sitemap and robots.txt, created like the feed: the sitemap lists
+        -- the canonical public pages only — home, blog, publications, every
+        -- course page, published posts — mirroring the order of the pages
+        -- that list them. Drafts (unlisted and noindex), the feed, the
+        -- copied assets, and the deliberately unlinked mysteries apps stay
+        -- out; robots.txt allows all crawlers and points at the sitemap.
+        create ["sitemap.xml"] $ do
+            route idRoute
+            compile $ do
+                courses <- sortCourses =<< loadAllStrings "courses/*"
+                posts   <- sortPosts =<< publishedPosts =<< loadAllStrings "posts/*"
+                urls    <- mapM routeUrl $
+                    [ "index.html", "blog.html", "publication.html" ]
+                        ++ map itemIdentifier courses
+                        ++ map itemIdentifier posts
+                makeItem (sitemapXml urls)
+
+        create ["robots.txt"] $ do
+            route idRoute
+            compile $ makeItem $ unlines
+                [ "User-agent: *"
+                , "Allow: /"
+                , ""
+                , "Sitemap: " ++ siteRoot ++ "/sitemap.xml"
+                ]
+
         match "templates/*" $ compile templateBodyCompiler
 
 -- Shared by index.html and publication.html: both render the published and
@@ -391,3 +431,32 @@ renderPage ctx =
         >>= applyAsTemplate ctx
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
+
+--------------------------------------------------------------------------------
+
+-- Sitemap and robots.txt: created like the feed (no source file on disk).
+
+-- | 'loadAll' at the String body type. Its polymorphism needs a concrete
+-- body when the items are used only by identifier, as the sitemap does.
+loadAllStrings :: Pattern -> Compiler [Item String]
+loadAllStrings = loadAll
+
+-- | The absolute site URL of a routed identifier's output file. The
+-- homepage maps to the site root; every other page, to its route.
+routeUrl :: Identifier -> Compiler String
+routeUrl ident = do
+    route <- getRoute ident
+    return . (siteRoot ++) $ case route of
+        Nothing           -> error ("no route for " ++ show ident)
+        Just "index.html" -> "/"
+        Just path         -> toUrl path
+
+-- | The sitemap document: one @<url>@ element per page, in the order the
+-- caller chose (the pages that list them).
+sitemapXml :: [String] -> String
+sitemapXml urls = unlines $
+    [ "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    , "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
+    ]
+    ++ [ "  <url><loc>" ++ url ++ "</loc></url>" | url <- urls ]
+    ++ [ "</urlset>" ]

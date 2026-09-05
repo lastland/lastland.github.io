@@ -82,8 +82,10 @@ data PostMeta = PostMeta
 
 -- | Parse the post front matter. title, date, and description are required
 -- and non-empty; date must parse as 'parsePostDate'. draft is optional:
--- absent or "false" means published, "true" means draft, anything else is an
--- error naming the value. alectryon is optional: absent means a standard
+-- absent or false means published, true means draft — a YAML boolean or a
+-- "true"/"false" string, since front matter arrives YAML-typed — and
+-- anything else is an error naming the value. alectryon is optional: absent
+-- means a standard
 -- post; a list (possibly empty) of string arguments opts the post into
 -- Alectryon and requires a non-empty 'alectryon-cache' field; any other
 -- shape (e.g. a scalar) fails the build.
@@ -92,7 +94,7 @@ parsePostMeta meta = do
     title <- required "title"
     date <- parsePostDate =<< required "date"
     description <- required "description"
-    draft <- parseDraft (lookupStr "draft")
+    draft <- parseDraft (KeyMap.lookup (AKey.fromString "draft") meta)
     alectryon <- parseAlectryonField
     Right PostMeta
         { postTitle = title
@@ -108,10 +110,18 @@ parsePostMeta meta = do
     required key = case lookupStr key of
         Just value | not (null value) -> Right value
         _ -> Left ("missing required field " ++ show key)
-    parseDraft Nothing        = Right False
-    parseDraft (Just "true")  = Right True
-    parseDraft (Just "false") = Right False
-    parseDraft (Just other)   = Left
+    -- Site boolean convention: absent means unset, a YAML boolean or a
+    -- "true"/"false" string sets or unsets, anything else fails naming the
+    -- value. The boolean cases matter because YAML parses `draft: true` as
+    -- Bool, not String — a string-only read silently treats it as absent.
+    parseDraft Nothing               = Right False
+    parseDraft (Just (Aeson.Bool b)) = Right b
+    parseDraft (Just (Aeson.String s))
+        | s `elem` ["true", "false"] = Right (s == "true")
+        | otherwise                  = Left
+            ("unrecognized draft value " ++ show (T.unpack s)
+             ++ " (expected \"true\" or \"false\")")
+    parseDraft (Just other) = Left
         ("unrecognized draft value " ++ show other
          ++ " (expected \"true\" or \"false\")")
     parseAlectryonField =

@@ -394,6 +394,18 @@ postMetaTests = testGroup "front-matter validation"
         fmap postDraft (postMeta (validMeta ++ [("draft", "true")])) @?= Right True
     , testCase "draft: false counts as unset" $
         fmap postDraft (postMeta (validMeta ++ [("draft", "false")])) @?= Right False
+    , testCase "draft: true as a YAML boolean marks a draft" $
+        fmap postDraft (parsePostMeta
+            (withFields [("draft", Aeson.Bool True)] (stringMeta validMeta)))
+            @?= Right True
+    , testCase "draft: false as a YAML boolean counts as unset" $
+        fmap postDraft (parsePostMeta
+            (withFields [("draft", Aeson.Bool False)] (stringMeta validMeta)))
+            @?= Right False
+    , testCase "draft as a non-scalar value fails" $
+        assertBool "expected Left"
+            (isLeft (parsePostMeta
+                (withFields [("draft", Aeson.Array V.empty)] (stringMeta validMeta))))
     , testCase "unrecognized draft value fails naming it" $
         case postMeta (validMeta ++ [("draft", "banana")]) of
             Left msg -> assertBool "message names the value" ("banana" `isInfixOf` msg)
